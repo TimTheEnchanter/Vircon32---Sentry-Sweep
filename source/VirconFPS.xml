@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<rom-definition version="1.0">
+    <rom type="cartridge" title="Sentry Sweep" version="1.0" />
+    <binary path="obj/VirconFPS.vbin" />
+    <textures>
+        <texture path="obj/Atlas.vtex" />
+    </textures>
+    <sounds />
+</rom-definition>
