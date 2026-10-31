@@ -5,6 +5,9 @@ REM Requires the Vircon32 dev tools folder in PATH.
 if not exist obj mkdir obj
 if not exist bin mkdir bin
 
+echo Convert the ASCII levels
+python tools\make_levels.py levels levels.h || goto :failed
+
 echo Compile the C code
 compile VirconFPS.c -o obj\VirconFPS.asm || goto :failed
 
@@ -13,6 +16,11 @@ assemble obj\VirconFPS.asm -o obj\VirconFPS.vbin || goto :failed
 
 echo Convert the PNG texture
 png2vircon Atlas.png -o obj\Atlas.vtex || goto :failed
+
+echo Convert the WAV sounds
+for %%f in (sounds\*.wav) do (
+    wav2vircon %%f -o obj\%%~nf.vsnd || goto :failed
+)
 
 echo Pack the ROM
 packrom VirconFPS.xml -o bin\VirconFPS.v32 || goto :failed
