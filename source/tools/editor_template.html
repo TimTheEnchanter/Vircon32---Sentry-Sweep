@@ -1,0 +1,994 @@
+<title>Sentry Sweep Level Editor</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a console workbench. Palette rail | map plate | inspector rail; stacks on phones. */
+:root {
+  --bg: #15191f;          /* bay floor */
+  --panel: #1d232b;       /* steel panel */
+  --panel-2: #252c36;     /* raised plate */
+  --line: #333c48;        /* panel seams */
+  --fg: #dfe5ec;
+  --muted: #8d99a8;
+  --hazard: #f2c230;      /* door hazard stripe yellow */
+  --hazard-ink: #1b1608;
+  --ok: #5fd38a;
+  --warn: #f0a33a;
+  --bad: #f05a4f;
+  --red-key: #e04444;
+  --blue-key: #4f86f0;
+  --font-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --font-body: "Barlow", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme: dark;
+}
+html, body { height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.45;
+}
+.app {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding-block: 14px 28px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ---------- header ---------- */
+.topbar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+  padding: 10px 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.topbar::after {          /* hazard stripe along the bottom edge */
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+  background: repeating-linear-gradient(135deg, var(--hazard) 0 10px, var(--hazard-ink) 10px 20px);
+}
+.brand { display: flex; align-items: baseline; gap: 10px; margin-right: auto; }
+.brand h1 {
+  font-family: var(--font-display); font-weight: 800; font-size: 28px; line-height: 1;
+  letter-spacing: 0.02em; text-transform: uppercase; margin: 0; text-wrap: balance;
+}
+.brand span { font-family: var(--font-mono); font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+.bar-group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+button, select, input[type=text], textarea {
+  font: inherit; color: var(--fg);
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 4px;
+}
+button { padding: 6px 11px; cursor: pointer; font-weight: 500; }
+button:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, canvas:focus-visible {
+  outline: 2px solid var(--hazard); outline-offset: 2px;
+}
+button.primary { background: var(--hazard); color: var(--hazard-ink); border-color: var(--hazard); font-weight: 600; }
+button.primary:hover { filter: brightness(1.08); }
+button[disabled] { opacity: 0.45; cursor: default; }
+select { padding: 6px 8px; }
+input[type=text] { padding: 6px 9px; width: 100%; }
+
+/* ---------- workbench ---------- */
+.bench {
+  display: grid;
+  grid-template-columns: 236px minmax(0, 1fr) 340px;
+  gap: 14px;
+  align-items: start;
+}
+.rail { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.panel {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 6px;
+  padding: 12px; display: flex; flex-direction: column; gap: 10px; min-width: 0;
+}
+.panel h2 {
+  margin: 0; font-family: var(--font-mono); font-weight: 600; font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 8px;
+}
+.panel h2 .grow { flex: 1; }
+
+/* palette */
+.swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.sw {
+  position: relative; aspect-ratio: 1; max-width: 100%; padding: 0;
+  background: #0f1216; border: 2px solid transparent; border-radius: 4px; overflow: hidden;
+}
+.sw canvas { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+.sw .key {
+  position: absolute; right: 2px; bottom: 1px; font-family: var(--font-mono); font-size: 10px;
+  color: var(--fg); text-shadow: 0 0 3px #000, 0 0 2px #000;
+}
+.sw[aria-pressed=true] { border-color: var(--hazard); box-shadow: 0 0 0 1px var(--hazard-ink) inset; }
+.group-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.current { display: flex; gap: 10px; align-items: center; font-size: 14px; }
+.current canvas { width: 40px; height: 40px; image-rendering: pixelated; background: #0f1216; border-radius: 4px; flex: none; }
+.current b { display: block; font-weight: 600; }
+.current small { color: var(--muted); font-size: 12px; }
+
+.tools { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.tools button[aria-pressed=true] { background: var(--hazard); color: var(--hazard-ink); border-color: var(--hazard); }
+.hint { font-size: 12.5px; color: var(--muted); margin: 0; }
+kbd { font-family: var(--font-mono); font-size: 11px; padding: 0 4px; border: 1px solid var(--line); border-radius: 3px; background: var(--panel-2); }
+
+/* map plate */
+.plate { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 12px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.plate-head { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; }
+.plate-head .lvl { font-family: var(--font-display); font-weight: 700; font-size: 24px; text-transform: uppercase; letter-spacing: 0.03em; line-height: 1; overflow-wrap: anywhere; }
+.plate-head .coords { margin-left: auto; font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.map-wrap { width: 100%; max-width: 820px; margin: 0 auto; }
+#map { width: 100%; height: auto; aspect-ratio: 1; max-width: 100%; display: block; image-rendering: pixelated; touch-action: none; cursor: crosshair; border-radius: 3px; }
+.legend-row { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--muted); }
+.legend-row label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+
+/* checks */
+.status {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 4px;
+  font-weight: 600; font-size: 14px;
+}
+.status.ok { background: color-mix(in srgb, var(--ok) 16%, transparent); color: var(--ok); }
+.status.bad { background: color-mix(in srgb, var(--bad) 16%, transparent); color: var(--bad); }
+.status .dot { width: 9px; height: 9px; border-radius: 50%; background: currentColor; flex: none; }
+.issues { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; max-height: 230px; overflow: auto; }
+.issues li button {
+  width: 100%; text-align: left; display: flex; gap: 8px; align-items: flex-start;
+  background: transparent; border: 1px solid transparent; padding: 5px 6px; font-size: 13.5px; font-weight: 400;
+}
+.issues li button:hover { background: var(--panel-2); border-color: var(--line); }
+.issues .sev { flex: none; font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; padding: 1px 5px; border-radius: 3px; margin-top: 2px; letter-spacing: 0.05em; }
+.issues .sev.err { background: var(--bad); color: #1a0705; }
+.issues .sev.warn { background: var(--warn); color: #1d1204; }
+
+.stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 12px; font-size: 13.5px; }
+.stats div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dashed var(--line); padding-bottom: 3px; }
+.stats b { font-family: var(--font-mono); font-weight: 600; font-variant-numeric: tabular-nums; }
+.stats .over b { color: var(--bad); }
+.meter { height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; position: relative; }
+.meter i { position: absolute; inset: 0 auto 0 0; background: var(--ok); }
+.meter.tight i { background: var(--warn); }
+.meter.short i { background: var(--bad); }
+
+.field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); }
+.field-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.field-row .field { flex: 1 1 120px; }
+.check { display: flex; gap: 8px; align-items: center; font-size: 13.5px; }
+
+/* preview */
+#view { width: 100%; height: auto; aspect-ratio: 16 / 9; max-width: 100%; display: block; image-rendering: pixelated; background: #000; border-radius: 3px; }
+.pad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.pad button { padding: 8px 0; font-family: var(--font-mono); }
+
+/* export */
+#out { width: 100%; height: 150px; font-family: var(--font-mono); font-size: 11px; line-height: 1.25; resize: vertical; padding: 8px; white-space: pre; overflow: auto; }
+.row-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.toast { font-size: 13px; color: var(--ok); min-height: 1.2em; }
+.import { display: flex; flex-direction: column; gap: 8px; }
+#importText { width: 100%; height: 130px; font-family: var(--font-mono); font-size: 11px; padding: 8px; white-space: pre; }
+.file-label { display: inline-flex; align-items: center; padding: 6px 11px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel-2); cursor: pointer; font-weight: 500; }
+.file-label:hover { border-color: var(--muted); }
+.file-label input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.file-label:focus-within { outline: 2px solid var(--hazard); outline-offset: 2px; }
+
+@media (max-width: 1180px) {
+  .bench { grid-template-columns: 220px minmax(0, 1fr); }
+  .rail.right { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+}
+@media (max-width: 760px) {
+  .bench { grid-template-columns: minmax(0, 1fr); }
+  .rail.left { order: 2; }
+  .plate { order: 1; }
+  .rail.right { order: 3; grid-template-columns: minmax(0, 1fr); }
+  .swatches { grid-template-columns: repeat(6, 1fr); }
+  .brand h1 { font-size: 23px; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><h1>Sentry Sweep Level Editor</h1><span>32 × 32 · Vircon32</span></div>
+    <div class="bar-group">
+      <label for="levelPick" class="hint" style="margin:0">Open</label>
+      <select id="levelPick" aria-label="Choose a level to edit"></select>
+      <button id="btnNew" title="Start an empty level with outer walls">New level</button>
+    </div>
+    <div class="bar-group">
+      <button id="btnUndo" title="Undo (Ctrl+Z)">Undo</button>
+      <button id="btnRedo" title="Redo (Ctrl+Y)">Redo</button>
+    </div>
+  </header>
+
+  <div class="bench">
+    <!-- ======== palette ======== -->
+    <aside class="rail left">
+      <section class="panel" aria-labelledby="palTitle">
+        <h2 id="palTitle">Palette</h2>
+        <div class="current" aria-live="polite">
+          <canvas id="curSwatch" width="64" height="64" aria-hidden="true"></canvas>
+          <div><b id="curName">Brick wall</b><small id="curDesc">Solid wall</small></div>
+        </div>
+        <div id="palette"></div>
+        <p class="hint">Type a map character to pick it, e.g. <kbd>#</kbd> <kbd>s</kbd> <kbd>D</kbd>.</p>
+      </section>
+      <section class="panel" aria-labelledby="toolTitle">
+        <h2 id="toolTitle">Tools</h2>
+        <div class="tools" role="group" aria-label="Drawing tool">
+          <button data-tool="brush" aria-pressed="true">Brush</button>
+          <button data-tool="rect" aria-pressed="false">Filled box</button>
+          <button data-tool="room" aria-pressed="false">Room</button>
+          <button data-tool="fill" aria-pressed="false">Flood fill</button>
+          <button data-tool="pick" aria-pressed="false">Pick</button>
+        </div>
+        <p class="hint">Right-click or hold <kbd>Shift</kbd> to paint floor. <b>Room</b> draws walls around a floor area using the selected wall.</p>
+      </section>
+    </aside>
+
+    <!-- ======== map ======== -->
+    <main class="plate" aria-labelledby="levelTitle">
+      <div class="plate-head">
+        <div class="lvl" id="levelTitle">Outer Depot</div>
+        <div class="coords" id="coords">Point at a cell</div>
+      </div>
+      <div class="map-wrap"><canvas id="map" width="768" height="768" tabindex="0" aria-label="Level map, 32 by 32 cells"></canvas></div>
+      <div class="legend-row">
+        <label><input type="checkbox" id="showReach" checked> Shade areas the player can't reach</label>
+        <label><input type="checkbox" id="showGrid" checked> Room guides every 8 cells</label>
+      </div>
+    </main>
+
+    <!-- ======== inspector ======== -->
+    <aside class="rail right">
+      <section class="panel" aria-labelledby="setTitle">
+        <h2 id="setTitle">Level settings</h2>
+        <div class="field"><label for="lvlName">Name shown on the intro screen</label><input type="text" id="lvlName" maxlength="40"></div>
+        <div class="field-row">
+          <div class="field"><label for="lvlFacing">Player starts facing</label>
+            <select id="lvlFacing"><option>east</option><option>south</option><option>west</option><option>north</option></select></div>
+          <label class="check"><input type="checkbox" id="lvlFinal"> Final level (boss fight)</label>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="chkTitle">
+        <h2 id="chkTitle">Checks</h2>
+        <div class="status ok" id="status"><span class="dot"></span><span id="statusText">Ready to build</span></div>
+        <ul class="issues" id="issues"></ul>
+        <div class="stats" id="stats"></div>
+        <div>
+          <div class="hint" id="ammoText" style="margin-bottom:4px"></div>
+          <div class="meter" id="ammoMeter"><i></i></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="pvTitle">
+        <h2 id="pvTitle"><span class="grow">Walkthrough preview</span><button id="btnRespawn" title="Return to the player start">Back to start</button></h2>
+        <canvas id="view" width="320" height="180" tabindex="0" aria-label="First-person preview. Focus it and use WASD or the arrow keys to walk."></canvas>
+        <div class="pad" aria-label="Preview movement">
+          <button data-move="left" aria-label="Turn left">◀</button>
+          <button data-move="fwd" aria-label="Walk forward">▲</button>
+          <button data-move="back" aria-label="Walk back">▼</button>
+          <button data-move="right" aria-label="Turn right">▶</button>
+        </div>
+        <p class="hint">Click the view, then walk with <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or the arrow keys. Doors open as you approach. Keycards are ignored here.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="expTitle">
+        <h2 id="expTitle">Save to the game</h2>
+        <p class="hint" id="saveHint">Copy this into <kbd>levels/level1.txt</kbd> in the project, then run the build script.</p>
+        <textarea id="out" readonly aria-label="Level file text"></textarea>
+        <div class="row-actions">
+          <button class="primary" id="btnCopy">Copy level text</button>
+          <span class="toast" id="toast" role="status"></span>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="impTitle">
+        <h2 id="impTitle">Load a level file</h2>
+        <div class="import">
+          <div class="row-actions">
+            <label class="file-label">Open .txt file<input type="file" id="fileIn" accept=".txt,text/plain"></label>
+            <span class="hint">or paste the text below</span>
+          </div>
+          <textarea id="importText" aria-label="Paste level text" placeholder="name: MY LEVEL&#10;facing: east&#10;&#10;################################&#10;#P.............................#&#10;..."></textarea>
+          <div class="row-actions"><button id="btnImport">Load pasted text</button><span class="toast" id="importMsg" role="status"></span></div>
+        </div>
+      </section>
+    </aside>
+  </div>
+</div>
+
+<script>
+"use strict";
+const ATLAS_SRC = "__ATLAS__";
+const BUILTIN = __LEVELS__;
+
+// ------------------------------------------------------------------
+//   TILE CATALOG (mirrors tools/make_levels.py)
+// ------------------------------------------------------------------
+const N = 32;
+const LIMITS = { enemies: 24, items: 16, doors: 32 };
+const T = {
+  ".": { name: "Floor", desc: "Empty space", kind: "floor" },
+  "#": { name: "Brick wall", desc: "Solid wall", kind: "wall", tex: 0 },
+  "%": { name: "Stone wall", desc: "Solid wall", kind: "wall", tex: 1 },
+  "=": { name: "Tech wall", desc: "Solid wall", kind: "wall", tex: 2 },
+  "&": { name: "Mossy wall", desc: "Solid wall", kind: "wall", tex: 3 },
+  "X": { name: "Exit switch", desc: "Wall the player presses B on to leave", kind: "wall", tex: 4 },
+  "D": { name: "Door", desc: "Opens when the player walks up", kind: "door", tex: 5 },
+  "R": { name: "Red door", desc: "Needs the red keycard", kind: "door", tex: 6 },
+  "U": { name: "Blue door", desc: "Needs the blue keycard", kind: "door", tex: 7 },
+  "1": { name: "Secret brick", desc: "Looks like brick, opens with B", kind: "secret", tex: 0 },
+  "2": { name: "Secret stone", desc: "Looks like stone, opens with B", kind: "secret", tex: 1 },
+  "3": { name: "Secret tech", desc: "Looks like tech wall, opens with B", kind: "secret", tex: 2 },
+  "4": { name: "Secret moss", desc: "Looks like mossy wall, opens with B", kind: "secret", tex: 3 },
+  "P": { name: "Player start", desc: "Exactly one per level", kind: "player" },
+  "s": { name: "Sentry", desc: "3 HP · walks and shoots", kind: "enemy", frame: 0, hp: 3, scale: 0.75 },
+  "d": { name: "Scout drone", desc: "1 HP · fast, flanks", kind: "enemy", frame: 11, hp: 1, scale: 0.42, lift: 0.3 },
+  "h": { name: "Heavy", desc: "8 HP · slow plasma shots", kind: "enemy", frame: 16, hp: 8, scale: 0.95 },
+  "t": { name: "Turret", desc: "5 HP · stationary bursts", kind: "enemy", frame: 21, hp: 5, scale: 0.7 },
+  "W": { name: "The Warden", desc: "50 HP · boss, final level only", kind: "enemy", boss: true, hp: 50, scale: 1.5 },
+  "+": { name: "Medkit", desc: "+35 health", kind: "item", frame: 5, scale: 0.5 },
+  "a": { name: "Ammo crate", desc: "+20 ammo", kind: "item", frame: 6, scale: 0.5 },
+  "r": { name: "Red keycard", desc: "Opens red doors", kind: "item", frame: 7, scale: 0.5 },
+  "b": { name: "Blue keycard", desc: "Opens blue doors", kind: "item", frame: 8, scale: 0.5 },
+};
+const GROUPS = [
+  ["Walls", ".#%=&"],
+  ["Doors and exit", "DRUX"],
+  ["Secret walls", "1234"],
+  ["Robots", "sdhtW"],
+  ["Player and pickups", "P+arb"],
+];
+const SOLID = new Set("#%=&X1234".split(""));
+const FLOORISH = (c) => !SOLID.has(c) && !"DRU".includes(c);
+
+// ------------------------------------------------------------------
+//   STATE
+// ------------------------------------------------------------------
+let grid = [];            // array of N arrays of chars
+let meta = { name: "NEW LEVEL", facing: "east", final: false };
+let current = "#";
+let tool = "brush";
+let undoStack = [], redoStack = [];
+let sourceIndex = 0;      // which built-in level (for the save hint)
+let lastCheck = { errors: [], warnings: [], reach: new Set() };
+let flashCell = null, flashUntil = 0;
+let hover = null, dragStart = null, dragging = false, eraseDrag = false;
+
+const atlas = new Image();
+let atlasPx = null;       // Uint32 pixel view for the preview renderer
+const ATW = 1024;
+
+// ------------------------------------------------------------------
+//   PARSING / SERIALIZING
+// ------------------------------------------------------------------
+function parseLevel(text) {
+  let name = "NEW LEVEL", facing = "east"; const rows = [];
+  for (const raw of text.replace(/\r/g, "").split("\n")) {
+    const line = raw.replace(/\s+$/, "");
+    if (/^name:/i.test(line)) name = line.slice(5).trim().toUpperCase();
+    else if (/^facing:/i.test(line)) facing = line.slice(7).trim().toLowerCase();
+    else if (line.length) rows.push(line);
+  }
+  const notes = [];
+  if (rows.length !== N) notes.push(`had ${rows.length} rows, fitted to ${N}`);
+  if (rows.some(r => r.length !== N)) notes.push(`some rows weren't ${N} characters, fitted`);
+  const g = [];
+  for (let y = 0; y < N; y++) {
+    const r = rows[y] || "";
+    const row = [];
+    for (let x = 0; x < N; x++) {
+      let c = r[x];
+      if (c === undefined) c = (x === 0 || y === 0 || x === N - 1 || y === N - 1) ? "#" : ".";
+      if (!T[c]) { notes.push(`replaced unknown '${c}' with floor`); c = "."; }
+      row.push(c);
+    }
+    g.push(row);
+  }
+  if (!["east", "south", "west", "north"].includes(facing)) facing = "east";
+  return { grid: g, meta: { name, facing, final: g.some(r => r.includes("W")) }, notes: [...new Set(notes)] };
+}
+function serialize() {
+  return `name: ${meta.name || "LEVEL"}\nfacing: ${meta.facing}\n\n` + grid.map(r => r.join("")).join("\n") + "\n";
+}
+function blankLevel() {
+  const g = [];
+  for (let y = 0; y < N; y++) {
+    const row = [];
+    for (let x = 0; x < N; x++) row.push((x === 0 || y === 0 || x === N - 1 || y === N - 1) ? "%" : ".");
+    g.push(row);
+  }
+  g[2][2] = "P";
+  return g;
+}
+
+// ------------------------------------------------------------------
+//   CHECKS (same rules as tools/make_levels.py, plus balance hints)
+// ------------------------------------------------------------------
+function check() {
+  const errors = [], warnings = [];
+  const at = (x, y) => grid[y][x];
+  const counts = {}; for (const r of grid) for (const c of r) counts[c] = (counts[c] || 0) + 1;
+  const cnt = (s) => s.split("").reduce((a, c) => a + (counts[c] || 0), 0);
+
+  for (let i = 0; i < N; i++) for (const [x, y] of [[i, 0], [i, N - 1], [0, i], [N - 1, i]])
+    if (!SOLID.has(at(x, y))) { errors.push({ msg: `Outer edge at (${x}, ${y}) must be a wall`, cell: [x, y] }); }
+  // keep the border list short
+  const borderErrs = errors.length; if (borderErrs > 3) errors.splice(3, borderErrs - 3, { msg: `…and ${borderErrs - 3} more gaps in the outer wall`, cell: null });
+
+  const starts = []; grid.forEach((r, y) => r.forEach((c, x) => { if (c === "P") starts.push([x, y]); }));
+  if (starts.length !== 1) errors.push({ msg: starts.length ? `There are ${starts.length} player starts; keep one` : "Place a player start (P)", cell: starts[1] || null });
+
+  const ne = cnt("sdhtW"), ni = cnt("+arb"), nd = cnt("DRU");
+  if (ne > LIMITS.enemies) errors.push({ msg: `Too many robots: ${ne} (the game holds ${LIMITS.enemies})`, cell: null });
+  if (ni > LIMITS.items) errors.push({ msg: `Too many pickups: ${ni} (the game holds ${LIMITS.items})`, cell: null });
+  if (nd > LIMITS.doors) errors.push({ msg: `Too many doors: ${nd} (the game holds ${LIMITS.doors})`, cell: null });
+
+  for (let y = 1; y < N - 1; y++) for (let x = 1; x < N - 1; x++) if ("DRU".includes(at(x, y))) {
+    const lr = SOLID.has(at(x - 1, y)) && SOLID.has(at(x + 1, y));
+    const ud = SOLID.has(at(x, y - 1)) && SOLID.has(at(x, y + 1));
+    if (lr === ud) errors.push({ msg: `Door at (${x}, ${y}) needs walls on two opposite sides`, cell: [x, y] });
+  }
+
+  // reachability, collecting keys as we go; secret walls count as openable
+  let reach = new Set();
+  if (starts.length === 1) {
+    const keys = new Set(); let prev = -1;
+    while (prev !== keys.size) {
+      prev = keys.size; reach = new Set([starts[0].join(",")]); const q = [starts[0]];
+      while (q.length) {
+        const [x, y] = q.shift();
+        for (const [nx, ny] of [[x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]]) {
+          if (nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
+          const k = nx + "," + ny; if (reach.has(k)) continue;
+          const c = at(nx, ny);
+          if ("#%=&X".includes(c)) continue;
+          if (c === "R" && !keys.has("r")) continue;
+          if (c === "U" && !keys.has("b")) continue;
+          reach.add(k); q.push([nx, ny]);
+          if (c === "r" || c === "b") keys.add(c);
+        }
+      }
+    }
+    let unreachable = 0, firstU = null;
+    grid.forEach((r, y) => r.forEach((c, x) => {
+      if ("sdhtW+arb".includes(c) && !reach.has(x + "," + y)) { unreachable++; firstU = firstU || [x, y, c]; }
+    }));
+    if (unreachable) errors.push({ msg: `${T[firstU[2]].name} at (${firstU[0]}, ${firstU[1]}) can't be reached` + (unreachable > 1 ? ` (${unreachable} things unreachable in total)` : ""), cell: firstU.slice(0, 2) });
+
+    const exits = []; grid.forEach((r, y) => r.forEach((c, x) => { if (c === "X") exits.push([x, y]); }));
+    const usable = exits.filter(([x, y]) => [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => reach.has((x + dx) + "," + (y + dy))));
+    const bosses = counts["W"] || 0;
+    if (meta.final) {
+      if (bosses !== 1) errors.push({ msg: bosses ? "Keep a single Warden (W)" : "The final level needs the Warden (W)", cell: null });
+    } else {
+      if (!usable.length) errors.push({ msg: exits.length ? "No exit switch can be reached" : "Place an exit switch (X) in a wall", cell: exits[0] || null });
+      if (bosses) errors.push({ msg: "Only the final level can have the Warden. Tick “Final level” or remove it.", cell: null });
+    }
+  }
+  if ((counts["R"] || 0) && !(counts["r"] || 0)) errors.push({ msg: "There's a red door but no red keycard", cell: null });
+  if ((counts["U"] || 0) && !(counts["b"] || 0)) errors.push({ msg: "There's a blue door but no blue keycard", cell: null });
+
+  // balance hints
+  let hp = 0; for (const c of "sdhtW") hp += (counts[c] || 0) * T[c].hp;
+  const ammo = 30 + (counts["a"] || 0) * 20;
+  if (hp && ammo < hp * 1.3) warnings.push({ msg: `Ammo is tight: ${ammo} shots for ${hp} robot HP. Add ammo crates.`, cell: null });
+  if (ne >= 6 && !(counts["+"] || 0)) warnings.push({ msg: "No medkits for a level with this many robots", cell: null });
+  for (let y = 1; y < N - 1; y++) for (let x = 1; x < N - 1; x++) if ("1234".includes(at(x, y))) {
+    const open = [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([dx, dy]) => !SOLID.has(at(x + dx, y + dy))).length;
+    if (open < 2) warnings.push({ msg: `Secret wall at (${x}, ${y}) doesn't lead anywhere`, cell: [x, y] });
+  }
+  if ((counts["r"] || 0) && !(counts["R"] || 0)) warnings.push({ msg: "Red keycard but no red door", cell: null });
+  if ((counts["b"] || 0) && !(counts["U"] || 0)) warnings.push({ msg: "Blue keycard but no blue door", cell: null });
+
+  lastCheck = { errors, warnings, reach, counts, hp, ammo, ne, ni, nd };
+  return lastCheck;
+}
+
+// ------------------------------------------------------------------
+//   DRAWING HELPERS
+// ------------------------------------------------------------------
+function drawTileInto(ctx, c, x, y, s, nbr) {
+  const t = T[c];
+  ctx.imageSmoothingEnabled = false;
+  const floor = () => {
+    ctx.fillStyle = "#2b2f35"; ctx.fillRect(x, y, s, s);
+    ctx.fillStyle = "#30353c"; ctx.fillRect(x + 1, y + 1, s - 2, s - 2);
+  };
+  if (t.kind === "wall") { ctx.drawImage(atlas, t.tex * 64, 0, 64, 64, x, y, s, s); return; }
+  if (t.kind === "secret") {
+    ctx.drawImage(atlas, t.tex * 64, 0, 64, 64, x, y, s, s);
+    ctx.fillStyle = "rgba(242,194,48,0.22)"; ctx.fillRect(x, y, s, s);
+    ctx.strokeStyle = "#f2c230"; ctx.lineWidth = Math.max(1, s / 12); ctx.setLineDash([s / 6, s / 8]);
+    ctx.strokeRect(x + ctx.lineWidth, y + ctx.lineWidth, s - 2 * ctx.lineWidth, s - 2 * ctx.lineWidth); ctx.setLineDash([]);
+    ctx.fillStyle = "#f2c230"; ctx.font = `600 ${Math.round(s * 0.5)}px JetBrains Mono, monospace`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText("?", x + s / 2, y + s / 2 + 1); return;
+  }
+  floor();
+  if (t.kind === "floor") return;
+  if (t.kind === "door") {
+    // a door panel runs across the corridor it blocks
+    const horiz = nbr ? nbr.lr : true;
+    if (horiz) ctx.drawImage(atlas, t.tex * 64, 0, 64, 64, x, y + s * 0.3, s, s * 0.4);
+    else { ctx.save(); ctx.translate(x + s / 2, y + s / 2); ctx.rotate(Math.PI / 2); ctx.drawImage(atlas, t.tex * 64, 0, 64, 64, -s / 2, -s * 0.2, s, s * 0.4); ctx.restore(); }
+    return;
+  }
+  if (t.kind === "player") {
+    const ang = { east: 0, south: Math.PI / 2, west: Math.PI, north: -Math.PI / 2 }[meta.facing] || 0;
+    ctx.save(); ctx.translate(x + s / 2, y + s / 2); ctx.rotate(ang);
+    ctx.fillStyle = "#5fd38a"; ctx.beginPath(); ctx.moveTo(s * 0.38, 0); ctx.lineTo(-s * 0.3, -s * 0.3); ctx.lineTo(-s * 0.14, 0); ctx.lineTo(-s * 0.3, s * 0.3); ctx.closePath(); ctx.fill();
+    ctx.strokeStyle = "#0d2a17"; ctx.lineWidth = Math.max(1, s / 16); ctx.stroke(); ctx.restore(); return;
+  }
+  if (t.boss) { ctx.drawImage(atlas, 0, 192, 128, 128, x - s * 0.1, y - s * 0.1, s * 1.2, s * 1.2); return; }
+  const f = t.frame; ctx.drawImage(atlas, (f % 16) * 64, 64 + Math.floor(f / 16) * 64, 64, 64, x, y, s, s);
+}
+function doorIsLR(x, y) {
+  const at = (a, b) => (a < 0 || b < 0 || a >= N || b >= N) ? "#" : grid[b][a];
+  return SOLID.has(at(x - 1, y)) && SOLID.has(at(x + 1, y));
+}
+
+// ------------------------------------------------------------------
+//   MAP CANVAS
+// ------------------------------------------------------------------
+const mapC = document.getElementById("map"), mctx = mapC.getContext("2d");
+const CELL = 24;
+function cellsOfRect(a, b) {
+  const x0 = Math.min(a[0], b[0]), x1 = Math.max(a[0], b[0]), y0 = Math.min(a[1], b[1]), y1 = Math.max(a[1], b[1]);
+  return { x0, x1, y0, y1 };
+}
+function drawMap() {
+  mctx.imageSmoothingEnabled = false;
+  mctx.fillStyle = "#0f1216"; mctx.fillRect(0, 0, mapC.width, mapC.height);
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const c = grid[y][x];
+    drawTileInto(mctx, c, x * CELL, y * CELL, CELL, "DRU".includes(c) ? { lr: !doorIsLR(x, y) ? false : true } : null);
+  }
+  // unreachable floor
+  if (document.getElementById("showReach").checked && lastCheck.reach.size) {
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const c = grid[y][x];
+      if (FLOORISH(c) && !lastCheck.reach.has(x + "," + y)) {
+        mctx.fillStyle = "rgba(240,90,79,0.28)"; mctx.fillRect(x * CELL, y * CELL, CELL, CELL);
+        mctx.strokeStyle = "rgba(240,90,79,0.5)"; mctx.lineWidth = 1;
+        mctx.beginPath(); mctx.moveTo(x * CELL, y * CELL + CELL); mctx.lineTo(x * CELL + CELL, y * CELL); mctx.stroke();
+      }
+    }
+  }
+  // guides
+  if (document.getElementById("showGrid").checked) {
+    mctx.strokeStyle = "rgba(242,194,48,0.28)"; mctx.lineWidth = 1;
+    for (let i = 8; i < N; i += 8) {
+      mctx.beginPath(); mctx.moveTo(i * CELL + 0.5, 0); mctx.lineTo(i * CELL + 0.5, N * CELL); mctx.stroke();
+      mctx.beginPath(); mctx.moveTo(0, i * CELL + 0.5); mctx.lineTo(N * CELL, i * CELL + 0.5); mctx.stroke();
+    }
+  }
+  // tool ghost
+  if (dragging && dragStart && hover && (tool === "rect" || tool === "room")) {
+    const r = cellsOfRect(dragStart, hover);
+    mctx.fillStyle = "rgba(242,194,48,0.18)"; mctx.fillRect(r.x0 * CELL, r.y0 * CELL, (r.x1 - r.x0 + 1) * CELL, (r.y1 - r.y0 + 1) * CELL);
+    mctx.strokeStyle = "#f2c230"; mctx.lineWidth = 2; mctx.strokeRect(r.x0 * CELL + 1, r.y0 * CELL + 1, (r.x1 - r.x0 + 1) * CELL - 2, (r.y1 - r.y0 + 1) * CELL - 2);
+  } else if (hover) {
+    mctx.strokeStyle = "#f2c230"; mctx.lineWidth = 2; mctx.strokeRect(hover[0] * CELL + 1, hover[1] * CELL + 1, CELL - 2, CELL - 2);
+  }
+  // issue flash
+  if (flashCell && performance.now() < flashUntil) {
+    const p = (Math.sin(performance.now() / 90) + 1) / 2;
+    mctx.strokeStyle = `rgba(240,90,79,${0.5 + p * 0.5})`; mctx.lineWidth = 3;
+    mctx.strokeRect(flashCell[0] * CELL - 3, flashCell[1] * CELL - 3, CELL + 6, CELL + 6);
+    requestAnimationFrame(drawMap);
+  }
+}
+
+function cellFromEvent(e) {
+  const r = mapC.getBoundingClientRect();
+  const x = Math.floor((e.clientX - r.left) / r.width * N), y = Math.floor((e.clientY - r.top) / r.height * N);
+  return (x >= 0 && y >= 0 && x < N && y < N) ? [x, y] : null;
+}
+function setCell(x, y, c) {
+  if (grid[y][x] === c) return false;
+  if (c === "P") for (const row of grid) for (let i = 0; i < N; i++) if (row[i] === "P") row[i] = ".";
+  grid[y][x] = c; return true;
+}
+function pushUndo() { undoStack.push(JSON.stringify(grid)); if (undoStack.length > 200) undoStack.shift(); redoStack = []; }
+function floodFill(x, y, c) {
+  const target = grid[y][x]; if (target === c) return;
+  const q = [[x, y]]; const seen = new Set();
+  while (q.length) {
+    const [a, b] = q.pop(); const k = a + "," + b;
+    if (a < 0 || b < 0 || a >= N || b >= N || seen.has(k) || grid[b][a] !== target) continue;
+    seen.add(k); grid[b][a] = c;
+    q.push([a + 1, b], [a - 1, b], [a, b + 1], [a, b - 1]);
+  }
+}
+function applyRect(a, b, c, mode) {
+  const r = cellsOfRect(a, b);
+  const wall = T[c].kind === "wall" || T[c].kind === "secret" ? c : "#";
+  for (let y = r.y0; y <= r.y1; y++) for (let x = r.x0; x <= r.x1; x++) {
+    if (mode === "room") {
+      const edge = x === r.x0 || x === r.x1 || y === r.y0 || y === r.y1;
+      if (edge) setCell(x, y, wall); else setCell(x, y, ".");
+    } else setCell(x, y, c);
+  }
+}
+
+mapC.addEventListener("contextmenu", e => e.preventDefault());
+mapC.addEventListener("pointerdown", e => {
+  const p = cellFromEvent(e); if (!p) return;
+  mapC.setPointerCapture(e.pointerId);
+  eraseDrag = e.button === 2 || e.shiftKey;
+  const paint = eraseDrag ? "." : current;
+  if (tool === "pick" && !eraseDrag) { select(grid[p[1]][p[0]]); return; }
+  pushUndo();
+  dragging = true; dragStart = p; hover = p;
+  if (tool === "fill") { floodFill(p[0], p[1], paint); dragging = false; changed(); return; }
+  if (tool === "brush" || eraseDrag && tool !== "rect" && tool !== "room") { setCell(p[0], p[1], paint); changed(); }
+  else drawMap();
+});
+mapC.addEventListener("pointermove", e => {
+  const p = cellFromEvent(e);
+  hover = p;
+  showCoords(p);
+  if (dragging && p && (tool === "brush" || (eraseDrag && tool !== "rect" && tool !== "room"))) {
+    if (setCell(p[0], p[1], eraseDrag ? "." : current)) { changed(); return; }
+  }
+  drawMap();
+});
+mapC.addEventListener("pointerup", e => {
+  if (dragging && dragStart && hover && (tool === "rect" || tool === "room")) {
+    applyRect(dragStart, hover, eraseDrag ? "." : current, eraseDrag ? "rect" : tool);
+    changed();
+  }
+  dragging = false; dragStart = null; drawMap();
+});
+mapC.addEventListener("pointerleave", () => { if (!dragging) { hover = null; showCoords(null); drawMap(); } });
+
+function showCoords(p) {
+  const el = document.getElementById("coords");
+  if (!p) { el.textContent = "Point at a cell"; return; }
+  const c = grid[p[1]][p[0]];
+  el.textContent = `x ${String(p[0]).padStart(2, "0")}  y ${String(p[1]).padStart(2, "0")} · ${T[c].name}`;
+}
+
+// ------------------------------------------------------------------
+//   PALETTE
+// ------------------------------------------------------------------
+const swatchCanvases = [];
+function buildPalette() {
+  const pal = document.getElementById("palette"); pal.innerHTML = "";
+  for (const [label, chars] of GROUPS) {
+    const lab = document.createElement("div"); lab.className = "group-label"; lab.textContent = label; pal.appendChild(lab);
+    const wrap = document.createElement("div"); wrap.className = "swatches"; pal.appendChild(wrap);
+    for (const c of chars) {
+      const b = document.createElement("button"); b.className = "sw"; b.dataset.char = c;
+      b.setAttribute("aria-pressed", c === current ? "true" : "false");
+      b.setAttribute("aria-label", `${T[c].name} (${c})`); b.title = `${T[c].name} · ${T[c].desc}`;
+      const cv = document.createElement("canvas"); cv.width = 48; cv.height = 48; b.appendChild(cv);
+      const k = document.createElement("span"); k.className = "key"; k.textContent = c; b.appendChild(k);
+      b.addEventListener("click", () => select(c));
+      wrap.appendChild(b); swatchCanvases.push([cv, c]);
+    }
+    pal.appendChild(document.createElement("div"));
+  }
+  pal.style.display = "flex"; pal.style.flexDirection = "column"; pal.style.gap = "6px";
+}
+function paintSwatches() {
+  for (const [cv, c] of swatchCanvases) {
+    const ctx = cv.getContext("2d"); ctx.clearRect(0, 0, 48, 48);
+    drawTileInto(ctx, c, 0, 0, 48, { lr: true });
+  }
+  const cs = document.getElementById("curSwatch").getContext("2d");
+  cs.clearRect(0, 0, 64, 64); drawTileInto(cs, current, 0, 0, 64, { lr: true });
+}
+function select(c) {
+  if (!T[c]) return;
+  current = c;
+  document.querySelectorAll(".sw").forEach(b => b.setAttribute("aria-pressed", b.dataset.char === c ? "true" : "false"));
+  document.getElementById("curName").textContent = T[c].name;
+  document.getElementById("curDesc").textContent = T[c].desc;
+  paintSwatches();
+  if (tool === "pick") setTool("brush");
+}
+function setTool(t) {
+  tool = t;
+  document.querySelectorAll("[data-tool]").forEach(b => b.setAttribute("aria-pressed", b.dataset.tool === t ? "true" : "false"));
+}
+document.querySelectorAll("[data-tool]").forEach(b => b.addEventListener("click", () => setTool(b.dataset.tool)));
+
+// ------------------------------------------------------------------
+//   INSPECTOR
+// ------------------------------------------------------------------
+function renderChecks() {
+  const r = check();
+  const st = document.getElementById("status"), stt = document.getElementById("statusText");
+  if (r.errors.length) { st.className = "status bad"; stt.textContent = `${r.errors.length} problem${r.errors.length > 1 ? "s" : ""} to fix before building`; }
+  else { st.className = "status ok"; stt.textContent = r.warnings.length ? `Ready to build · ${r.warnings.length} suggestion${r.warnings.length > 1 ? "s" : ""}` : "Ready to build"; }
+  const ul = document.getElementById("issues"); ul.innerHTML = "";
+  for (const [list, sev, lab] of [[r.errors, "err", "FIX"], [r.warnings, "warn", "TIP"]]) for (const it of list) {
+    const li = document.createElement("li"); const b = document.createElement("button");
+    b.innerHTML = `<span class="sev ${sev}">${lab}</span><span></span>`; b.lastChild.textContent = it.msg;
+    if (it.cell) b.addEventListener("click", () => { flashCell = it.cell; flashUntil = performance.now() + 1600; drawMap(); });
+    else b.disabled = false;
+    li.appendChild(b); ul.appendChild(li);
+  }
+  const c = r.counts || {};
+  const secrets = "1234".split("").reduce((a, k) => a + (c[k] || 0), 0);
+  const stats = [
+    ["Robots", `${r.ne} / ${LIMITS.enemies}`, r.ne > LIMITS.enemies],
+    ["Pickups", `${r.ni} / ${LIMITS.items}`, r.ni > LIMITS.items],
+    ["Doors", `${r.nd} / ${LIMITS.doors}`, r.nd > LIMITS.doors],
+    ["Secrets", `${secrets}`, false],
+    ["Medkits", `${c["+"] || 0}`, false],
+    ["Ammo crates", `${c["a"] || 0}`, false],
+  ];
+  document.getElementById("stats").innerHTML = stats.map(([k, v, over]) => `<div class="${over ? "over" : ""}"><span>${k}</span><b>${v}</b></div>`).join("");
+  const ratio = r.hp ? r.ammo / r.hp : 2;
+  const m = document.getElementById("ammoMeter");
+  m.className = "meter" + (ratio < 1 ? " short" : ratio < 1.3 ? " tight" : "");
+  m.firstChild.style.width = Math.min(100, ratio / 2 * 100) + "%";
+  document.getElementById("ammoText").textContent = r.hp
+    ? `Ammo vs robot HP: ${r.ammo} shots (30 to start + crates) for ${r.hp} HP. Aim for 1.3× or more, since shots miss.`
+    : "Ammo vs robot HP: no robots yet.";
+}
+function renderMeta() {
+  document.getElementById("levelTitle").textContent = meta.name || "Untitled";
+  document.getElementById("lvlName").value = meta.name;
+  document.getElementById("lvlFacing").value = meta.facing;
+  document.getElementById("lvlFinal").checked = meta.final;
+}
+function renderOut() {
+  document.getElementById("out").value = serialize();
+  const n = sourceIndex >= 0 ? sourceIndex + 1 : "N";
+  document.getElementById("saveHint").innerHTML = `Copy this into <kbd>levels/level${n}.txt</kbd> in the project, then run the build script. Levels play in file-number order; the last one must be the final level.`;
+}
+let saveTimer = null;
+function changed() {
+  renderChecks(); drawMap(); renderOut(); previewDirty = true;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => { try { localStorage.setItem("ssle-draft", JSON.stringify({ grid, meta, sourceIndex })); } catch (e) {} }, 300);
+}
+document.getElementById("lvlName").addEventListener("input", e => { meta.name = e.target.value.toUpperCase(); document.getElementById("levelTitle").textContent = meta.name || "Untitled"; changed(); });
+document.getElementById("lvlFacing").addEventListener("change", e => { meta.facing = e.target.value; respawn(); changed(); });
+document.getElementById("lvlFinal").addEventListener("change", e => { meta.final = e.target.checked; changed(); });
+document.getElementById("showReach").addEventListener("change", drawMap);
+document.getElementById("showGrid").addEventListener("change", drawMap);
+
+function loadInto(parsed, idx) {
+  grid = parsed.grid; meta = parsed.meta; sourceIndex = idx;
+  undoStack = []; redoStack = [];
+  renderMeta(); respawn(); changed();
+}
+const pick = document.getElementById("levelPick");
+function buildLevelPick() {
+  pick.innerHTML = "";
+  BUILTIN.forEach((txt, i) => { const o = document.createElement("option"); o.value = i; o.textContent = `Level ${i + 1}: ${parseLevel(txt).meta.name}`; pick.appendChild(o); });
+  const o = document.createElement("option"); o.value = "draft"; o.textContent = "Your draft"; pick.appendChild(o);
+}
+pick.addEventListener("change", () => {
+  if (pick.value === "draft") { if (!restoreDraft()) pick.value = String(Math.max(0, sourceIndex)); return; }
+  loadInto(parseLevel(BUILTIN[+pick.value]), +pick.value);
+});
+document.getElementById("btnNew").addEventListener("click", () => {
+  pushUndo();
+  grid = blankLevel(); meta = { name: "NEW LEVEL", facing: "east", final: false }; sourceIndex = BUILTIN.length; pick.value = "draft";
+  renderMeta(); respawn(); changed();
+});
+function undo() { if (!undoStack.length) return; redoStack.push(JSON.stringify(grid)); grid = JSON.parse(undoStack.pop()); changed(); }
+function redo() { if (!redoStack.length) return; undoStack.push(JSON.stringify(grid)); grid = JSON.parse(redoStack.pop()); changed(); }
+document.getElementById("btnUndo").addEventListener("click", undo);
+document.getElementById("btnRedo").addEventListener("click", redo);
+
+document.getElementById("btnCopy").addEventListener("click", () => {
+  const ta = document.getElementById("out"), toast = document.getElementById("toast");
+  const text = serialize();
+  const fallback = () => { ta.focus(); ta.select(); toast.textContent = "Text selected. Press Ctrl+C (Cmd+C) to copy."; };
+  try {
+    navigator.clipboard.writeText(text).then(() => { toast.textContent = lastCheck.errors.length ? "Copied. Fix the problems above before building." : "Copied. Paste it into the level file."; }, fallback);
+  } catch (e) { fallback(); }
+  setTimeout(() => { toast.textContent = ""; }, 4000);
+});
+document.getElementById("fileIn").addEventListener("change", e => {
+  const f = e.target.files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => {
+    const p = parseLevel(String(rd.result)); const m = f.name.match(/(\d+)/);
+    loadInto(p, m ? +m[1] - 1 : BUILTIN.length); pick.value = "draft";
+    document.getElementById("importMsg").textContent = `Loaded ${f.name}` + (p.notes.length ? ` (${p.notes.join("; ")})` : "");
+  };
+  rd.readAsText(f); e.target.value = "";
+});
+document.getElementById("btnImport").addEventListener("click", () => {
+  const txt = document.getElementById("importText").value;
+  const msg = document.getElementById("importMsg");
+  if (!txt.trim()) { msg.textContent = "Paste a level file's text first."; return; }
+  const p = parseLevel(txt); loadInto(p, BUILTIN.length); pick.value = "draft";
+  msg.textContent = "Loaded" + (p.notes.length ? ` (${p.notes.join("; ")})` : "");
+});
+function restoreDraft() {
+  try {
+    const d = JSON.parse(localStorage.getItem("ssle-draft") || "null");
+    if (!d || !d.grid || d.grid.length !== N) return false;
+    grid = d.grid; meta = d.meta; sourceIndex = d.sourceIndex ?? BUILTIN.length;
+    undoStack = []; redoStack = []; renderMeta(); respawn(); changed(); return true;
+  } catch (e) { return false; }
+}
+
+// keyboard: map characters pick tiles; Ctrl+Z / Ctrl+Y undo/redo
+document.addEventListener("keydown", e => {
+  const tag = (e.target.tagName || "").toLowerCase();
+  if (tag === "input" || tag === "textarea" || tag === "select") return;
+  if (e.target === viewC) return;
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); e.shiftKey ? redo() : undo(); return; }
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "y") { e.preventDefault(); redo(); return; }
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  if (T[e.key]) { select(e.key); }
+});
+
+// ------------------------------------------------------------------
+//   WALKTHROUGH PREVIEW (a small copy of the game's raycaster)
+// ------------------------------------------------------------------
+const viewC = document.getElementById("view"), vctx = viewC.getContext("2d");
+const VW = 320, VH = 180, HOR = VH / 2;
+const vimg = vctx.createImageData(VW, VH); const vbuf = new Uint32Array(vimg.data.buffer);
+const zbuf = new Float32Array(VW);
+let cam = { x: 2.5, y: 2.5, dx: 1, dy: 0, px: 0, py: 0.66 };
+let doorOpen = {};
+let previewDirty = true;
+const held = new Set();
+const TEXIDX = { "#": 0, "%": 1, "=": 2, "&": 3, "X": 4, "D": 5, "R": 6, "U": 7, "1": 0, "2": 1, "3": 2, "4": 3 };
+
+function respawn() {
+  let sx = 2, sy = 2;
+  grid.forEach((r, y) => r.forEach((c, x) => { if (c === "P") { sx = x; sy = y; } }));
+  const d = { east: [1, 0], south: [0, 1], west: [-1, 0], north: [0, -1] }[meta.facing] || [1, 0];
+  cam = { x: sx + 0.5, y: sy + 0.5, dx: d[0], dy: d[1], px: -d[1] * 0.66, py: d[0] * 0.66 };
+  doorOpen = {}; previewDirty = true;
+}
+function cellAt(x, y) { return (x < 0 || y < 0 || x >= N || y >= N) ? "#" : grid[y][x]; }
+function blocked(x, y) {
+  const c = cellAt(Math.floor(x), Math.floor(y));
+  if ("DRU".includes(c)) return (doorOpen[Math.floor(x) + "," + Math.floor(y)] || 0) < 0.9;
+  return SOLID.has(c);
+}
+function canStand(x, y) { const r = 0.28; return !blocked(x - r, y - r) && !blocked(x + r, y - r) && !blocked(x - r, y + r) && !blocked(x + r, y + r); }
+function shade(px, l) {
+  const r = (px & 255) * l, g = ((px >> 8) & 255) * l, b = ((px >> 16) & 255) * l;
+  return 0xff000000 | (b << 16) | (g << 8) | r;
+}
+function renderView() {
+  if (!atlasPx) return;
+  // ceiling and floor bands like the game
+  for (let y = 0; y < VH; y++) {
+    let col;
+    if (y < HOR) { const g = 20 + (8 - Math.floor(y / (HOR / 9))) * 7; col = 0xff000000 | ((g + 12) << 16) | (g << 8) | g; }
+    else { const f = 24 + Math.floor((y - HOR) / (HOR / 9)) * 9; col = 0xff000000 | ((f - 6) << 16) | (f << 8) | (f + 6); }
+    vbuf.fill(col, y * VW, y * VW + VW);
+  }
+  for (let c = 0; c < VW; c++) {
+    const camX = 2 * (c + 0.5) / VW - 1;
+    const rx = cam.dx + cam.px * camX, ry = cam.dy + cam.py * camX;
+    let mx = Math.floor(cam.x), my = Math.floor(cam.y);
+    const ddx = rx === 0 ? 1e9 : Math.abs(1 / rx), ddy = ry === 0 ? 1e9 : Math.abs(1 / ry);
+    let sx, sy, stx, sty;
+    if (rx < 0) { stx = -1; sx = (cam.x - mx) * ddx; } else { stx = 1; sx = (mx + 1 - cam.x) * ddx; }
+    if (ry < 0) { sty = -1; sy = (cam.y - my) * ddy; } else { sty = 1; sy = (my + 1 - cam.y) * ddy; }
+    let side = 0, tile = ".", dist = 0, texX = 0, guard = 0;
+    while (guard++ < 200) {
+      if (sx < sy) { sx += ddx; mx += stx; side = 0; } else { sy += ddy; my += sty; side = 1; }
+      tile = cellAt(mx, my);
+      if (!SOLID.has(tile) && !"DRU".includes(tile)) continue;
+      if ("DRU".includes(tile)) {
+        const open = doorOpen[mx + "," + my] || 0; let wallX, start;
+        if (side === 0) { dist = sx - ddx * 0.5; wallX = cam.y + dist * ry; start = my; } else { dist = sy - ddy * 0.5; wallX = cam.x + dist * rx; start = mx; }
+        if (wallX < start || wallX >= start + 1) continue;
+        const frac = wallX - start; if (frac < open) continue;
+        texX = Math.floor((frac - open) * 64); break;
+      }
+      let wallX;
+      if (side === 0) { dist = sx - ddx; wallX = cam.y + dist * ry; } else { dist = sy - ddy; wallX = cam.x + dist * rx; }
+      wallX -= Math.floor(wallX); texX = Math.floor(wallX * 64);
+      if (side === 0 && rx < 0) texX = 63 - texX;
+      if (side === 1 && ry > 0) texX = 63 - texX;
+      break;
+    }
+    texX = Math.max(0, Math.min(63, texX));
+    if (dist < 0.05) dist = 0.05; zbuf[c] = dist;
+    const lineH = VH / dist; const top = HOR - lineH / 2;
+    let light = Math.max(45, 255 - dist * 14) / 255; if (side === 1) light *= 0.75;
+    const tx0 = (TEXIDX[tile] ?? 0) * 64 + texX;
+    const y0 = Math.max(0, Math.floor(top)), y1 = Math.min(VH - 1, Math.floor(top + lineH));
+    for (let y = y0; y <= y1; y++) {
+      const ty = Math.min(63, Math.floor((y - top) / lineH * 64));
+      vbuf[y * VW + c] = shade(atlasPx[ty * ATW + tx0], light);
+    }
+  }
+  // sprites
+  const spr = [];
+  grid.forEach((r, y) => r.forEach((ch, x) => { const t = T[ch]; if (t.kind === "enemy" || t.kind === "item") spr.push([x + 0.5, y + 0.5, t]); }));
+  spr.sort((a, b) => ((b[0] - cam.x) ** 2 + (b[1] - cam.y) ** 2) - ((a[0] - cam.x) ** 2 + (a[1] - cam.y) ** 2));
+  const inv = 1 / (cam.px * cam.dy - cam.dx * cam.py);
+  for (const [wx, wy, t] of spr) {
+    const sx = wx - cam.x, sy = wy - cam.y;
+    const tx = inv * (cam.dy * sx - cam.dx * sy), ty = inv * (-cam.py * sx + cam.px * sy);
+    if (ty < 0.15) continue;
+    const scrX = VW / 2 * (1 + tx / ty), fullH = VH / ty, size = fullH * t.scale;
+    const left = scrX - size / 2, top = HOR + fullH / 2 - size - (t.lift || 0) * fullH;
+    const texW = t.boss ? 128 : 64;
+    const bx = t.boss ? 0 : (t.frame % 16) * 64, by = t.boss ? 192 : 64 + Math.floor(t.frame / 16) * 64;
+    const light = Math.max(60, 255 - ty * 14) / 255;
+    const c0 = Math.max(0, Math.floor(left)), c1 = Math.min(VW - 1, Math.floor(left + size));
+    for (let c = c0; c <= c1; c++) {
+      if (ty >= zbuf[c]) continue;
+      const tX = Math.floor((c + 0.5 - left) / size * texW); if (tX < 0 || tX >= texW) continue;
+      const y0 = Math.max(0, Math.floor(top)), y1 = Math.min(VH - 1, Math.floor(top + size));
+      for (let y = y0; y <= y1; y++) {
+        const tY = Math.min(texW - 1, Math.floor((y - top) / size * texW));
+        const px = atlasPx[(by + tY) * ATW + bx + tX];
+        if ((px >>> 24) < 128) continue;
+        vbuf[y * VW + c] = shade(px, light);
+      }
+    }
+  }
+  vctx.putImageData(vimg, 0, 0);
+  // crosshair
+  vctx.fillStyle = "rgba(255,255,255,0.7)"; vctx.fillRect(VW / 2 - 1, HOR - 4, 2, 3); vctx.fillRect(VW / 2 - 1, HOR + 2, 2, 3);
+  vctx.fillRect(VW / 2 - 4, HOR - 1, 3, 2); vctx.fillRect(VW / 2 + 2, HOR - 1, 3, 2);
+}
+function stepPreview() {
+  let moved = false;
+  const turn = (a) => { const c = Math.cos(a), s = Math.sin(a);
+    const odx = cam.dx; cam.dx = cam.dx * c - cam.dy * s; cam.dy = odx * s + cam.dy * c;
+    const opx = cam.px; cam.px = cam.px * c - cam.py * s; cam.py = opx * s + cam.py * c; moved = true; };
+  const walk = (k) => { const nx = cam.x + cam.dx * k, ny = cam.y + cam.dy * k;
+    if (canStand(nx, cam.y)) cam.x = nx; if (canStand(cam.x, ny)) cam.y = ny; moved = true; };
+  if (held.has("left")) turn(-0.05);
+  if (held.has("right")) turn(0.05);
+  if (held.has("fwd")) walk(0.07);
+  if (held.has("back")) walk(-0.07);
+  // doors open as the camera approaches
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if ("DRU".includes(grid[y][x])) {
+    const k = x + "," + y, d2 = (x + 0.5 - cam.x) ** 2 + (y + 0.5 - cam.y) ** 2;
+    if ((doorOpen[k] || 0) < 1 && (d2 < 2.2 || (doorOpen[k] || 0) > 0)) { doorOpen[k] = Math.min(1, (doorOpen[k] || 0) + 0.04); moved = true; }
+  }
+  if (moved || previewDirty) { renderView(); previewDirty = false; }
+  requestAnimationFrame(stepPreview);
+}
+const KEYMAP = { ArrowUp: "fwd", w: "fwd", W: "fwd", ArrowDown: "back", s: "back", S: "back", ArrowLeft: "left", a: "left", A: "left", ArrowRight: "right", d: "right", D: "right" };
+viewC.addEventListener("keydown", e => { const m = KEYMAP[e.key]; if (m) { held.add(m); e.preventDefault(); } });
+viewC.addEventListener("keyup", e => { const m = KEYMAP[e.key]; if (m) held.delete(m); });
+viewC.addEventListener("blur", () => held.clear());
+viewC.addEventListener("pointerdown", () => viewC.focus());
+document.querySelectorAll("[data-move]").forEach(b => {
+  const m = b.dataset.move;
+  b.addEventListener("pointerdown", e => { held.add(m); b.setPointerCapture(e.pointerId); });
+  for (const ev of ["pointerup", "pointercancel", "pointerleave"]) b.addEventListener(ev, () => held.delete(m));
+});
+document.getElementById("btnRespawn").addEventListener("click", () => { respawn(); });
+
+// ------------------------------------------------------------------
+//   START
+// ------------------------------------------------------------------
+buildPalette(); buildLevelPick();
+atlas.onload = () => {
+  const off = document.createElement("canvas"); off.width = atlas.width; off.height = atlas.height;
+  const octx = off.getContext("2d"); octx.drawImage(atlas, 0, 0);
+  atlasPx = new Uint32Array(octx.getImageData(0, 0, atlas.width, atlas.height).data.buffer);
+  paintSwatches();
+  let restored = false;
+  try { restored = !!localStorage.getItem("ssle-draft") && restoreDraft(); } catch (e) {}
+  if (restored) pick.value = "draft";
+  else { pick.value = "0"; loadInto(parseLevel(BUILTIN[0]), 0); }
+  select("#");
+  requestAnimationFrame(stepPreview);
+};
+atlas.src = ATLAS_SRC;
+</script>

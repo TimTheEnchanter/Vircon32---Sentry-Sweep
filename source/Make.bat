@@ -1,4 +1,5 @@
 @echo off
+set PATH=C:\Users\James Parrott\Desktop\GameDev\Software\Vircon32.DevTools-23.3.7-Windows\Vircon32\DevTools;%PATH%
 REM Builds Sentry Sweep into bin\VirconFPS.v32
 REM Requires the Vircon32 dev tools folder in PATH.
 

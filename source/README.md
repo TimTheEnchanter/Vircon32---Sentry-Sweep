@@ -34,7 +34,11 @@ Doors open automatically as you approach. Red and blue doors need the matching k
 2. **Processing Plant** — introduces heavies and turrets, red and blue keycards, 2 secrets
 3. **The Core** — everything at once, then the Warden's arena behind the blue door, 2 secrets
 
-### Editing levels
+### Level editor
+
+Open `tools/level_editor.html` in a browser. Paint walls, doors, robots and pickups with the game's own textures, using a brush, filled box, room, flood fill or pick tool, with undo. The editor checks the level as you go, using the same rules as the build, and shows a balance meter comparing ammo with robot health. You can walk the level in a first-person preview. When it's ready, copy the text into `levels/levelN.txt` and rebuild. Levels play in file-number order, and the last file must be the final (boss) level. To refresh the editor's built-in art and levels after changing them, run `python3 tools/build_editor.py`.
+
+### Editing levels by hand
 
 Levels are plain text files in `levels/` (32×32 characters). `tools/make_levels.py` checks that each one is completable and turns them into `levels.h`. The build does this automatically.
 
@@ -85,4 +89,5 @@ Sixteen synthesized effects. Enemy sounds get quieter with distance, and repeate
 - `Atlas.png` — texture atlas (walls, doors, robots, boss, pickups, gun)
 - `sounds/*.wav` — sound effects
 - `VirconFPS.xml` — ROM definition
+- `tools/level_editor.html` — the level editor (built from `tools/editor_template.html` by `tools/build_editor.py`)
 - `tools/make_atlas.py`, `tools/make_sounds.py`, `tools/make_levels.py` — generators

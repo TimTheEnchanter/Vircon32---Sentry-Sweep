@@ -585,9 +585,19 @@ void UseInFront()
         TotalSecrets += SecretsFound;
         TotalSecretsAvailable += SecretsTotal;
         stop_all_channels();
-        PlaySfx( SoundLevelComplete, 1.0, 1.0 );
-        GameState = StateLevelDone;
         StateTimer = 0;
+
+        // an exit on the final level finishes the game
+        if( CurrentLevel >= LEVEL_COUNT - 1 )
+        {
+            PlaySfx( SoundVictory, 1.0, 1.0 );
+            GameState = StateWon;
+        }
+        else
+        {
+            PlaySfx( SoundLevelComplete, 1.0, 1.0 );
+            GameState = StateLevelDone;
+        }
     }
 }
 
@@ -1286,7 +1296,11 @@ void main()
             set_multiply_color( color_orange );
             PrintCentered( 96, "S E N T R Y   S W E E P" );
             set_multiply_color( color_white );
-            PrintCentered( 136, "Fight through 3 levels and destroy the Warden" );
+            strcpy( TextBuffer, "Fight through " );
+            itoa( LEVEL_COUNT, NumberBuffer, 10 );
+            strcat( TextBuffer, NumberBuffer );
+            strcat( TextBuffer, " levels of hostile robots" );
+            PrintCentered( 136, TextBuffer );
             PrintCentered( 166, "D-PAD move/turn   L/R strafe   A fire" );
             PrintCentered( 190, "B use/exit   Y map" );
             if( (StateTimer / 30) % 2 ) PrintCentered( 230, "PRESS START" );

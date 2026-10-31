@@ -21,7 +21,7 @@ import glob, os, sys
 from collections import deque
 
 N = 32
-MAX_ENEMIES, MAX_ITEMS = 24, 16
+MAX_ENEMIES, MAX_ITEMS, MAX_DOORS = 24, 16, 32
 TILES = {".": 0, "#": 1, "%": 2, "=": 3, "&": 4, "X": 5, "D": 6, "R": 7, "U": 8,
          "1": 11, "2": 12, "3": 13, "4": 14}
 ENEMIES = {"s": 0, "d": 1, "h": 2, "t": 3, "W": 4}
@@ -56,6 +56,8 @@ def check(path, name, facing, rows, is_last):
     nen = sum(ch in ENEMIES for r in g for ch in r); nit = sum(ch in ITEMS for r in g for ch in r)
     if nen > MAX_ENEMIES: errs.append(f"too many enemies ({nen} > {MAX_ENEMIES})")
     if nit > MAX_ITEMS: errs.append(f"too many items ({nit} > {MAX_ITEMS})")
+    ndo = sum(ch in "DRU" for r in g for ch in r)
+    if ndo > MAX_DOORS: errs.append(f"too many doors ({ndo} > {MAX_DOORS})")
     # doors need walls on two opposite sides and open space on the other two
     for y in range(1, N-1):
         for x in range(1, N-1):
