@@ -1,6 +1,6 @@
 # Sentry Sweep — an FPS for Vircon32
 
-A raycasting shooter in Vircon32 C. Fight through three levels of robots, find keycards and secrets, and destroy the Warden at the heart of the Core.
+A raycasting shooter in Vircon32 C. Fight through four levels of robots with a blaster, shotgun and plasma rifle, find keycards and secrets, and destroy the Warden at the heart of the Core.
 
 ## Play
 
@@ -12,11 +12,22 @@ Load `bin/VirconFPS.v32` in the Vircon32 emulator.
 | D-pad Left / Right | Turn |
 | L / R | Strafe |
 | A (hold) | Fire |
+| X | Switch weapon |
 | B | Use: flip the exit switch, open a suspicious wall |
 | Y | Toggle minimap |
 | Start | Start / continue |
 
 Doors open automatically as you approach. Red and blue doors need the matching keycard. Each level has one or two secret walls: they look almost like normal walls, with a faint warm tint, and open when you press B in front of them. Health and ammo carry over between levels. If you die, you restart the current level with full health.
+
+## Weapons
+
+| Weapon | Ammo | Behaviour |
+|---|---|---|
+| Blaster | Bullets (ammo crates) | 1 damage, about 5 shots a second. You start with it. |
+| Shotgun | Shells | 7 pellets in a fan, 1 damage each. Up close most pellets land, and at range only a few do. Slow to reload. |
+| Plasma rifle | Energy cells | Rapid visible bolts, 1 damage each, 12 shots a second. |
+
+Picking up a new weapon switches to it. X cycles through the weapons you own, and firing an empty weapon falls back to one that still has ammo. Weapons and ammo carry between levels. If you die, you restart the level with the loadout you entered it with. Robots sometimes drop ammo: sentries and drones drop bullets, heavies drop cells, and turrets drop shells.
 
 ## Enemies
 
@@ -30,9 +41,10 @@ Doors open automatically as you approach. Red and blue doors need the matching k
 
 ## Levels
 
-1. **Outer Depot** — sentries and drones, red keycard, 1 secret
-2. **Processing Plant** — introduces heavies and turrets, red and blue keycards, 2 secrets
-3. **The Core** — everything at once, then the Warden's arena behind the blue door, 2 secrets
+1. **Outer Depot** — sentries and drones, red keycard, 1 secret, the shotgun
+2. **Inner Depot** — a long loop through the depot's inner halls, 1 secret ammo cache
+3. **Processing Plant** — introduces heavies and turrets, red and blue keycards, 2 secrets, the plasma rifle
+4. **The Core** — everything at once, then the Warden's arena behind the blue door, 2 secrets
 
 ### Level editor
 
@@ -53,7 +65,8 @@ D  door               +  medkit
 R  red door           a  ammo crate
 U  blue door          r  red keycard
 1-4 secret wall       b  blue keycard
-    (looks like # % = &)
+    (looks like       G  shotgun       g  shell box
+     # % = &)         C  plasma rifle  c  energy cells
 ```
 
 Above the map, `name:` sets the level title and `facing:` sets the starting direction (east/south/west/north). The checker reports anything that would break a level. That includes doors not set between two walls, unreachable items, keycards locked behind their own door, and a missing exit or boss.
@@ -79,12 +92,12 @@ Regenerate the sounds: `python3 tools/make_sounds.py sounds` (needs NumPy). Add 
 
 ## Sound
 
-Sixteen synthesized effects. Enemy sounds get quieter with distance, and repeated sounds vary slightly in pitch.
+Nineteen synthesized effects. Enemy sounds get quieter with distance, and repeated sounds vary slightly in pitch.
 
 ## Files
 
 - `VirconFPS.c` — the game
-- `levels/level1-3.txt` — the maps
+- `levels/level1-4.txt` — the maps
 - `levels.h` — generated from the maps
 - `Atlas.png` — texture atlas (walls, doors, robots, boss, pickups, gun)
 - `sounds/*.wav` — sound effects

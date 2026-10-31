@@ -11,68 +11,82 @@
   %define global_LevelStarts 4099
   %define global_LevelEnemies 4111
   %define global_LevelItems 4399
-  %define global_TypeHP 4591
-  %define global_TypeSpeed 4596
-  %define global_TypeScale 4601
-  %define global_TypeRadius 4606
-  %define global_TypeHitRadius 4611
-  %define global_TypeRange 4616
-  %define global_TypeStopDistance 4621
-  %define global_TypeCooldown 4626
-  %define global_TypeCooldownRand 4631
-  %define global_TypeFrameBase 4636
-  %define global_TypeDropChance 4641
-  %define global_Map 4646
-  %define global_DoorAt 5670
-  %define global_Doors 6694
-  %define global_Enemies 6854
-  %define global_Items 7118
-  %define global_Projectiles 7238
-  %define global_DoorCount 7366
-  %define global_DrawOrder 7367
-  %define global_SortDepth 7431
-  %define global_PlayerX 7495
-  %define global_PlayerY 7496
-  %define global_DirX 7497
-  %define global_DirY 7498
-  %define global_PlaneX 7499
-  %define global_PlaneY 7500
-  %define global_Health 7501
-  %define global_Ammo 7502
-  %define global_HasRedKey 7503
-  %define global_HasBlueKey 7504
-  %define global_FireTimer 7505
-  %define global_DamageFlash 7506
-  %define global_PickupFlash 7507
-  %define global_WalkPhase 7508
-  %define global_LockedTimer 7509
-  %define global_ShowMap 7510
-  %define global_GameState 7511
-  %define global_StateTimer 7512
-  %define global_FrameCount 7513
-  %define global_CurrentLevel 7514
-  %define global_LevelFrames 7515
-  %define global_Kills 7516
-  %define global_EnemiesTotal 7517
-  %define global_SecretsFound 7518
-  %define global_SecretsTotal 7519
-  %define global_TotalKills 7520
-  %define global_TotalEnemies 7521
-  %define global_TotalSecrets 7522
-  %define global_TotalSecretsAvailable 7523
-  %define global_LevelStartAmmo 7524
-  %define global_BossIndex 7525
-  %define global_BossActive 7526
-  %define global_BossEnraged 7527
-  %define global_BossDeathTimer 7528
-  %define global_ZBuffer 7529
-  %define global_CameraX 7657
-  %define global_TextBuffer 7785
-  %define global_NumberBuffer 7849
-  %define global_LevelName 7865
-  %define global_MessageText 7913
-  %define global_MessageTimer 7977
-  %define global_SpriteCount 7978
+  %define global_TypeHP 4687
+  %define global_TypeSpeed 4692
+  %define global_TypeScale 4697
+  %define global_TypeRadius 4702
+  %define global_TypeHitRadius 4707
+  %define global_TypeRange 4712
+  %define global_TypeStopDistance 4717
+  %define global_TypeCooldown 4722
+  %define global_TypeCooldownRand 4727
+  %define global_TypeFrameBase 4732
+  %define global_TypeDropChance 4737
+  %define global_TypeDropItem 4742
+  %define global_TypeDropAmount 4747
+  %define global_Map 4752
+  %define global_DoorAt 5776
+  %define global_Doors 6800
+  %define global_Enemies 6960
+  %define global_Items 7224
+  %define global_Projectiles 7384
+  %define global_Bolts 7512
+  %define global_PelletHits 7640
+  %define global_DoorCount 7664
+  %define global_DrawOrder 7665
+  %define global_SortDepth 7761
+  %define global_PlayerX 7857
+  %define global_PlayerY 7858
+  %define global_DirX 7859
+  %define global_DirY 7860
+  %define global_PlaneX 7861
+  %define global_PlaneY 7862
+  %define global_Health 7863
+  %define global_Ammo 7864
+  %define global_Shells 7865
+  %define global_Cells 7866
+  %define global_Weapon 7867
+  %define global_HasShotgun 7868
+  %define global_HasRifle 7869
+  %define global_FlashTimer 7870
+  %define global_HasRedKey 7871
+  %define global_HasBlueKey 7872
+  %define global_FireTimer 7873
+  %define global_DamageFlash 7874
+  %define global_PickupFlash 7875
+  %define global_WalkPhase 7876
+  %define global_LockedTimer 7877
+  %define global_ShowMap 7878
+  %define global_GameState 7879
+  %define global_StateTimer 7880
+  %define global_FrameCount 7881
+  %define global_CurrentLevel 7882
+  %define global_LevelFrames 7883
+  %define global_Kills 7884
+  %define global_EnemiesTotal 7885
+  %define global_SecretsFound 7886
+  %define global_SecretsTotal 7887
+  %define global_TotalKills 7888
+  %define global_TotalEnemies 7889
+  %define global_TotalSecrets 7890
+  %define global_TotalSecretsAvailable 7891
+  %define global_LevelStartAmmo 7892
+  %define global_LevelStartShells 7893
+  %define global_LevelStartCells 7894
+  %define global_LevelStartShotgun 7895
+  %define global_LevelStartRifle 7896
+  %define global_BossIndex 7897
+  %define global_BossActive 7898
+  %define global_BossEnraged 7899
+  %define global_BossDeathTimer 7900
+  %define global_ZBuffer 7901
+  %define global_CameraX 8029
+  %define global_TextBuffer 8157
+  %define global_NumberBuffer 8221
+  %define global_LevelName 8237
+  %define global_MessageText 8285
+  %define global_MessageTimer 8349
+  %define global_SpriteCount 8350
 
 __global_scope_initialization:
   push BP
@@ -8899,65 +8913,65 @@ __global_scope_initialization:
   mov [4409], R0
   mov R0, 10
   mov [4410], R0
-  mov R0, 6
+  mov R0, 27
   mov [4411], R0
-  mov R0, 26
+  mov R0, 21
   mov [4412], R0
-  mov R0, 18
+  mov R0, 13
   mov [4413], R0
-  mov R0, 5
+  mov R0, 25
   mov [4414], R0
-  mov R0, 27
+  mov R0, 28
   mov [4415], R0
-  mov R0, 27
+  mov R0, 14
   mov [4416], R0
-  mov R0, 5
+  mov R0, 6
   mov [4417], R0
-  mov R0, 4
+  mov R0, 26
   mov [4418], R0
-  mov R0, 28
+  mov R0, 18
   mov [4419], R0
-  mov R0, 7
+  mov R0, 27
   mov [4420], R0
-  mov R0, 12
+  mov R0, 19
   mov [4421], R0
-  mov R0, 28
+  mov R0, 22
   mov [4422], R0
-  mov R0, 6
-  mov [4423], R0
-  mov R0, 3
-  mov [4424], R0
-  mov R0, 30
-  mov [4425], R0
-  mov R0, 6
-  mov [4426], R0
   mov R0, 5
+  mov [4423], R0
+  mov R0, 27
+  mov [4424], R0
+  mov R0, 27
+  mov [4425], R0
+  mov R0, 5
+  mov [4426], R0
+  mov R0, 4
   mov [4427], R0
-  mov R0, 30
+  mov R0, 28
   mov [4428], R0
-  mov R0, 6
+  mov R0, 7
   mov [4429], R0
-  mov R0, 10
+  mov R0, 12
   mov [4430], R0
-  mov R0, 30
+  mov R0, 28
   mov [4431], R0
-  mov R0, -1
+  mov R0, 6
   mov [4432], R0
-  mov R0, 0
+  mov R0, 3
   mov [4433], R0
-  mov R0, 0
+  mov R0, 30
   mov [4434], R0
-  mov R0, -1
+  mov R0, 6
   mov [4435], R0
-  mov R0, 0
+  mov R0, 5
   mov [4436], R0
-  mov R0, 0
+  mov R0, 30
   mov [4437], R0
-  mov R0, -1
+  mov R0, 6
   mov [4438], R0
-  mov R0, 0
+  mov R0, 10
   mov [4439], R0
-  mov R0, 0
+  mov R0, 30
   mov [4440], R0
   mov R0, -1
   mov [4441], R0
@@ -8971,191 +8985,191 @@ __global_scope_initialization:
   mov [4445], R0
   mov R0, 0
   mov [4446], R0
-  mov R0, 6
+  mov R0, -1
   mov [4447], R0
-  mov R0, 6
+  mov R0, 0
   mov [4448], R0
-  mov R0, 5
+  mov R0, 0
   mov [4449], R0
-  mov R0, 6
+  mov R0, -1
   mov [4450], R0
-  mov R0, 19
+  mov R0, 0
   mov [4451], R0
-  mov R0, 8
+  mov R0, 0
   mov [4452], R0
-  mov R0, 6
+  mov R0, -1
   mov [4453], R0
-  mov R0, 21
+  mov R0, 0
   mov [4454], R0
-  mov R0, 8
+  mov R0, 0
   mov [4455], R0
-  mov R0, 5
+  mov R0, -1
   mov [4456], R0
-  mov R0, 23
+  mov R0, 0
   mov [4457], R0
-  mov R0, 11
+  mov R0, 0
   mov [4458], R0
-  mov R0, 6
+  mov R0, -1
   mov [4459], R0
-  mov R0, 19
+  mov R0, 0
   mov [4460], R0
-  mov R0, 15
+  mov R0, 0
   mov [4461], R0
-  mov R0, 6
+  mov R0, -1
   mov [4462], R0
-  mov R0, 21
+  mov R0, 0
   mov [4463], R0
-  mov R0, 15
+  mov R0, 0
   mov [4464], R0
-  mov R0, 6
+  mov R0, -1
   mov [4465], R0
-  mov R0, 27
+  mov R0, 0
   mov [4466], R0
-  mov R0, 15
+  mov R0, 0
   mov [4467], R0
-  mov R0, 6
+  mov R0, -1
   mov [4468], R0
-  mov R0, 28
+  mov R0, 0
   mov [4469], R0
-  mov R0, 15
+  mov R0, 0
   mov [4470], R0
-  mov R0, 5
+  mov R0, 6
   mov [4471], R0
-  mov R0, 28
+  mov R0, 6
   mov [4472], R0
-  mov R0, 17
+  mov R0, 5
   mov [4473], R0
-  mov R0, -1
+  mov R0, 6
   mov [4474], R0
-  mov R0, 0
+  mov R0, 19
   mov [4475], R0
-  mov R0, 0
+  mov R0, 8
   mov [4476], R0
-  mov R0, -1
+  mov R0, 6
   mov [4477], R0
-  mov R0, 0
+  mov R0, 21
   mov [4478], R0
-  mov R0, 0
+  mov R0, 8
   mov [4479], R0
-  mov R0, -1
+  mov R0, 5
   mov [4480], R0
-  mov R0, 0
+  mov R0, 23
   mov [4481], R0
-  mov R0, 0
+  mov R0, 11
   mov [4482], R0
-  mov R0, -1
+  mov R0, 6
   mov [4483], R0
-  mov R0, 0
+  mov R0, 19
   mov [4484], R0
-  mov R0, 0
+  mov R0, 15
   mov [4485], R0
-  mov R0, -1
+  mov R0, 6
   mov [4486], R0
-  mov R0, 0
+  mov R0, 21
   mov [4487], R0
-  mov R0, 0
+  mov R0, 15
   mov [4488], R0
-  mov R0, -1
+  mov R0, 6
   mov [4489], R0
-  mov R0, 0
+  mov R0, 27
   mov [4490], R0
-  mov R0, 0
+  mov R0, 15
   mov [4491], R0
-  mov R0, -1
+  mov R0, 6
   mov [4492], R0
-  mov R0, 0
+  mov R0, 28
   mov [4493], R0
-  mov R0, 0
+  mov R0, 15
   mov [4494], R0
   mov R0, 5
   mov [4495], R0
-  mov R0, 2
+  mov R0, 28
   mov [4496], R0
-  mov R0, 2
+  mov R0, 17
   mov [4497], R0
-  mov R0, 7
+  mov R0, -1
   mov [4498], R0
-  mov R0, 4
+  mov R0, 0
   mov [4499], R0
-  mov R0, 4
+  mov R0, 0
   mov [4500], R0
-  mov R0, 5
+  mov R0, -1
   mov [4501], R0
-  mov R0, 20
+  mov R0, 0
   mov [4502], R0
-  mov R0, 10
+  mov R0, 0
   mov [4503], R0
-  mov R0, 6
+  mov R0, -1
   mov [4504], R0
-  mov R0, 10
+  mov R0, 0
   mov [4505], R0
-  mov R0, 14
+  mov R0, 0
   mov [4506], R0
-  mov R0, 5
+  mov R0, -1
   mov [4507], R0
-  mov R0, 26
+  mov R0, 0
   mov [4508], R0
-  mov R0, 14
+  mov R0, 0
   mov [4509], R0
-  mov R0, 6
+  mov R0, -1
   mov [4510], R0
-  mov R0, 27
+  mov R0, 0
   mov [4511], R0
-  mov R0, 18
+  mov R0, 0
   mov [4512], R0
-  mov R0, 5
+  mov R0, -1
   mov [4513], R0
-  mov R0, 12
+  mov R0, 0
   mov [4514], R0
-  mov R0, 20
+  mov R0, 0
   mov [4515], R0
-  mov R0, 5
+  mov R0, -1
   mov [4516], R0
-  mov R0, 28
+  mov R0, 0
   mov [4517], R0
-  mov R0, 20
+  mov R0, 0
   mov [4518], R0
-  mov R0, 6
+  mov R0, -1
   mov [4519], R0
-  mov R0, 10
+  mov R0, 0
   mov [4520], R0
-  mov R0, 22
+  mov R0, 0
   mov [4521], R0
-  mov R0, 6
+  mov R0, -1
   mov [4522], R0
-  mov R0, 14
+  mov R0, 0
   mov [4523], R0
-  mov R0, 22
+  mov R0, 0
   mov [4524], R0
-  mov R0, 6
+  mov R0, -1
   mov [4525], R0
-  mov R0, 20
+  mov R0, 0
   mov [4526], R0
-  mov R0, 22
+  mov R0, 0
   mov [4527], R0
-  mov R0, 6
+  mov R0, -1
   mov [4528], R0
-  mov R0, 2
+  mov R0, 0
   mov [4529], R0
-  mov R0, 26
+  mov R0, 0
   mov [4530], R0
-  mov R0, 8
+  mov R0, -1
   mov [4531], R0
-  mov R0, 28
+  mov R0, 0
   mov [4532], R0
-  mov R0, 27
+  mov R0, 0
   mov [4533], R0
-  mov R0, 6
+  mov R0, -1
   mov [4534], R0
-  mov R0, 22
+  mov R0, 0
   mov [4535], R0
-  mov R0, 30
+  mov R0, 0
   mov [4536], R0
-  mov R0, 6
+  mov R0, -1
   mov [4537], R0
-  mov R0, 26
+  mov R0, 0
   mov [4538], R0
-  mov R0, 30
+  mov R0, 0
   mov [4539], R0
   mov R0, -1
   mov [4540], R0
@@ -9163,212 +9177,424 @@ __global_scope_initialization:
   mov [4541], R0
   mov R0, 0
   mov [4542], R0
-  mov R0, 6
+  mov R0, 5
   mov [4543], R0
   mov R0, 2
   mov [4544], R0
-  mov R0, 6
+  mov R0, 2
   mov [4545], R0
-  mov R0, 6
+  mov R0, 7
   mov [4546], R0
-  mov R0, 18
+  mov R0, 4
   mov [4547], R0
-  mov R0, 10
+  mov R0, 4
   mov [4548], R0
-  mov R0, 5
+  mov R0, 27
   mov [4549], R0
-  mov R0, 20
+  mov R0, 2
   mov [4550], R0
-  mov R0, 12
+  mov R0, 9
   mov [4551], R0
-  mov R0, 8
-  mov [4552], R0
   mov R0, 28
+  mov [4552], R0
+  mov R0, 18
   mov [4553], R0
-  mov R0, 12
+  mov R0, 10
   mov [4554], R0
-  mov R0, 6
-  mov [4555], R0
-  mov R0, 22
-  mov [4556], R0
-  mov R0, 14
-  mov [4557], R0
   mov R0, 5
+  mov [4555], R0
+  mov R0, 20
+  mov [4556], R0
+  mov R0, 10
+  mov [4557], R0
+  mov R0, 27
   mov [4558], R0
-  mov R0, 26
+  mov R0, 5
   mov [4559], R0
-  mov R0, 14
+  mov R0, 13
   mov [4560], R0
   mov R0, 6
   mov [4561], R0
-  mov R0, 30
+  mov R0, 10
   mov [4562], R0
   mov R0, 14
   mov [4563], R0
   mov R0, 5
   mov [4564], R0
-  mov R0, 18
+  mov R0, 26
   mov [4565], R0
-  mov R0, 18
+  mov R0, 14
   mov [4566], R0
   mov R0, 6
   mov [4567], R0
-  mov R0, 29
+  mov R0, 27
   mov [4568], R0
   mov R0, 18
   mov [4569], R0
-  mov R0, 6
-  mov [4570], R0
-  mov R0, 10
-  mov [4571], R0
-  mov R0, 22
-  mov [4572], R0
-  mov R0, 6
-  mov [4573], R0
-  mov R0, 10
-  mov [4574], R0
-  mov R0, 26
-  mov [4575], R0
-  mov R0, 7
-  mov [4576], R0
-  mov R0, 4
-  mov [4577], R0
-  mov R0, 28
-  mov [4578], R0
   mov R0, 5
-  mov [4579], R0
+  mov [4570], R0
   mov R0, 12
-  mov [4580], R0
+  mov [4571], R0
+  mov R0, 20
+  mov [4572], R0
+  mov R0, 5
+  mov [4573], R0
   mov R0, 28
+  mov [4574], R0
+  mov R0, 20
+  mov [4575], R0
+  mov R0, 28
+  mov [4576], R0
+  mov R0, 22
+  mov [4577], R0
+  mov R0, 21
+  mov [4578], R0
+  mov R0, 6
+  mov [4579], R0
+  mov R0, 10
+  mov [4580], R0
+  mov R0, 22
   mov [4581], R0
   mov R0, 6
   mov [4582], R0
-  mov R0, 18
+  mov R0, 14
   mov [4583], R0
-  mov R0, 29
+  mov R0, 22
   mov [4584], R0
-  mov R0, 5
-  mov [4585], R0
   mov R0, 6
+  mov [4585], R0
+  mov R0, 20
   mov [4586], R0
-  mov R0, 30
+  mov R0, 22
   mov [4587], R0
-  mov R0, 5
+  mov R0, 26
   mov [4588], R0
-  mov R0, 30
+  mov R0, 18
   mov [4589], R0
-  mov R0, 30
+  mov R0, 25
   mov [4590], R0
+  mov R0, 28
+  mov [4591], R0
+  mov R0, 29
+  mov [4592], R0
+  mov R0, 25
+  mov [4593], R0
+  mov R0, 6
+  mov [4594], R0
+  mov R0, 2
+  mov [4595], R0
+  mov R0, 26
+  mov [4596], R0
+  mov R0, 8
+  mov [4597], R0
+  mov R0, 28
+  mov [4598], R0
+  mov R0, 27
+  mov [4599], R0
+  mov R0, 6
+  mov [4600], R0
+  mov R0, 22
+  mov [4601], R0
+  mov R0, 30
+  mov [4602], R0
+  mov R0, 6
+  mov [4603], R0
+  mov R0, 26
+  mov [4604], R0
+  mov R0, 30
+  mov [4605], R0
+  mov R0, -1
+  mov [4606], R0
+  mov R0, 0
+  mov [4607], R0
+  mov R0, 0
+  mov [4608], R0
+  mov R0, -1
+  mov [4609], R0
+  mov R0, 0
+  mov [4610], R0
+  mov R0, 0
+  mov [4611], R0
+  mov R0, -1
+  mov [4612], R0
+  mov R0, 0
+  mov [4613], R0
+  mov R0, 0
+  mov [4614], R0
+  mov R0, 28
+  mov [4615], R0
+  mov R0, 13
+  mov [4616], R0
+  mov R0, 4
+  mov [4617], R0
+  mov R0, 6
+  mov [4618], R0
+  mov R0, 2
+  mov [4619], R0
+  mov R0, 6
+  mov [4620], R0
+  mov R0, 27
+  mov [4621], R0
+  mov R0, 28
+  mov [4622], R0
+  mov R0, 6
+  mov [4623], R0
+  mov R0, 6
+  mov [4624], R0
+  mov R0, 18
+  mov [4625], R0
+  mov R0, 10
+  mov [4626], R0
+  mov R0, 5
+  mov [4627], R0
+  mov R0, 20
+  mov [4628], R0
+  mov R0, 12
+  mov [4629], R0
+  mov R0, 8
+  mov [4630], R0
+  mov R0, 28
+  mov [4631], R0
+  mov R0, 12
+  mov [4632], R0
+  mov R0, 27
+  mov [4633], R0
+  mov R0, 2
+  mov [4634], R0
+  mov R0, 13
+  mov [4635], R0
+  mov R0, 6
+  mov [4636], R0
+  mov R0, 22
+  mov [4637], R0
+  mov R0, 14
+  mov [4638], R0
+  mov R0, 5
+  mov [4639], R0
+  mov R0, 26
+  mov [4640], R0
+  mov R0, 14
+  mov [4641], R0
+  mov R0, 6
+  mov [4642], R0
+  mov R0, 30
+  mov [4643], R0
+  mov R0, 14
+  mov [4644], R0
+  mov R0, 5
+  mov [4645], R0
+  mov R0, 18
+  mov [4646], R0
+  mov R0, 18
+  mov [4647], R0
+  mov R0, 28
+  mov [4648], R0
+  mov R0, 22
+  mov [4649], R0
+  mov R0, 18
+  mov [4650], R0
+  mov R0, 6
+  mov [4651], R0
+  mov R0, 29
+  mov [4652], R0
+  mov R0, 18
+  mov [4653], R0
+  mov R0, 6
+  mov [4654], R0
+  mov R0, 10
+  mov [4655], R0
+  mov R0, 22
+  mov [4656], R0
+  mov R0, 28
+  mov [4657], R0
+  mov R0, 26
+  mov [4658], R0
+  mov R0, 25
+  mov [4659], R0
+  mov R0, 6
+  mov [4660], R0
+  mov R0, 10
+  mov [4661], R0
+  mov R0, 26
+  mov [4662], R0
+  mov R0, 7
+  mov [4663], R0
+  mov R0, 4
+  mov [4664], R0
+  mov R0, 28
+  mov [4665], R0
+  mov R0, 5
+  mov [4666], R0
+  mov R0, 12
+  mov [4667], R0
+  mov R0, 28
+  mov [4668], R0
+  mov R0, 6
+  mov [4669], R0
+  mov R0, 18
+  mov [4670], R0
+  mov R0, 29
+  mov [4671], R0
+  mov R0, 5
+  mov [4672], R0
+  mov R0, 6
+  mov [4673], R0
+  mov R0, 30
+  mov [4674], R0
+  mov R0, 5
+  mov [4675], R0
+  mov R0, 30
+  mov [4676], R0
+  mov R0, 30
+  mov [4677], R0
+  mov R0, -1
+  mov [4678], R0
+  mov R0, 0
+  mov [4679], R0
+  mov R0, 0
+  mov [4680], R0
+  mov R0, -1
+  mov [4681], R0
+  mov R0, 0
+  mov [4682], R0
+  mov R0, 0
+  mov [4683], R0
+  mov R0, -1
+  mov [4684], R0
+  mov R0, 0
+  mov [4685], R0
+  mov R0, 0
+  mov [4686], R0
   mov R0, 3
   mov [global_TypeHP], R0
   mov R0, 1
-  mov [4592], R0
+  mov [4688], R0
   mov R0, 8
-  mov [4593], R0
+  mov [4689], R0
   mov R0, 5
-  mov [4594], R0
+  mov [4690], R0
   mov R0, 50
-  mov [4595], R0
+  mov [4691], R0
   mov R0, 0.022000
   mov [global_TypeSpeed], R0
   mov R0, 0.050000
-  mov [4597], R0
+  mov [4693], R0
   mov R0, 0.012000
-  mov [4598], R0
+  mov [4694], R0
   mov R0, 0.000000
-  mov [4599], R0
+  mov [4695], R0
   mov R0, 0.016000
-  mov [4600], R0
+  mov [4696], R0
   mov R0, 0.750000
   mov [global_TypeScale], R0
   mov R0, 0.420000
-  mov [4602], R0
+  mov [4698], R0
   mov R0, 0.950000
-  mov [4603], R0
+  mov [4699], R0
   mov R0, 0.700000
-  mov [4604], R0
+  mov [4700], R0
   mov R0, 1.500000
-  mov [4605], R0
+  mov [4701], R0
   mov R0, 0.300000
   mov [global_TypeRadius], R0
   mov R0, 0.250000
-  mov [4607], R0
+  mov [4703], R0
   mov R0, 0.380000
-  mov [4608], R0
+  mov [4704], R0
   mov R0, 0.300000
-  mov [4609], R0
+  mov [4705], R0
   mov R0, 0.600000
-  mov [4610], R0
+  mov [4706], R0
   mov R0, 0.320000
   mov [global_TypeHitRadius], R0
   mov R0, 0.260000
-  mov [4612], R0
+  mov [4708], R0
   mov R0, 0.420000
-  mov [4613], R0
+  mov [4709], R0
   mov R0, 0.300000
-  mov [4614], R0
+  mov [4710], R0
   mov R0, 0.750000
-  mov [4615], R0
+  mov [4711], R0
   mov R0, 9.000000
   mov [global_TypeRange], R0
   mov R0, 8.000000
-  mov [4617], R0
+  mov [4713], R0
   mov R0, 11.000000
-  mov [4618], R0
+  mov [4714], R0
   mov R0, 13.000000
-  mov [4619], R0
+  mov [4715], R0
   mov R0, 20.000000
-  mov [4620], R0
+  mov [4716], R0
   mov R0, 1.300000
   mov [global_TypeStopDistance], R0
   mov R0, 0.800000
-  mov [4622], R0
+  mov [4718], R0
   mov R0, 2.500000
-  mov [4623], R0
+  mov [4719], R0
   mov R0, 0.000000
-  mov [4624], R0
+  mov [4720], R0
   mov R0, 3.000000
-  mov [4625], R0
+  mov [4721], R0
   mov R0, 70
   mov [global_TypeCooldown], R0
   mov R0, 40
-  mov [4627], R0
+  mov [4723], R0
   mov R0, 110
-  mov [4628], R0
+  mov [4724], R0
   mov R0, 70
-  mov [4629], R0
+  mov [4725], R0
   mov R0, 75
-  mov [4630], R0
+  mov [4726], R0
   mov R0, 90
   mov [global_TypeCooldownRand], R0
   mov R0, 50
-  mov [4632], R0
+  mov [4728], R0
   mov R0, 80
-  mov [4633], R0
+  mov [4729], R0
   mov R0, 50
-  mov [4634], R0
+  mov [4730], R0
   mov R0, 30
-  mov [4635], R0
+  mov [4731], R0
   mov R0, 0
   mov [global_TypeFrameBase], R0
   mov R0, 11
-  mov [4637], R0
+  mov [4733], R0
   mov R0, 16
-  mov [4638], R0
+  mov [4734], R0
   mov R0, 21
-  mov [4639], R0
+  mov [4735], R0
   mov R0, 0
-  mov [4640], R0
+  mov [4736], R0
   mov R0, 30
   mov [global_TypeDropChance], R0
   mov R0, 15
-  mov [4642], R0
+  mov [4738], R0
   mov R0, 70
-  mov [4643], R0
+  mov [4739], R0
   mov R0, 40
-  mov [4644], R0
+  mov [4740], R0
   mov R0, 0
-  mov [4645], R0
+  mov [4741], R0
+  mov R0, 6
+  mov [global_TypeDropItem], R0
+  mov R0, 6
+  mov [4743], R0
+  mov R0, 28
+  mov [4744], R0
+  mov R0, 27
+  mov [4745], R0
+  mov R0, 0
+  mov [4746], R0
+  mov R0, 8
+  mov [global_TypeDropAmount], R0
+  mov R0, 8
+  mov [4748], R0
+  mov R0, 15
+  mov [4749], R0
+  mov R0, 4
+  mov [4750], R0
+  mov R0, 0
+  mov [4751], R0
   mov SP, BP
   pop BP
   ret
@@ -9771,6 +9997,15 @@ __function_gamepad_button_b_return:
   pop BP
   ret
 
+__function_gamepad_button_x:
+  push BP
+  mov BP, SP
+  in R0, INP_GamepadButtonX
+__function_gamepad_button_x_return:
+  mov SP, BP
+  pop BP
+  ret
+
 __function_gamepad_button_y:
   push BP
   mov BP, SP
@@ -9966,13 +10201,11 @@ __if_710_end:
   mov R1, [BP+2]
   iadd R1, 2
   mov R0, [R1]
-  mov R2, [BP-2]
-  iadd R2, 2
-  mov R1, [R2]
-  iadd R1, 4
-  iadd R0, R1
-  mov R1, [BP+2]
-  iadd R1, 2
+  mov R3, [BP-2]
+  iadd R3, 2
+  mov R2, [R3]
+  iadd R2, 4
+  iadd R0, R2
   mov [R1], R0
   mov R1, [BP+2]
   iadd R1, 1
@@ -10004,13 +10237,11 @@ __if_739_end:
   mov R1, [BP-1]
   iadd R1, 2
   mov R0, [R1]
-  mov R2, [BP+2]
-  iadd R2, 2
-  mov R1, [R2]
-  iadd R1, 4
-  iadd R0, R1
-  mov R1, [BP-1]
-  iadd R1, 2
+  mov R3, [BP+2]
+  iadd R3, 2
+  mov R2, [R3]
+  iadd R2, 4
+  iadd R0, R2
   mov [R1], R0
 __if_729_end:
 __function_merge_free_malloc_blocks_return:
@@ -10140,10 +10371,8 @@ __if_848_end:
   mov R1, [BP+2]
   iadd R1, 2
   mov R0, [R1]
-  mov R1, [BP-3]
-  iadd R0, R1
-  mov R1, [BP+2]
-  iadd R1, 2
+  mov R2, [BP-3]
+  iadd R0, R2
   mov [R1], R0
   mov R1, [BP-2]
   iadd R1, 1
@@ -10201,8 +10430,6 @@ __if_878_start:
   iadd R1, 2
   mov R0, [R1]
   isub R0, 4
-  mov R1, [global_malloc_first_block]
-  iadd R1, 2
   mov [R1], R0
   mov R0, -1
   mov R1, [global_malloc_first_block]
@@ -10298,10 +10525,8 @@ __if_948_start:
   mov R1, [BP-1]
   iadd R1, 2
   mov R0, [R1]
-  mov R1, [BP-2]
-  isub R0, R1
-  mov R1, [BP-1]
-  iadd R1, 2
+  mov R2, [BP-2]
+  isub R0, R2
   mov [R1], R0
   mov R0, [BP-3]
   mov R1, [BP-1]
@@ -10799,52 +11024,52 @@ __function_GetLevelName:
   push BP
   mov BP, SP
   isub SP, 2
-__if_6667_start:
+__if_6791_start:
   mov R0, [BP+2]
   ieq R0, 0
-  jf R0, __if_6667_else
+  jf R0, __if_6791_else
   mov R1, [BP+3]
   mov [SP], R1
-  mov R1, __literal_string_6673
+  mov R1, __literal_string_6797
   mov [SP+1], R1
   call __function_strcpy
-  jmp __if_6667_end
-__if_6667_else:
-__if_6674_start:
+  jmp __if_6791_end
+__if_6791_else:
+__if_6798_start:
   mov R0, [BP+2]
   ieq R0, 1
-  jf R0, __if_6674_else
+  jf R0, __if_6798_else
   mov R1, [BP+3]
   mov [SP], R1
-  mov R1, __literal_string_6680
+  mov R1, __literal_string_6804
   mov [SP+1], R1
   call __function_strcpy
-  jmp __if_6674_end
-__if_6674_else:
-__if_6681_start:
+  jmp __if_6798_end
+__if_6798_else:
+__if_6805_start:
   mov R0, [BP+2]
   ieq R0, 2
-  jf R0, __if_6681_else
+  jf R0, __if_6805_else
   mov R1, [BP+3]
   mov [SP], R1
-  mov R1, __literal_string_6687
+  mov R1, __literal_string_6811
   mov [SP+1], R1
   call __function_strcpy
-  jmp __if_6681_end
-__if_6681_else:
-__if_6688_start:
+  jmp __if_6805_end
+__if_6805_else:
+__if_6812_start:
   mov R0, [BP+2]
   ieq R0, 3
-  jf R0, __if_6688_end
+  jf R0, __if_6812_end
   mov R1, [BP+3]
   mov [SP], R1
-  mov R1, __literal_string_6694
+  mov R1, __literal_string_6818
   mov [SP+1], R1
   call __function_strcpy
-__if_6688_end:
-__if_6681_end:
-__if_6674_end:
-__if_6667_end:
+__if_6812_end:
+__if_6805_end:
+__if_6798_end:
+__if_6791_end:
 __function_GetLevelName_return:
   mov SP, BP
   pop BP
@@ -10857,14 +11082,14 @@ __function_RandomInt:
   push R1
   call __function_rand
   mov [BP-1], R0
-__if_6949_start:
+__if_7109_start:
   mov R0, [BP-1]
   ilt R0, 0
-  jf R0, __if_6949_end
+  jf R0, __if_7109_end
   mov R0, [BP-1]
   isgn R0
   mov [BP-1], R0
-__if_6949_end:
+__if_7109_end:
   mov R0, [BP-1]
   mov R1, [BP+2]
   imod R0, R1
@@ -10900,28 +11125,28 @@ __function_PlaySfx:
   push BP
   mov BP, SP
   isub SP, 3
-__if_6973_start:
+__if_7133_start:
   mov R0, [BP+3]
   fle R0, 0.020000
-  jf R0, __if_6973_end
+  jf R0, __if_7133_end
   jmp __function_PlaySfx_return
-__if_6973_end:
+__if_7133_end:
   mov R0, 0
   mov [BP-1], R0
-__for_6978_start:
+__for_7138_start:
   mov R0, [BP-1]
   ilt R0, 16
-  jf R0, __for_6978_end
-__if_6988_start:
+  jf R0, __for_7138_end
+__if_7148_start:
   mov R2, [BP-1]
   mov [SP], R2
   call __function_get_channel_state
   mov R1, R0
   ine R1, 64
   mov R0, R1
-  jf R0, __if_6988_end
-  jmp __for_6978_continue
-__if_6988_end:
+  jf R0, __if_7148_end
+  jmp __for_7138_continue
+__if_7148_end:
   mov R1, [BP-1]
   mov [SP], R1
   call __function_select_channel
@@ -10940,13 +11165,13 @@ __if_6988_end:
   mov [SP+1], R1
   call __function_play_sound_in_channel
   jmp __function_PlaySfx_return
-__for_6978_continue:
+__for_7138_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_6978_start
-__for_6978_end:
+  jmp __for_7138_start
+__for_7138_end:
 __function_PlaySfx_return:
   mov SP, BP
   pop BP
@@ -10984,13 +11209,13 @@ __function_VolumeAt:
   fadd R1, 1.000000
   mov R0, R1
   mov [BP-3], R0
-__if_7033_start:
+__if_7193_start:
   mov R0, [BP-3]
   flt R0, 0.000000
-  jf R0, __if_7033_end
+  jf R0, __if_7193_end
   mov R0, 0.000000
   mov [BP-3], R0
-__if_7033_end:
+__if_7193_end:
   mov R0, [BP-3]
 __function_VolumeAt_return:
   iadd SP, 1
@@ -11026,28 +11251,28 @@ __function_IsSolid:
   push R2
   push R3
   push R4
-__if_7053_start:
+__if_7213_start:
   mov R0, [BP+2]
   ilt R0, 0
-  jt R0, __LogicalOr_ShortCircuit_7058
+  jt R0, __LogicalOr_ShortCircuit_7218
   mov R1, [BP+3]
   ilt R1, 0
   or R0, R1
-__LogicalOr_ShortCircuit_7058:
-  jt R0, __LogicalOr_ShortCircuit_7062
+__LogicalOr_ShortCircuit_7218:
+  jt R0, __LogicalOr_ShortCircuit_7222
   mov R1, [BP+2]
   ige R1, 32
   or R0, R1
-__LogicalOr_ShortCircuit_7062:
-  jt R0, __LogicalOr_ShortCircuit_7066
+__LogicalOr_ShortCircuit_7222:
+  jt R0, __LogicalOr_ShortCircuit_7226
   mov R1, [BP+3]
   ige R1, 32
   or R0, R1
-__LogicalOr_ShortCircuit_7066:
-  jf R0, __if_7053_end
+__LogicalOr_ShortCircuit_7226:
+  jf R0, __if_7213_end
   mov R0, 1
   jmp __function_IsSolid_return
-__if_7053_end:
+__if_7213_end:
   mov R0, global_Map
   mov R2, [BP+3]
   imul R2, 32
@@ -11056,22 +11281,22 @@ __if_7053_end:
   iadd R0, R1
   mov R0, [R0]
   mov [BP-1], R0
-__if_7078_start:
+__if_7238_start:
   mov R0, [BP-1]
   ieq R0, 0
-  jf R0, __if_7078_end
+  jf R0, __if_7238_end
   mov R0, 0
   jmp __function_IsSolid_return
-__if_7078_end:
-__if_7084_start:
+__if_7238_end:
+__if_7244_start:
   mov R0, [BP-1]
   ige R0, 6
-  jf R0, __LogicalAnd_ShortCircuit_7089
+  jf R0, __LogicalAnd_ShortCircuit_7249
   mov R1, [BP-1]
   ile R1, 8
   and R0, R1
-__LogicalAnd_ShortCircuit_7089:
-  jf R0, __if_7084_end
+__LogicalAnd_ShortCircuit_7249:
+  jf R0, __if_7244_end
   mov R1, global_Doors
   mov R2, global_DoorAt
   mov R4, [BP+3]
@@ -11087,7 +11312,7 @@ __LogicalAnd_ShortCircuit_7089:
   mov R0, [R1]
   flt R0, 0.900000
   jmp __function_IsSolid_return
-__if_7084_end:
+__if_7244_end:
   mov R0, 1
 __function_IsSolid_return:
   pop R4
@@ -11123,7 +11348,7 @@ __function_CanStand:
   push R1
   push R2
   isub SP, 2
-__if_7120_start:
+__if_7280_start:
   mov R1, [BP+2]
   mov R2, [BP+4]
   fsub R1, R2
@@ -11134,11 +11359,11 @@ __if_7120_start:
   mov [SP+1], R1
   call __function_IsWall
   cib R0
-  jf R0, __if_7120_end
+  jf R0, __if_7280_end
   mov R0, 0
   jmp __function_CanStand_return
-__if_7120_end:
-__if_7130_start:
+__if_7280_end:
+__if_7290_start:
   mov R1, [BP+2]
   mov R2, [BP+4]
   fadd R1, R2
@@ -11149,11 +11374,11 @@ __if_7130_start:
   mov [SP+1], R1
   call __function_IsWall
   cib R0
-  jf R0, __if_7130_end
+  jf R0, __if_7290_end
   mov R0, 0
   jmp __function_CanStand_return
-__if_7130_end:
-__if_7140_start:
+__if_7290_end:
+__if_7300_start:
   mov R1, [BP+2]
   mov R2, [BP+4]
   fsub R1, R2
@@ -11164,11 +11389,11 @@ __if_7140_start:
   mov [SP+1], R1
   call __function_IsWall
   cib R0
-  jf R0, __if_7140_end
+  jf R0, __if_7300_end
   mov R0, 0
   jmp __function_CanStand_return
-__if_7140_end:
-__if_7150_start:
+__if_7300_end:
+__if_7310_start:
   mov R1, [BP+2]
   mov R2, [BP+4]
   fadd R1, R2
@@ -11179,10 +11404,10 @@ __if_7150_start:
   mov [SP+1], R1
   call __function_IsWall
   cib R0
-  jf R0, __if_7150_end
+  jf R0, __if_7310_end
   mov R0, 0
   jmp __function_CanStand_return
-__if_7150_end:
+__if_7310_end:
   mov R0, 1
 __function_CanStand_return:
   iadd SP, 2
@@ -11239,22 +11464,22 @@ __function_LineOfSight:
   mov [BP-8], R0
   mov R0, 0
   mov [BP-9], R0
-__for_7212_start:
+__for_7372_start:
   mov R0, [BP-9]
   mov R1, [BP-4]
   ilt R0, R1
-  jf R0, __for_7212_end
-__if_7222_start:
+  jf R0, __for_7372_end
+__if_7382_start:
   mov R1, [BP-7]
   mov [SP], R1
   mov R1, [BP-8]
   mov [SP+1], R1
   call __function_IsWall
   cib R0
-  jf R0, __if_7222_end
+  jf R0, __if_7382_end
   mov R0, 0
   jmp __function_LineOfSight_return
-__if_7222_end:
+__if_7382_end:
   mov R0, [BP-7]
   mov R1, [BP-5]
   fadd R0, R1
@@ -11263,13 +11488,13 @@ __if_7222_end:
   mov R1, [BP-6]
   fadd R0, R1
   mov [BP-8], R0
-__for_7212_continue:
+__for_7372_continue:
   mov R0, [BP-9]
   mov R1, R0
   iadd R1, 1
   mov [BP-9], R1
-  jmp __for_7212_start
-__for_7212_end:
+  jmp __for_7372_start
+__for_7372_end:
   mov R0, 1
 __function_LineOfSight_return:
   iadd SP, 2
@@ -11389,7 +11614,7 @@ __function_PrintRatio:
   call __function_strcat
   mov R1, global_TextBuffer
   mov [SP], R1
-  mov R1, __literal_string_7306
+  mov R1, __literal_string_7466
   mov [SP+1], R1
   call __function_strcat
   mov R1, [BP+5]
@@ -11537,6 +11762,70 @@ __function_DefineRegions:
   mov R1, 415
   mov [SP+5], R1
   call __function_define_region
+  mov R1, 3103
+  mov [SP], R1
+  call __function_select_region
+  mov R1, 192
+  mov [SP], R1
+  mov R1, 320
+  mov [SP+1], R1
+  mov R1, 287
+  mov [SP+2], R1
+  mov R1, 415
+  mov [SP+3], R1
+  mov R1, 240
+  mov [SP+4], R1
+  mov R1, 415
+  mov [SP+5], R1
+  call __function_define_region
+  mov R1, 3104
+  mov [SP], R1
+  call __function_select_region
+  mov R1, 288
+  mov [SP], R1
+  mov R1, 320
+  mov [SP+1], R1
+  mov R1, 383
+  mov [SP+2], R1
+  mov R1, 415
+  mov [SP+3], R1
+  mov R1, 336
+  mov [SP+4], R1
+  mov R1, 415
+  mov [SP+5], R1
+  call __function_define_region
+  mov R1, 3105
+  mov [SP], R1
+  call __function_select_region
+  mov R1, 384
+  mov [SP], R1
+  mov R1, 320
+  mov [SP+1], R1
+  mov R1, 479
+  mov [SP+2], R1
+  mov R1, 415
+  mov [SP+3], R1
+  mov R1, 432
+  mov [SP+4], R1
+  mov R1, 415
+  mov [SP+5], R1
+  call __function_define_region
+  mov R1, 3106
+  mov [SP], R1
+  call __function_select_region
+  mov R1, 480
+  mov [SP], R1
+  mov R1, 320
+  mov [SP+1], R1
+  mov R1, 575
+  mov [SP+2], R1
+  mov R1, 415
+  mov [SP+3], R1
+  mov R1, 528
+  mov [SP+4], R1
+  mov R1, 415
+  mov [SP+5], R1
+  call __function_define_region
   mov R1, 3102
   mov [SP], R1
   call __function_select_region
@@ -11551,10 +11840,10 @@ __function_DefineRegions:
   call __function_define_region_topleft
   mov R0, 0
   mov [BP-1], R0
-__for_7391_start:
+__for_7587_start:
   mov R0, [BP-1]
   ilt R0, 128
-  jf R0, __for_7391_end
+  jf R0, __for_7587_end
   mov R0, [BP-1]
   cif R0
   fadd R0, 0.500000
@@ -11565,13 +11854,13 @@ __for_7391_start:
   mov R2, [BP-1]
   iadd R1, R2
   mov [R1], R0
-__for_7391_continue:
+__for_7587_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_7391_start
-__for_7391_end:
+  jmp __for_7587_start
+__for_7587_end:
 __function_DefineRegions_return:
   mov SP, BP
   pop BP
@@ -11583,11 +11872,11 @@ __function_SpawnItem:
   isub SP, 1
   mov R0, 0
   mov [BP-1], R0
-__for_7419_start:
+__for_7615_start:
   mov R0, [BP-1]
-  ilt R0, 24
-  jf R0, __for_7419_end
-__if_7429_start:
+  ilt R0, 32
+  jf R0, __for_7615_end
+__if_7625_start:
   mov R1, global_Items
   mov R2, [BP-1]
   imul R2, 5
@@ -11595,9 +11884,9 @@ __if_7429_start:
   iadd R1, 4
   mov R0, [R1]
   cib R0
-  jf R0, __if_7429_end
-  jmp __for_7419_continue
-__if_7429_end:
+  jf R0, __if_7625_end
+  jmp __for_7615_continue
+__if_7625_end:
   mov R0, [BP+2]
   mov R1, global_Items
   mov R2, [BP-1]
@@ -11633,13 +11922,13 @@ __if_7429_end:
   iadd R1, 4
   mov [R1], R0
   jmp __function_SpawnItem_return
-__for_7419_continue:
+__for_7615_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_7419_start
-__for_7419_end:
+  jmp __for_7615_start
+__for_7615_end:
 __function_SpawnItem_return:
   mov SP, BP
   pop BP
@@ -11658,16 +11947,16 @@ __function_LoadLevel:
   mov [global_SecretsTotal], R0
   mov R0, 0
   mov [BP-3], R0
-__for_7479_start:
+__for_7675_start:
   mov R0, [BP-3]
   ilt R0, 32
-  jf R0, __for_7479_end
+  jf R0, __for_7675_end
   mov R0, 0
   mov [BP-4], R0
-__for_7488_start:
+__for_7684_start:
   mov R0, [BP-4]
   ilt R0, 32
-  jf R0, __for_7488_end
+  jf R0, __for_7684_end
   mov R0, global_LevelTiles
   mov R1, [BP-1]
   mov R2, [BP-3]
@@ -11694,20 +11983,20 @@ __for_7488_start:
   mov R2, [BP-4]
   iadd R1, R2
   mov [R1], R0
-__if_7523_start:
+__if_7719_start:
   mov R0, [BP-5]
   ige R0, 6
-  jf R0, __LogicalAnd_ShortCircuit_7528
+  jf R0, __LogicalAnd_ShortCircuit_7724
   mov R1, [BP-5]
   ile R1, 8
   and R0, R1
-__LogicalAnd_ShortCircuit_7528:
-  jf R0, __LogicalAnd_ShortCircuit_7532
+__LogicalAnd_ShortCircuit_7724:
+  jf R0, __LogicalAnd_ShortCircuit_7728
   mov R1, [global_DoorCount]
   ilt R1, 32
   and R0, R1
-__LogicalAnd_ShortCircuit_7532:
-  jf R0, __if_7523_end
+__LogicalAnd_ShortCircuit_7728:
+  jf R0, __if_7719_end
   mov R0, [BP-4]
   mov R1, global_Doors
   mov R2, [global_DoorCount]
@@ -11755,30 +12044,30 @@ __LogicalAnd_ShortCircuit_7532:
   mov R2, [BP-4]
   iadd R1, R2
   mov [R1], R0
-__if_7523_end:
-__if_7577_start:
+__if_7719_end:
+__if_7773_start:
   mov R0, [BP-5]
   ige R0, 11
-  jf R0, __if_7577_end
+  jf R0, __if_7773_end
   mov R0, [global_SecretsTotal]
   mov R1, R0
   iadd R1, 1
   mov [global_SecretsTotal], R1
-__if_7577_end:
-__for_7488_continue:
+__if_7773_end:
+__for_7684_continue:
   mov R0, [BP-4]
   mov R1, R0
   iadd R1, 1
   mov [BP-4], R1
-  jmp __for_7488_start
-__for_7488_end:
-__for_7479_continue:
+  jmp __for_7684_start
+__for_7684_end:
+__for_7675_continue:
   mov R0, [BP-3]
   mov R1, R0
   iadd R1, 1
   mov [BP-3], R1
-  jmp __for_7479_start
-__for_7479_end:
+  jmp __for_7675_start
+__for_7675_end:
   mov R0, global_LevelStarts
   mov R1, [BP+2]
   imul R1, 3
@@ -11807,34 +12096,34 @@ __for_7479_end:
   mov [global_DirX], R0
   mov R0, 0.000000
   mov [global_DirY], R0
-__if_7618_start:
+__if_7814_start:
   mov R0, [BP-2]
   ieq R0, 0
-  jf R0, __if_7618_end
+  jf R0, __if_7814_end
   mov R0, 1.000000
   mov [global_DirX], R0
-__if_7618_end:
-__if_7625_start:
+__if_7814_end:
+__if_7821_start:
   mov R0, [BP-2]
   ieq R0, 1
-  jf R0, __if_7625_end
+  jf R0, __if_7821_end
   mov R0, 1.000000
   mov [global_DirY], R0
-__if_7625_end:
-__if_7632_start:
+__if_7821_end:
+__if_7828_start:
   mov R0, [BP-2]
   ieq R0, 2
-  jf R0, __if_7632_end
+  jf R0, __if_7828_end
   mov R0, -1.000000
   mov [global_DirX], R0
-__if_7632_end:
-__if_7640_start:
+__if_7828_end:
+__if_7836_start:
   mov R0, [BP-2]
   ieq R0, 3
-  jf R0, __if_7640_end
+  jf R0, __if_7836_end
   mov R0, -1.000000
   mov [global_DirY], R0
-__if_7640_end:
+__if_7836_end:
   mov R0, [global_DirY]
   fsgn R0
   fmul R0, 0.660000
@@ -11848,10 +12137,10 @@ __if_7640_end:
   mov [global_BossIndex], R0
   mov R0, 0
   mov [BP-3], R0
-__for_7666_start:
+__for_7862_start:
   mov R0, [BP-3]
   ilt R0, 24
-  jf R0, __for_7666_end
+  jf R0, __for_7862_end
   mov R0, [BP+2]
   imul R0, 24
   mov R1, [BP-3]
@@ -11877,12 +12166,12 @@ __for_7666_start:
   iadd R1, R2
   iadd R1, 4
   mov [R1], R0
-__if_7703_start:
+__if_7899_start:
   mov R0, [BP-5]
   ilt R0, 0
-  jf R0, __if_7703_end
-  jmp __for_7666_continue
-__if_7703_end:
+  jf R0, __if_7899_end
+  jmp __for_7862_continue
+__if_7899_end:
   mov R0, global_LevelEnemies
   mov R1, [BP-4]
   iadd R1, 1
@@ -11980,26 +12269,26 @@ __if_7703_end:
   mov R1, R0
   iadd R1, 1
   mov [global_EnemiesTotal], R1
-__if_7788_start:
+__if_7984_start:
   mov R0, [BP-5]
   ieq R0, 4
-  jf R0, __if_7788_end
+  jf R0, __if_7984_end
   mov R0, [BP-3]
   mov [global_BossIndex], R0
-__if_7788_end:
-__for_7666_continue:
+__if_7984_end:
+__for_7862_continue:
   mov R0, [BP-3]
   mov R1, R0
   iadd R1, 1
   mov [BP-3], R1
-  jmp __for_7666_start
-__for_7666_end:
+  jmp __for_7862_start
+__for_7862_end:
   mov R0, 0
   mov [BP-3], R0
-__for_7795_start:
+__for_7991_start:
   mov R0, [BP-3]
-  ilt R0, 24
-  jf R0, __for_7795_end
+  ilt R0, 32
+  jf R0, __for_7991_end
   mov R0, 0
   mov R1, global_Items
   mov R2, [BP-3]
@@ -12007,21 +12296,21 @@ __for_7795_start:
   iadd R1, R2
   iadd R1, 4
   mov [R1], R0
-__for_7795_continue:
+__for_7991_continue:
   mov R0, [BP-3]
   mov R1, R0
   iadd R1, 1
   mov [BP-3], R1
-  jmp __for_7795_start
-__for_7795_end:
+  jmp __for_7991_start
+__for_7991_end:
   mov R0, 0
   mov [BP-3], R0
-__for_7810_start:
+__for_8006_start:
   mov R0, [BP-3]
-  ilt R0, 16
-  jf R0, __for_7810_end
+  ilt R0, 24
+  jf R0, __for_8006_end
   mov R0, [BP+2]
-  imul R0, 16
+  imul R0, 24
   mov R1, [BP-3]
   iadd R0, R1
   imul R0, 3
@@ -12031,21 +12320,49 @@ __for_7810_start:
   iadd R0, R1
   mov R0, [R0]
   mov [BP-5], R0
-__if_7835_start:
+__if_8031_start:
   mov R0, [BP-5]
   ilt R0, 0
-  jf R0, __if_7835_end
-  jmp __for_7810_continue
-__if_7835_end:
+  jf R0, __if_8031_end
+  jmp __for_8006_continue
+__if_8031_end:
   mov R0, 20
   mov [BP-6], R0
-__if_7843_start:
+__if_8039_start:
   mov R0, [BP-5]
   ieq R0, 5
-  jf R0, __if_7843_end
+  jf R0, __if_8039_end
   mov R0, 35
   mov [BP-6], R0
-__if_7843_end:
+__if_8039_end:
+__if_8046_start:
+  mov R0, [BP-5]
+  ieq R0, 25
+  jf R0, __if_8046_end
+  mov R0, 8
+  mov [BP-6], R0
+__if_8046_end:
+__if_8053_start:
+  mov R0, [BP-5]
+  ieq R0, 26
+  jf R0, __if_8053_end
+  mov R0, 40
+  mov [BP-6], R0
+__if_8053_end:
+__if_8060_start:
+  mov R0, [BP-5]
+  ieq R0, 27
+  jf R0, __if_8060_end
+  mov R0, 8
+  mov [BP-6], R0
+__if_8060_end:
+__if_8067_start:
+  mov R0, [BP-5]
+  ieq R0, 28
+  jf R0, __if_8067_end
+  mov R0, 30
+  mov [BP-6], R0
+__if_8067_end:
   mov R1, [BP-5]
   mov [SP], R1
   mov R1, global_LevelItems
@@ -12067,19 +12384,19 @@ __if_7843_end:
   mov R1, [BP-6]
   mov [SP+3], R1
   call __function_SpawnItem
-__for_7810_continue:
+__for_8006_continue:
   mov R0, [BP-3]
   mov R1, R0
   iadd R1, 1
   mov [BP-3], R1
-  jmp __for_7810_start
-__for_7810_end:
+  jmp __for_8006_start
+__for_8006_end:
   mov R0, 0
   mov [BP-3], R0
-__for_7867_start:
+__for_8091_start:
   mov R0, [BP-3]
   ilt R0, 16
-  jf R0, __for_7867_end
+  jf R0, __for_8091_end
   mov R0, 0
   mov R1, global_Projectiles
   mov R2, [BP-3]
@@ -12087,13 +12404,33 @@ __for_7867_start:
   iadd R1, R2
   iadd R1, 4
   mov [R1], R0
-__for_7867_continue:
+__for_8091_continue:
   mov R0, [BP-3]
   mov R1, R0
   iadd R1, 1
   mov [BP-3], R1
-  jmp __for_7867_start
-__for_7867_end:
+  jmp __for_8091_start
+__for_8091_end:
+  mov R0, 0
+  mov [BP-3], R0
+__for_8106_start:
+  mov R0, [BP-3]
+  ilt R0, 16
+  jf R0, __for_8106_end
+  mov R0, 0
+  mov R1, global_Bolts
+  mov R2, [BP-3]
+  imul R2, 8
+  iadd R1, R2
+  iadd R1, 4
+  mov [R1], R0
+__for_8106_continue:
+  mov R0, [BP-3]
+  mov R1, R0
+  iadd R1, 1
+  mov [BP-3], R1
+  jmp __for_8106_start
+__for_8106_end:
   mov R0, 0
   mov [global_HasRedKey], R0
   mov R0, 0
@@ -12113,6 +12450,8 @@ __for_7867_end:
   mov R0, 0
   mov [global_FireTimer], R0
   mov R0, 0
+  mov [global_FlashTimer], R0
+  mov R0, 0
   mov [global_DamageFlash], R0
   mov R0, 0
   mov [global_PickupFlash], R0
@@ -12122,6 +12461,14 @@ __for_7867_end:
   mov [global_MessageTimer], R0
   mov R0, [global_Ammo]
   mov [global_LevelStartAmmo], R0
+  mov R0, [global_Shells]
+  mov [global_LevelStartShells], R0
+  mov R0, [global_Cells]
+  mov [global_LevelStartCells], R0
+  mov R0, [global_HasShotgun]
+  mov [global_LevelStartShotgun], R0
+  mov R0, [global_HasRifle]
+  mov [global_LevelStartRifle], R0
   mov R1, [BP+2]
   mov [SP], R1
   mov R1, global_LevelName
@@ -12140,6 +12487,16 @@ __function_NewGame:
   mov [global_Health], R0
   mov R0, 30
   mov [global_Ammo], R0
+  mov R0, 0
+  mov [global_Shells], R0
+  mov R0, 0
+  mov [global_Cells], R0
+  mov R0, 0
+  mov [global_Weapon], R0
+  mov R0, 0
+  mov [global_HasShotgun], R0
+  mov R0, 0
+  mov [global_HasRifle], R0
   mov R0, 0
   mov [global_CurrentLevel], R0
   mov R0, 0
@@ -12215,7 +12572,7 @@ __function_TryMove:
   push BP
   mov BP, SP
   isub SP, 3
-__if_8006_start:
+__if_8275_start:
   mov R1, [global_PlayerX]
   mov R2, [BP+2]
   fadd R1, R2
@@ -12226,13 +12583,13 @@ __if_8006_start:
   mov [SP+2], R1
   call __function_CanStand
   cib R0
-  jf R0, __if_8006_end
+  jf R0, __if_8275_end
   mov R0, [global_PlayerX]
   mov R1, [BP+2]
   fadd R0, R1
   mov [global_PlayerX], R0
-__if_8006_end:
-__if_8016_start:
+__if_8275_end:
+__if_8285_start:
   mov R1, [global_PlayerX]
   mov [SP], R1
   mov R1, [global_PlayerY]
@@ -12243,12 +12600,12 @@ __if_8016_start:
   mov [SP+2], R1
   call __function_CanStand
   cib R0
-  jf R0, __if_8016_end
+  jf R0, __if_8285_end
   mov R0, [global_PlayerY]
   mov R1, [BP+3]
   fadd R0, R1
   mov [global_PlayerY], R0
-__if_8016_end:
+__if_8285_end:
 __function_TryMove_return:
   mov SP, BP
   pop BP
@@ -12301,10 +12658,10 @@ __function_KillEnemy:
   iadd R1, 2
   mov R0, [R1]
   mov [BP-1], R0
-__if_8054_start:
+__if_8323_start:
   mov R0, [BP-1]
   ieq R0, 4
-  jf R0, __if_8054_end
+  jf R0, __if_8323_end
   mov R0, 160
   mov [global_BossDeathTimer], R0
   mov R1, 3
@@ -12321,11 +12678,11 @@ __if_8054_start:
   mov R1, 1.300000
   mov [SP+2], R1
   call __function_PlaySfx
-  mov R1, __literal_string_8071
+  mov R1, __literal_string_8340
   mov [SP], R1
   call __function_ShowMessage
   jmp __function_KillEnemy_return
-__if_8054_end:
+__if_8323_end:
   call __function_RandomPitch
   mov R1, R0
   mov [BP-2], R1
@@ -12336,7 +12693,7 @@ __if_8054_end:
   mov R1, [BP-2]
   mov [SP+2], R1
   call __function_PlaySfx
-__if_8077_start:
+__if_8346_start:
   mov R2, 100
   mov [SP], R2
   call __function_RandomInt
@@ -12347,8 +12704,11 @@ __if_8077_start:
   mov R2, [R2]
   ilt R1, R2
   mov R0, R1
-  jf R0, __if_8077_end
-  mov R1, 6
+  jf R0, __if_8346_end
+  mov R1, global_TypeDropItem
+  mov R2, [BP-1]
+  iadd R1, R2
+  mov R1, [R1]
   mov [SP], R1
   mov R2, global_Enemies
   mov R3, [BP+2]
@@ -12363,35 +12723,137 @@ __if_8077_start:
   iadd R2, 1
   mov R1, [R2]
   mov [SP+2], R1
-  mov R1, 8
+  mov R1, global_TypeDropAmount
+  mov R2, [BP-1]
+  iadd R1, R2
+  mov R1, [R1]
   mov [SP+3], R1
   call __function_SpawnItem
-__if_8077_end:
+__if_8346_end:
 __function_KillEnemy_return:
   mov SP, BP
   pop BP
   ret
 
-__function_FireWeapon:
+__function_DamageEnemy:
   push BP
   mov BP, SP
-  isub SP, 12
-  mov R0, [global_Ammo]
-  mov R1, R0
-  isub R1, 1
-  mov [global_Ammo], R1
-  mov R0, 12
-  mov [global_FireTimer], R0
+  isub SP, 4
+  mov R1, global_Enemies
+  mov R2, [BP+2]
+  imul R2, 11
+  iadd R1, R2
+  iadd R1, 3
+  mov R0, [R1]
+  mov R2, [BP+3]
+  isub R0, R2
+  mov [R1], R0
+  mov R0, 10
+  mov R1, global_Enemies
+  mov R2, [BP+2]
+  imul R2, 11
+  iadd R1, R2
+  iadd R1, 5
+  mov [R1], R0
+  mov R0, 1
+  mov R1, global_Enemies
+  mov R2, [BP+2]
+  imul R2, 11
+  iadd R1, R2
+  iadd R1, 9
+  mov [R1], R0
+__if_8389_start:
+  mov R1, global_Enemies
+  mov R2, [BP+2]
+  imul R2, 11
+  iadd R1, R2
+  iadd R1, 2
+  mov R0, [R1]
+  ine R0, 4
+  jf R0, __if_8389_end
+  mov R1, global_Enemies
+  mov R2, [BP+2]
+  imul R2, 11
+  iadd R1, R2
+  iadd R1, 7
+  mov R0, [R1]
+  iadd R0, 20
+  mov [R1], R0
+__if_8389_end:
+__if_8402_start:
+  mov R1, global_Enemies
+  mov R2, [BP+2]
+  imul R2, 11
+  iadd R1, R2
+  iadd R1, 3
+  mov R0, [R1]
+  ile R0, 0
+  jf R0, __if_8402_end
+  mov R1, [BP+2]
+  mov [SP], R1
+  call __function_KillEnemy
+  jmp __function_DamageEnemy_return
+__if_8402_end:
   call __function_RandomPitch
   mov R1, R0
-  mov [BP-9], R1
-  mov R1, 0
+  mov [BP-1], R1
+  mov R1, 2
   mov [SP], R1
-  mov R1, 0.700000
+  mov R1, 0.800000
   mov [SP+1], R1
-  mov R1, [BP-9]
+  mov R1, [BP-1]
   mov [SP+2], R1
   call __function_PlaySfx
+__if_8417_start:
+  mov R0, [BP+2]
+  mov R1, [global_BossIndex]
+  ieq R0, R1
+  jf R0, __LogicalAnd_ShortCircuit_8423
+  mov R1, [global_BossEnraged]
+  bnot R1
+  and R0, R1
+__LogicalAnd_ShortCircuit_8423:
+  jf R0, __LogicalAnd_ShortCircuit_8428
+  mov R2, global_Enemies
+  mov R3, [BP+2]
+  imul R3, 11
+  iadd R2, R3
+  iadd R2, 3
+  mov R1, [R2]
+  mov R2, [4691]
+  idiv R2, 2
+  ile R1, R2
+  and R0, R1
+__LogicalAnd_ShortCircuit_8428:
+  jf R0, __if_8417_end
+  mov R0, 1
+  mov [global_BossEnraged], R0
+  mov R1, 15
+  mov [SP], R1
+  mov R1, 1.000000
+  mov [SP+1], R1
+  mov R1, 1.150000
+  mov [SP+2], R1
+  call __function_PlaySfx
+  mov R1, __literal_string_8444
+  mov [SP], R1
+  call __function_ShowMessage
+__if_8417_end:
+__function_DamageEnemy_return:
+  mov SP, BP
+  pop BP
+  ret
+
+__function_FindTarget:
+  push BP
+  mov BP, SP
+  isub SP, 9
+  push R1
+  push R2
+  push R3
+  push R4
+  push R5
+  isub SP, 1
   mov R0, 1.000000
   mov R1, [global_PlaneX]
   mov R2, [global_DirY]
@@ -12402,95 +12864,129 @@ __function_FireWeapon:
   fsub R1, R2
   fdiv R0, R1
   mov [BP-1], R0
-  mov R0, -1
+  mov R0, [BP+2]
+  fmul R0, 64.000000
+  cfi R0
+  iadd R0, 64
   mov [BP-2], R0
-  mov R0, [7593]
-  mov [BP-3], R0
+__if_8474_start:
+  mov R0, [BP-2]
+  ilt R0, 0
+  jf R0, __if_8474_end
   mov R0, 0
+  mov [BP-2], R0
+__if_8474_end:
+__if_8481_start:
+  mov R0, [BP-2]
+  igt R0, 127
+  jf R0, __if_8481_end
+  mov R0, 127
+  mov [BP-2], R0
+__if_8481_end:
+  mov R0, global_ZBuffer
+  mov R1, [BP-2]
+  iadd R0, R1
+  mov R0, [R0]
+  mov [BP-3], R0
+__if_8497_start:
+  mov R0, [BP-3]
+  mov R1, [BP+3]
+  fgt R0, R1
+  jf R0, __if_8497_end
+  mov R0, [BP+3]
+  mov [BP-3], R0
+__if_8497_end:
+  mov R0, -1
   mov [BP-4], R0
-__for_8128_start:
-  mov R0, [BP-4]
+  mov R0, 0
+  mov [BP-5], R0
+__for_8508_start:
+  mov R0, [BP-5]
   ilt R0, 24
-  jf R0, __for_8128_end
-__if_8138_start:
+  jf R0, __for_8508_end
+__if_8518_start:
   mov R1, global_Enemies
-  mov R2, [BP-4]
+  mov R2, [BP-5]
   imul R2, 11
   iadd R1, R2
   iadd R1, 2
   mov R0, [R1]
   ilt R0, 0
-  jt R0, __LogicalOr_ShortCircuit_8150
+  jt R0, __LogicalOr_ShortCircuit_8530
   mov R2, global_Enemies
-  mov R3, [BP-4]
+  mov R3, [BP-5]
   imul R3, 11
   iadd R2, R3
   iadd R2, 4
   mov R1, [R2]
   bnot R1
   or R0, R1
-__LogicalOr_ShortCircuit_8150:
-  jf R0, __if_8138_end
-  jmp __for_8128_continue
-__if_8138_end:
+__LogicalOr_ShortCircuit_8530:
+  jf R0, __if_8518_end
+  jmp __for_8508_continue
+__if_8518_end:
   mov R1, global_Enemies
-  mov R2, [BP-4]
+  mov R2, [BP-5]
   imul R2, 11
   iadd R1, R2
   mov R0, [R1]
   mov R1, [global_PlayerX]
   fsub R0, R1
-  mov [BP-5], R0
+  mov [BP-6], R0
   mov R1, global_Enemies
-  mov R2, [BP-4]
+  mov R2, [BP-5]
   imul R2, 11
   iadd R1, R2
   iadd R1, 1
   mov R0, [R1]
   mov R1, [global_PlayerY]
   fsub R0, R1
-  mov [BP-6], R0
+  mov [BP-7], R0
   mov R0, [BP-1]
   mov R1, [global_DirY]
-  mov R2, [BP-5]
+  mov R2, [BP-6]
   fmul R1, R2
   mov R2, [global_DirX]
-  mov R3, [BP-6]
+  mov R3, [BP-7]
   fmul R2, R3
   fsub R1, R2
   fmul R0, R1
-  mov [BP-7], R0
+  mov [BP-8], R0
   mov R0, [BP-1]
   mov R1, [global_PlaneY]
   fsgn R1
-  mov R2, [BP-5]
+  mov R2, [BP-6]
   fmul R1, R2
   mov R2, [global_PlaneX]
-  mov R3, [BP-6]
+  mov R3, [BP-7]
   fmul R2, R3
   fadd R1, R2
   fmul R0, R1
-  mov [BP-8], R0
-__if_8193_start:
-  mov R0, [BP-8]
+  mov [BP-9], R0
+__if_8573_start:
+  mov R0, [BP-9]
   flt R0, 0.100000
-  jt R0, __LogicalOr_ShortCircuit_8198
-  mov R1, [BP-8]
+  jt R0, __LogicalOr_ShortCircuit_8578
+  mov R1, [BP-9]
   mov R2, [BP-3]
   fge R1, R2
   or R0, R1
-__LogicalOr_ShortCircuit_8198:
-  jf R0, __if_8193_end
-  jmp __for_8128_continue
-__if_8193_end:
-__if_8202_start:
-  mov R2, [BP-7]
+__LogicalOr_ShortCircuit_8578:
+  jf R0, __if_8573_end
+  jmp __for_8508_continue
+__if_8573_end:
+__if_8582_start:
+  mov R2, [BP-8]
+  mov R3, [BP+2]
+  mov R4, [BP-9]
+  fmul R3, R4
+  fsub R2, R3
   mov [SP], R2
   call __function_fabs
   mov R1, R0
   mov R2, global_TypeHitRadius
   mov R4, global_Enemies
-  mov R5, [BP-4]
+  mov R5, [BP-5]
   imul R5, 11
   iadd R4, R5
   iadd R4, 2
@@ -12499,132 +12995,645 @@ __if_8202_start:
   mov R2, [R2]
   flt R1, R2
   mov R0, R1
-  jf R0, __if_8202_end
-  mov R0, [BP-4]
-  mov [BP-2], R0
-  mov R0, [BP-8]
+  jf R0, __if_8582_end
+  mov R0, [BP-5]
+  mov [BP-4], R0
+  mov R0, [BP-9]
   mov [BP-3], R0
-__if_8202_end:
-__for_8128_continue:
-  mov R0, [BP-4]
+__if_8582_end:
+__for_8508_continue:
+  mov R0, [BP-5]
   mov R1, R0
   iadd R1, 1
-  mov [BP-4], R1
-  jmp __for_8128_start
-__for_8128_end:
-__if_8219_start:
+  mov [BP-5], R1
+  jmp __for_8508_start
+__for_8508_end:
+  mov R0, [BP-4]
+__function_FindTarget_return:
+  iadd SP, 1
+  pop R5
+  pop R4
+  pop R3
+  pop R2
+  pop R1
+  mov SP, BP
+  pop BP
+  ret
+
+__function_FireBlaster:
+  push BP
+  mov BP, SP
+  isub SP, 5
+  mov R0, [global_Ammo]
+  mov R1, R0
+  isub R1, 1
+  mov [global_Ammo], R1
+  mov R0, 12
+  mov [global_FireTimer], R0
+  mov R0, 4
+  mov [global_FlashTimer], R0
+  call __function_RandomPitch
+  mov R1, R0
+  mov [BP-2], R1
+  mov R1, 0
+  mov [SP], R1
+  mov R1, 0.700000
+  mov [SP+1], R1
+  mov R1, [BP-2]
+  mov [SP+2], R1
+  call __function_PlaySfx
+  mov R1, 0.000000
+  mov [SP], R1
+  mov R1, 100.000000
+  mov [SP+1], R1
+  call __function_FindTarget
+  mov [BP-1], R0
+__if_8623_start:
+  mov R0, [BP-1]
+  ige R0, 0
+  jf R0, __if_8623_end
+  mov R1, [BP-1]
+  mov [SP], R1
+  mov R1, 1
+  mov [SP+1], R1
+  call __function_DamageEnemy
+__if_8623_end:
+__function_FireBlaster_return:
+  mov SP, BP
+  pop BP
+  ret
+
+__function_FireShotgun:
+  push BP
+  mov BP, SP
+  isub SP, 6
+  mov R0, [global_Shells]
+  mov R1, R0
+  isub R1, 1
+  mov [global_Shells], R1
+  mov R0, 40
+  mov [global_FireTimer], R0
+  mov R0, 6
+  mov [global_FlashTimer], R0
+  call __function_RandomPitch
+  mov R1, R0
+  mov [BP-3], R1
+  mov R1, 16
+  mov [SP], R1
+  mov R1, 0.900000
+  mov [SP+1], R1
+  mov R1, [BP-3]
+  mov [SP+2], R1
+  call __function_PlaySfx
+  mov R0, 0
+  mov [BP-1], R0
+__for_8643_start:
+  mov R0, [BP-1]
+  ilt R0, 24
+  jf R0, __for_8643_end
+  mov R0, 0
+  mov R1, global_PelletHits
+  mov R2, [BP-1]
+  iadd R1, R2
+  mov [R1], R0
+__for_8643_continue:
+  mov R0, [BP-1]
+  mov R1, R0
+  iadd R1, 1
+  mov [BP-1], R1
+  jmp __for_8643_start
+__for_8643_end:
+  mov R0, 0
+  mov [BP-1], R0
+__for_8657_start:
+  mov R0, [BP-1]
+  ilt R0, 7
+  jf R0, __for_8657_end
+  mov R1, [BP-1]
+  isub R1, 3
+  cif R1
+  fmul R1, 0.045000
+  mov [SP], R1
+  mov R1, 12.000000
+  mov [SP+1], R1
+  call __function_FindTarget
+  mov [BP-2], R0
+__if_8677_start:
   mov R0, [BP-2]
-  ilt R0, 0
-  jf R0, __if_8219_end
-  jmp __function_FireWeapon_return
-__if_8219_end:
-  mov R2, global_Enemies
+  ige R0, 0
+  jf R0, __if_8677_end
+  mov R2, global_PelletHits
   mov R3, [BP-2]
+  iadd R2, R3
+  mov R0, [R2]
+  mov R1, R0
+  iadd R1, 1
+  mov [R2], R1
+__if_8677_end:
+__for_8657_continue:
+  mov R0, [BP-1]
+  mov R1, R0
+  iadd R1, 1
+  mov [BP-1], R1
+  jmp __for_8657_start
+__for_8657_end:
+  mov R0, 0
+  mov [BP-1], R0
+__for_8685_start:
+  mov R0, [BP-1]
+  ilt R0, 24
+  jf R0, __for_8685_end
+__if_8694_start:
+  mov R0, global_PelletHits
+  mov R1, [BP-1]
+  iadd R0, R1
+  mov R0, [R0]
+  igt R0, 0
+  jf R0, __LogicalAnd_ShortCircuit_8704
+  mov R2, global_Enemies
+  mov R3, [BP-1]
   imul R3, 11
   iadd R2, R3
-  iadd R2, 3
+  iadd R2, 4
+  mov R1, [R2]
+  cib R1
+  and R0, R1
+__LogicalAnd_ShortCircuit_8704:
+  jf R0, __if_8694_end
+  mov R1, [BP-1]
+  mov [SP], R1
+  mov R1, global_PelletHits
+  mov R2, [BP-1]
+  iadd R1, R2
+  mov R1, [R1]
+  mov [SP+1], R1
+  call __function_DamageEnemy
+__if_8694_end:
+__for_8685_continue:
+  mov R0, [BP-1]
+  mov R1, R0
+  iadd R1, 1
+  mov [BP-1], R1
+  jmp __for_8685_start
+__for_8685_end:
+__function_FireShotgun_return:
+  mov SP, BP
+  pop BP
+  ret
+
+__function_FireRifle:
+  push BP
+  mov BP, SP
+  isub SP, 5
+  mov R0, [global_Cells]
+  mov R1, R0
+  isub R1, 1
+  mov [global_Cells], R1
+  mov R0, 5
+  mov [global_FireTimer], R0
+  mov R0, 3
+  mov [global_FlashTimer], R0
+  call __function_RandomPitch
+  mov R1, R0
+  mov [BP-2], R1
+  mov R1, 17
+  mov [SP], R1
+  mov R1, 0.500000
+  mov [SP+1], R1
+  mov R1, [BP-2]
+  mov [SP+2], R1
+  call __function_PlaySfx
+  mov R0, 0
+  mov [BP-1], R0
+__for_8723_start:
+  mov R0, [BP-1]
+  ilt R0, 16
+  jf R0, __for_8723_end
+__if_8733_start:
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  iadd R1, 4
+  mov R0, [R1]
+  cib R0
+  jf R0, __if_8733_end
+  jmp __for_8723_continue
+__if_8733_end:
+  mov R0, [global_PlayerX]
+  mov R1, [global_DirX]
+  fmul R1, 0.300000
+  fadd R0, R1
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  mov [R1], R0
+  mov R0, [global_PlayerY]
+  mov R1, [global_DirY]
+  fmul R1, 0.300000
+  fadd R0, R1
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  iadd R1, 1
+  mov [R1], R0
+  mov R0, [global_DirX]
+  fmul R0, 0.320000
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  iadd R1, 2
+  mov [R1], R0
+  mov R0, [global_DirY]
+  fmul R0, 0.320000
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  iadd R1, 3
+  mov [R1], R0
+  mov R0, 70
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  iadd R1, 7
+  mov [R1], R0
+  mov R0, 1
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  iadd R1, 4
+  mov [R1], R0
+  jmp __function_FireRifle_return
+__for_8723_continue:
+  mov R0, [BP-1]
+  mov R1, R0
+  iadd R1, 1
+  mov [BP-1], R1
+  jmp __for_8723_start
+__for_8723_end:
+__function_FireRifle_return:
+  mov SP, BP
+  pop BP
+  ret
+
+__function_WeaponAmmo:
+  push BP
+  mov BP, SP
+__if_8790_start:
+  mov R0, [BP+2]
+  ieq R0, 1
+  jf R0, __if_8790_end
+  mov R0, [global_Shells]
+  jmp __function_WeaponAmmo_return
+__if_8790_end:
+__if_8796_start:
+  mov R0, [BP+2]
+  ieq R0, 2
+  jf R0, __if_8796_end
+  mov R0, [global_Cells]
+  jmp __function_WeaponAmmo_return
+__if_8796_end:
+  mov R0, [global_Ammo]
+__function_WeaponAmmo_return:
+  mov SP, BP
+  pop BP
+  ret
+
+__function_OwnsWeapon:
+  push BP
+  mov BP, SP
+__if_8806_start:
+  mov R0, [BP+2]
+  ieq R0, 1
+  jf R0, __if_8806_end
+  mov R0, [global_HasShotgun]
+  jmp __function_OwnsWeapon_return
+__if_8806_end:
+__if_8812_start:
+  mov R0, [BP+2]
+  ieq R0, 2
+  jf R0, __if_8812_end
+  mov R0, [global_HasRifle]
+  jmp __function_OwnsWeapon_return
+__if_8812_end:
+  mov R0, 1
+__function_OwnsWeapon_return:
+  mov SP, BP
+  pop BP
+  ret
+
+__function_NextWeapon:
+  push BP
+  mov BP, SP
+  isub SP, 5
+  mov R0, [global_Weapon]
+  mov [BP-1], R0
+  mov R0, 0
+  mov [BP-2], R0
+__for_8825_start:
+  mov R0, [BP-2]
+  ilt R0, 3
+  jf R0, __for_8825_end
+  mov R0, [BP-1]
+  iadd R0, 1
+  imod R0, 3
+  mov [BP-1], R0
+__if_8843_start:
+  mov R2, [BP-1]
+  mov [SP], R2
+  call __function_OwnsWeapon
+  mov R1, R0
+  bnot R1
+  mov R0, R1
+  jf R0, __if_8843_end
+  jmp __for_8825_continue
+__if_8843_end:
+__if_8848_start:
+  mov R1, [BP+2]
+  cib R1
+  jf R1, __LogicalAnd_ShortCircuit_8850
+  mov R3, [BP-1]
+  mov [SP], R3
+  call __function_WeaponAmmo
+  mov R2, R0
+  ile R2, 0
+  and R1, R2
+__LogicalAnd_ShortCircuit_8850:
+  mov R0, R1
+  jf R0, __if_8848_end
+  jmp __for_8825_continue
+__if_8848_end:
+__if_8856_start:
+  mov R0, [BP-1]
+  mov R1, [global_Weapon]
+  ine R0, R1
+  jf R0, __if_8856_end
+  mov R0, [BP-1]
+  mov [global_Weapon], R0
+  mov R0, 10
+  mov [global_FireTimer], R0
+  mov R1, 6
+  mov [SP], R1
+  mov R1, 0.600000
+  mov [SP+1], R1
+  mov R1, 1.500000
+  mov [SP+2], R1
+  call __function_PlaySfx
+__if_8856_end:
+  jmp __function_NextWeapon_return
+__for_8825_continue:
+  mov R0, [BP-2]
+  mov R1, R0
+  iadd R1, 1
+  mov [BP-2], R1
+  jmp __for_8825_start
+__for_8825_end:
+__function_NextWeapon_return:
+  mov SP, BP
+  pop BP
+  ret
+
+__function_UpdateBolts:
+  push BP
+  mov BP, SP
+  isub SP, 12
+  mov R0, 0
+  mov [BP-1], R0
+__for_8873_start:
+  mov R0, [BP-1]
+  ilt R0, 16
+  jf R0, __for_8873_end
+__if_8883_start:
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  iadd R1, 4
+  mov R0, [R1]
+  bnot R0
+  jf R0, __if_8883_end
+  jmp __for_8873_continue
+__if_8883_end:
+  mov R2, global_Bolts
+  mov R3, [BP-1]
+  imul R3, 8
+  iadd R2, R3
+  iadd R2, 7
   mov R0, [R2]
   mov R1, R0
   isub R1, 1
   mov [R2], R1
-  mov R0, 10
-  mov R1, global_Enemies
-  mov R2, [BP-2]
-  imul R2, 11
+  mov R0, 0
+  mov [BP-2], R0
+__for_8895_start:
+  mov R0, [BP-2]
+  ilt R0, 2
+  jf R0, __LogicalAnd_ShortCircuit_8906
+  mov R2, global_Bolts
+  mov R3, [BP-1]
+  imul R3, 8
+  iadd R2, R3
+  iadd R2, 4
+  mov R1, [R2]
+  cib R1
+  and R0, R1
+__LogicalAnd_ShortCircuit_8906:
+  jf R0, __for_8895_end
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
   iadd R1, R2
-  iadd R1, 5
+  mov R0, [R1]
+  mov R3, global_Bolts
+  mov R4, [BP-1]
+  imul R4, 8
+  iadd R3, R4
+  iadd R3, 2
+  mov R2, [R3]
+  fmul R2, 0.500000
+  fadd R0, R2
   mov [R1], R0
-  mov R0, 1
-  mov R1, global_Enemies
-  mov R2, [BP-2]
-  imul R2, 11
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
   iadd R1, R2
-  iadd R1, 9
+  iadd R1, 1
+  mov R0, [R1]
+  mov R3, global_Bolts
+  mov R4, [BP-1]
+  imul R4, 8
+  iadd R3, R4
+  iadd R3, 3
+  mov R2, [R3]
+  fmul R2, 0.500000
+  fadd R0, R2
   mov [R1], R0
-__if_8241_start:
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  mov R0, [R1]
+  mov [BP-3], R0
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  iadd R1, 1
+  mov R0, [R1]
+  mov [BP-4], R0
+__if_8944_start:
+  mov R2, [BP-3]
+  mov [SP], R2
+  mov R2, [BP-4]
+  mov [SP+1], R2
+  call __function_IsWall
+  mov R1, R0
+  cib R1
+  jt R1, __LogicalOr_ShortCircuit_8948
+  mov R3, global_Bolts
+  mov R4, [BP-1]
+  imul R4, 8
+  iadd R3, R4
+  iadd R3, 7
+  mov R2, [R3]
+  ile R2, 0
+  or R1, R2
+__LogicalOr_ShortCircuit_8948:
+  mov R0, R1
+  jf R0, __if_8944_end
+  mov R0, 0
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  iadd R1, 4
+  mov [R1], R0
+  mov R2, [BP-3]
+  mov [SP], R2
+  mov R2, [BP-4]
+  mov [SP+1], R2
+  call __function_VolumeAt
+  mov R1, R0
+  fmul R1, 0.300000
+  mov [BP-9], R1
+  mov R1, 12
+  mov [SP], R1
+  mov R1, [BP-9]
+  mov [SP+1], R1
+  mov R1, 1.600000
+  mov [SP+2], R1
+  call __function_PlaySfx
+  jmp __for_8895_end
+__if_8944_end:
+  mov R0, 0
+  mov [BP-5], R0
+__for_8971_start:
+  mov R0, [BP-5]
+  ilt R0, 24
+  jf R0, __for_8971_end
+__if_8981_start:
   mov R1, global_Enemies
-  mov R2, [BP-2]
+  mov R2, [BP-5]
   imul R2, 11
   iadd R1, R2
   iadd R1, 2
   mov R0, [R1]
-  ine R0, 4
-  jf R0, __if_8241_end
-  mov R1, global_Enemies
-  mov R2, [BP-2]
-  imul R2, 11
-  iadd R1, R2
-  iadd R1, 7
-  mov R0, [R1]
-  iadd R0, 20
-  mov R1, global_Enemies
-  mov R2, [BP-2]
-  imul R2, 11
-  iadd R1, R2
-  iadd R1, 7
-  mov [R1], R0
-__if_8241_end:
-__if_8254_start:
-  mov R1, global_Enemies
-  mov R2, [BP-2]
-  imul R2, 11
-  iadd R1, R2
-  iadd R1, 3
-  mov R0, [R1]
-  ile R0, 0
-  jf R0, __if_8254_else
-  mov R1, [BP-2]
-  mov [SP], R1
-  call __function_KillEnemy
-  jmp __if_8254_end
-__if_8254_else:
-  call __function_RandomPitch
-  mov R1, R0
-  mov [BP-9], R1
-  mov R1, 2
-  mov [SP], R1
-  mov R1, 0.800000
-  mov [SP+1], R1
-  mov R1, [BP-9]
-  mov [SP+2], R1
-  call __function_PlaySfx
-__if_8268_start:
-  mov R0, [BP-2]
-  mov R1, [global_BossIndex]
-  ieq R0, R1
-  jf R0, __LogicalAnd_ShortCircuit_8274
-  mov R1, [global_BossEnraged]
-  bnot R1
-  and R0, R1
-__LogicalAnd_ShortCircuit_8274:
-  jf R0, __LogicalAnd_ShortCircuit_8279
+  ilt R0, 0
+  jt R0, __LogicalOr_ShortCircuit_8993
   mov R2, global_Enemies
-  mov R3, [BP-2]
+  mov R3, [BP-5]
   imul R3, 11
   iadd R2, R3
-  iadd R2, 3
+  iadd R2, 4
   mov R1, [R2]
-  mov R2, [4595]
-  idiv R2, 2
-  ile R1, R2
-  and R0, R1
-__LogicalAnd_ShortCircuit_8279:
-  jf R0, __if_8268_end
-  mov R0, 1
-  mov [global_BossEnraged], R0
-  mov R1, 15
+  bnot R1
+  or R0, R1
+__LogicalOr_ShortCircuit_8993:
+  jf R0, __if_8981_end
+  jmp __for_8971_continue
+__if_8981_end:
+  mov R1, global_Enemies
+  mov R2, [BP-5]
+  imul R2, 11
+  iadd R1, R2
+  mov R0, [R1]
+  mov R1, [BP-3]
+  fsub R0, R1
+  mov [BP-6], R0
+  mov R1, global_Enemies
+  mov R2, [BP-5]
+  imul R2, 11
+  iadd R1, R2
+  iadd R1, 1
+  mov R0, [R1]
+  mov R1, [BP-4]
+  fsub R0, R1
+  mov [BP-7], R0
+  mov R0, global_TypeHitRadius
+  mov R2, global_Enemies
+  mov R3, [BP-5]
+  imul R3, 11
+  iadd R2, R3
+  iadd R2, 2
+  mov R1, [R2]
+  iadd R0, R1
+  mov R0, [R0]
+  mov [BP-8], R0
+__if_9019_start:
+  mov R0, [BP-6]
+  mov R1, [BP-6]
+  fmul R0, R1
+  mov R1, [BP-7]
+  mov R2, [BP-7]
+  fmul R1, R2
+  fadd R0, R1
+  mov R1, [BP-8]
+  mov R2, [BP-8]
+  fmul R1, R2
+  flt R0, R1
+  jf R0, __if_9019_end
+  mov R0, 0
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  iadd R1, 4
+  mov [R1], R0
+  mov R1, [BP-5]
   mov [SP], R1
-  mov R1, 1.000000
+  mov R1, 1
   mov [SP+1], R1
-  mov R1, 1.150000
-  mov [SP+2], R1
-  call __function_PlaySfx
-  mov R1, __literal_string_8295
-  mov [SP], R1
-  call __function_ShowMessage
-__if_8268_end:
-__if_8254_end:
-__function_FireWeapon_return:
+  call __function_DamageEnemy
+  jmp __for_8971_end
+__if_9019_end:
+__for_8971_continue:
+  mov R0, [BP-5]
+  mov R1, R0
+  iadd R1, 1
+  mov [BP-5], R1
+  jmp __for_8971_start
+__for_8971_end:
+__for_8895_continue:
+  mov R0, [BP-2]
+  mov R1, R0
+  iadd R1, 1
+  mov [BP-2], R1
+  jmp __for_8895_start
+__for_8895_end:
+__for_8873_continue:
+  mov R0, [BP-1]
+  mov R1, R0
+  iadd R1, 1
+  mov [BP-1], R1
+  jmp __for_8873_start
+__for_8873_end:
+__function_UpdateBolts_return:
   mov SP, BP
   pop BP
   ret
@@ -12645,47 +13654,47 @@ __function_UseInFront:
   fadd R0, R1
   cfi R0
   mov [BP-2], R0
-__if_8315_start:
+__if_9061_start:
   mov R0, [BP-1]
   ilt R0, 1
-  jt R0, __LogicalOr_ShortCircuit_8320
+  jt R0, __LogicalOr_ShortCircuit_9066
   mov R1, [BP-2]
   ilt R1, 1
   or R0, R1
-__LogicalOr_ShortCircuit_8320:
-  jt R0, __LogicalOr_ShortCircuit_8324
+__LogicalOr_ShortCircuit_9066:
+  jt R0, __LogicalOr_ShortCircuit_9070
   mov R1, [BP-1]
   ige R1, 31
   or R0, R1
-__LogicalOr_ShortCircuit_8324:
-  jt R0, __LogicalOr_ShortCircuit_8330
+__LogicalOr_ShortCircuit_9070:
+  jt R0, __LogicalOr_ShortCircuit_9076
   mov R1, [BP-2]
   ige R1, 31
   or R0, R1
-__LogicalOr_ShortCircuit_8330:
-  jf R0, __if_8315_end
-__if_8336_start:
+__LogicalOr_ShortCircuit_9076:
+  jf R0, __if_9061_end
+__if_9082_start:
   mov R0, [BP-1]
   ilt R0, 0
-  jt R0, __LogicalOr_ShortCircuit_8341
+  jt R0, __LogicalOr_ShortCircuit_9087
   mov R1, [BP-2]
   ilt R1, 0
   or R0, R1
-__LogicalOr_ShortCircuit_8341:
-  jt R0, __LogicalOr_ShortCircuit_8345
+__LogicalOr_ShortCircuit_9087:
+  jt R0, __LogicalOr_ShortCircuit_9091
   mov R1, [BP-1]
   ige R1, 32
   or R0, R1
-__LogicalOr_ShortCircuit_8345:
-  jt R0, __LogicalOr_ShortCircuit_8349
+__LogicalOr_ShortCircuit_9091:
+  jt R0, __LogicalOr_ShortCircuit_9095
   mov R1, [BP-2]
   ige R1, 32
   or R0, R1
-__LogicalOr_ShortCircuit_8349:
-  jf R0, __if_8336_end
+__LogicalOr_ShortCircuit_9095:
+  jf R0, __if_9082_end
   jmp __function_UseInFront_return
-__if_8336_end:
-__if_8353_start:
+__if_9082_end:
+__if_9099_start:
   mov R0, global_Map
   mov R2, [BP-2]
   imul R2, 32
@@ -12694,10 +13703,10 @@ __if_8353_start:
   iadd R0, R1
   mov R0, [R0]
   ine R0, 5
-  jf R0, __if_8353_end
+  jf R0, __if_9099_end
   jmp __function_UseInFront_return
-__if_8353_end:
-__if_8315_end:
+__if_9099_end:
+__if_9061_end:
   mov R0, global_Map
   mov R2, [BP-2]
   imul R2, 32
@@ -12706,10 +13715,10 @@ __if_8315_end:
   iadd R0, R1
   mov R0, [R0]
   mov [BP-3], R0
-__if_8369_start:
+__if_9115_start:
   mov R0, [BP-3]
   ige R0, 11
-  jf R0, __if_8369_else
+  jf R0, __if_9115_else
   mov R0, 0
   mov R1, global_Map
   mov R2, [BP-2]
@@ -12729,15 +13738,15 @@ __if_8369_start:
   mov R1, 1.000000
   mov [SP+2], R1
   call __function_PlaySfx
-  mov R1, __literal_string_8388
+  mov R1, __literal_string_9134
   mov [SP], R1
   call __function_ShowMessage
-  jmp __if_8369_end
-__if_8369_else:
-__if_8389_start:
+  jmp __if_9115_end
+__if_9115_else:
+__if_9135_start:
   mov R0, [BP-3]
   ieq R0, 5
-  jf R0, __if_8389_end
+  jf R0, __if_9135_end
   mov R0, [global_TotalKills]
   mov R1, [global_Kills]
   iadd R0, R1
@@ -12757,10 +13766,10 @@ __if_8389_start:
   call __function_stop_all_channels
   mov R0, 0
   mov [global_StateTimer], R0
-__if_8410_start:
+__if_9156_start:
   mov R0, [global_CurrentLevel]
   ige R0, 3
-  jf R0, __if_8410_else
+  jf R0, __if_9156_else
   mov R1, 8
   mov [SP], R1
   mov R1, 1.000000
@@ -12770,8 +13779,8 @@ __if_8410_start:
   call __function_PlaySfx
   mov R0, 5
   mov [global_GameState], R0
-  jmp __if_8410_end
-__if_8410_else:
+  jmp __if_9156_end
+__if_9156_else:
   mov R1, 14
   mov [SP], R1
   mov R1, 1.000000
@@ -12781,9 +13790,9 @@ __if_8410_else:
   call __function_PlaySfx
   mov R0, 3
   mov [global_GameState], R0
-__if_8410_end:
-__if_8389_end:
-__if_8369_end:
+__if_9156_end:
+__if_9135_end:
+__if_9115_end:
 __function_UseInFront_return:
   mov SP, BP
   pop BP
@@ -12807,28 +13816,28 @@ __function_FacingExit:
   fadd R0, R1
   cfi R0
   mov [BP-2], R0
-__if_8451_start:
+__if_9197_start:
   mov R0, [BP-1]
   ilt R0, 0
-  jt R0, __LogicalOr_ShortCircuit_8456
+  jt R0, __LogicalOr_ShortCircuit_9202
   mov R1, [BP-2]
   ilt R1, 0
   or R0, R1
-__LogicalOr_ShortCircuit_8456:
-  jt R0, __LogicalOr_ShortCircuit_8460
+__LogicalOr_ShortCircuit_9202:
+  jt R0, __LogicalOr_ShortCircuit_9206
   mov R1, [BP-1]
   ige R1, 32
   or R0, R1
-__LogicalOr_ShortCircuit_8460:
-  jt R0, __LogicalOr_ShortCircuit_8464
+__LogicalOr_ShortCircuit_9206:
+  jt R0, __LogicalOr_ShortCircuit_9210
   mov R1, [BP-2]
   ige R1, 32
   or R0, R1
-__LogicalOr_ShortCircuit_8464:
-  jf R0, __if_8451_end
+__LogicalOr_ShortCircuit_9210:
+  jf R0, __if_9197_end
   mov R0, 0
   jmp __function_FacingExit_return
-__if_8451_end:
+__if_9197_end:
   mov R0, global_Map
   mov R2, [BP-2]
   imul R2, 32
@@ -12857,33 +13866,33 @@ __function_UpdatePlayer:
   mov [BP-2], R0
   mov R0, 0
   mov [BP-3], R0
-__if_8489_start:
+__if_9235_start:
   call __function_gamepad_left
   mov R1, R0
   igt R1, 0
   mov R0, R1
-  jf R0, __if_8489_end
+  jf R0, __if_9235_end
   mov R1, [BP-2]
   fsgn R1
   mov [SP], R1
   call __function_RotatePlayer
-__if_8489_end:
-__if_8496_start:
+__if_9235_end:
+__if_9242_start:
   call __function_gamepad_right
   mov R1, R0
   igt R1, 0
   mov R0, R1
-  jf R0, __if_8496_end
+  jf R0, __if_9242_end
   mov R1, [BP-2]
   mov [SP], R1
   call __function_RotatePlayer
-__if_8496_end:
-__if_8502_start:
+__if_9242_end:
+__if_9248_start:
   call __function_gamepad_up
   mov R1, R0
   igt R1, 0
   mov R0, R1
-  jf R0, __if_8502_end
+  jf R0, __if_9248_end
   mov R1, [global_DirX]
   mov R2, [BP-1]
   fmul R1, R2
@@ -12895,13 +13904,13 @@ __if_8502_start:
   call __function_TryMove
   mov R0, 1
   mov [BP-3], R0
-__if_8502_end:
-__if_8517_start:
+__if_9248_end:
+__if_9263_start:
   call __function_gamepad_down
   mov R1, R0
   igt R1, 0
   mov R0, R1
-  jf R0, __if_8517_end
+  jf R0, __if_9263_end
   mov R1, [global_DirX]
   fsgn R1
   mov R2, [BP-1]
@@ -12915,17 +13924,17 @@ __if_8517_start:
   call __function_TryMove
   mov R0, 1
   mov [BP-3], R0
-__if_8517_end:
+__if_9263_end:
   mov R0, [BP-1]
   fmul R0, 0.800000
   fdiv R0, 0.660000
   mov [BP-4], R0
-__if_8541_start:
+__if_9287_start:
   call __function_gamepad_button_l
   mov R1, R0
   igt R1, 0
   mov R0, R1
-  jf R0, __if_8541_end
+  jf R0, __if_9287_end
   mov R1, [global_PlaneX]
   fsgn R1
   mov R2, [BP-4]
@@ -12939,13 +13948,13 @@ __if_8541_start:
   call __function_TryMove
   mov R0, 1
   mov [BP-3], R0
-__if_8541_end:
-__if_8558_start:
+__if_9287_end:
+__if_9304_start:
   call __function_gamepad_button_r
   mov R1, R0
   igt R1, 0
   mov R0, R1
-  jf R0, __if_8558_end
+  jf R0, __if_9304_end
   mov R1, [global_PlaneX]
   mov R2, [BP-4]
   fmul R1, R2
@@ -12957,79 +13966,112 @@ __if_8558_start:
   call __function_TryMove
   mov R0, 1
   mov [BP-3], R0
-__if_8558_end:
-__if_8573_start:
+__if_9304_end:
+__if_9319_start:
   mov R0, [BP-3]
   cib R0
-  jf R0, __if_8573_end
+  jf R0, __if_9319_end
   mov R0, [global_WalkPhase]
   mov R1, R0
   iadd R1, 1
   mov [global_WalkPhase], R1
-__if_8573_end:
-__if_8577_start:
+__if_9319_end:
+__if_9323_start:
   call __function_gamepad_button_y
   mov R1, R0
   ieq R1, 1
   mov R0, R1
-  jf R0, __if_8577_end
+  jf R0, __if_9323_end
   mov R0, [global_ShowMap]
   bnot R0
   mov [global_ShowMap], R0
-__if_8577_end:
-__if_8585_start:
+__if_9323_end:
+__if_9331_start:
   call __function_gamepad_button_b
   mov R1, R0
   ieq R1, 1
   mov R0, R1
-  jf R0, __if_8585_end
+  jf R0, __if_9331_end
   call __function_UseInFront
-__if_8585_end:
-__if_8590_start:
+__if_9331_end:
+__if_9336_start:
   mov R0, [global_GameState]
   ine R0, 2
-  jf R0, __if_8590_end
+  jf R0, __if_9336_end
   jmp __function_UpdatePlayer_return
-__if_8590_end:
-__if_8595_start:
+__if_9336_end:
+__if_9341_start:
   mov R0, [global_FireTimer]
   igt R0, 0
-  jf R0, __if_8595_end
+  jf R0, __if_9341_end
   mov R0, [global_FireTimer]
   mov R1, R0
   isub R1, 1
   mov [global_FireTimer], R1
-__if_8595_end:
-__if_8601_start:
+__if_9341_end:
+__if_9347_start:
+  mov R0, [global_FlashTimer]
+  igt R0, 0
+  jf R0, __if_9347_end
+  mov R0, [global_FlashTimer]
+  mov R1, R0
+  isub R1, 1
+  mov [global_FlashTimer], R1
+__if_9347_end:
+__if_9353_start:
+  call __function_gamepad_button_x
+  mov R1, R0
+  ieq R1, 1
+  mov R0, R1
+  jf R0, __if_9353_end
+  mov R1, 0
+  mov [SP], R1
+  call __function_NextWeapon
+__if_9353_end:
+__if_9359_start:
   call __function_gamepad_button_a
   mov R1, R0
   igt R1, 0
-  jf R1, __LogicalAnd_ShortCircuit_8606
+  jf R1, __LogicalAnd_ShortCircuit_9364
   mov R2, [global_FireTimer]
   ieq R2, 0
   and R1, R2
-__LogicalAnd_ShortCircuit_8606:
-  jf R1, __LogicalAnd_ShortCircuit_8610
-  mov R2, [global_Ammo]
-  igt R2, 0
-  and R1, R2
-__LogicalAnd_ShortCircuit_8610:
+__LogicalAnd_ShortCircuit_9364:
   mov R0, R1
-  jf R0, __if_8601_else
-  call __function_FireWeapon
-  jmp __if_8601_end
-__if_8601_else:
-__if_8614_start:
+  jf R0, __if_9359_end
+__if_9368_start:
+  mov R2, [global_Weapon]
+  mov [SP], R2
+  call __function_WeaponAmmo
+  mov R1, R0
+  igt R1, 0
+  mov R0, R1
+  jf R0, __if_9368_else
+__if_9374_start:
+  mov R0, [global_Weapon]
+  ieq R0, 1
+  jf R0, __if_9374_else
+  call __function_FireShotgun
+  jmp __if_9374_end
+__if_9374_else:
+__if_9379_start:
+  mov R0, [global_Weapon]
+  ieq R0, 2
+  jf R0, __if_9379_else
+  call __function_FireRifle
+  jmp __if_9379_end
+__if_9379_else:
+  call __function_FireBlaster
+__if_9379_end:
+__if_9374_end:
+  jmp __if_9368_end
+__if_9368_else:
+__if_9385_start:
   call __function_gamepad_button_a
   mov R1, R0
   ieq R1, 1
-  jf R1, __LogicalAnd_ShortCircuit_8619
-  mov R2, [global_Ammo]
-  ieq R2, 0
-  and R1, R2
-__LogicalAnd_ShortCircuit_8619:
   mov R0, R1
-  jf R0, __if_8614_end
+  jf R0, __if_9385_end
   mov R1, 6
   mov [SP], R1
   mov R1, 0.800000
@@ -13037,15 +14079,19 @@ __LogicalAnd_ShortCircuit_8619:
   mov R1, 1.000000
   mov [SP+2], R1
   call __function_PlaySfx
-__if_8614_end:
-__if_8601_end:
+  mov R1, 1
+  mov [SP], R1
+  call __function_NextWeapon
+__if_9385_end:
+__if_9368_end:
+__if_9359_end:
   mov R0, 0
   mov [BP-5], R0
-__for_8626_start:
+__for_9396_start:
   mov R0, [BP-5]
-  ilt R0, 24
-  jf R0, __for_8626_end
-__if_8636_start:
+  ilt R0, 32
+  jf R0, __for_9396_end
+__if_9406_start:
   mov R1, global_Items
   mov R2, [BP-5]
   imul R2, 5
@@ -13053,9 +14099,9 @@ __if_8636_start:
   iadd R1, 4
   mov R0, [R1]
   bnot R0
-  jf R0, __if_8636_end
-  jmp __for_8626_continue
-__if_8636_end:
+  jf R0, __if_9406_end
+  jmp __for_9396_continue
+__if_9406_end:
   mov R1, global_Items
   mov R2, [BP-5]
   imul R2, 5
@@ -13073,7 +14119,7 @@ __if_8636_end:
   mov R1, [global_PlayerY]
   fsub R0, R1
   mov [BP-7], R0
-__if_8659_start:
+__if_9429_start:
   mov R0, [BP-6]
   mov R1, [BP-6]
   fmul R0, R1
@@ -13082,9 +14128,9 @@ __if_8659_start:
   fmul R1, R2
   fadd R0, R1
   fgt R0, 0.360000
-  jf R0, __if_8659_end
-  jmp __for_8626_continue
-__if_8659_end:
+  jf R0, __if_9429_end
+  jmp __for_9396_continue
+__if_9429_end:
   mov R1, global_Items
   mov R2, [BP-5]
   imul R2, 5
@@ -13092,16 +14138,16 @@ __if_8659_end:
   iadd R1, 2
   mov R0, [R1]
   mov [BP-8], R0
-__if_8676_start:
+__if_9446_start:
   mov R0, [BP-8]
   ieq R0, 5
-  jf R0, __if_8676_else
-__if_8681_start:
+  jf R0, __if_9446_else
+__if_9451_start:
   mov R0, [global_Health]
   ige R0, 100
-  jf R0, __if_8681_end
-  jmp __for_8626_continue
-__if_8681_end:
+  jf R0, __if_9451_end
+  jmp __for_9396_continue
+__if_9451_end:
   mov R2, 100
   mov [SP], R2
   mov R2, [global_Health]
@@ -13124,12 +14170,12 @@ __if_8681_end:
   mov R1, 1.000000
   mov [SP+2], R1
   call __function_PlaySfx
-  jmp __if_8676_end
-__if_8676_else:
-__if_8700_start:
+  jmp __if_9446_end
+__if_9446_else:
+__if_9470_start:
   mov R0, [BP-8]
   ieq R0, 6
-  jf R0, __if_8700_else
+  jf R0, __if_9470_else
   mov R0, [global_Ammo]
   mov R2, global_Items
   mov R3, [BP-5]
@@ -13146,25 +14192,137 @@ __if_8700_start:
   mov R1, 1.000000
   mov [SP+2], R1
   call __function_PlaySfx
-  jmp __if_8700_end
-__if_8700_else:
-__if_8716_start:
+  jmp __if_9470_end
+__if_9470_else:
+__if_9485_start:
+  mov R0, [BP-8]
+  ieq R0, 27
+  jf R0, __if_9485_else
+  mov R0, [global_Shells]
+  mov R2, global_Items
+  mov R3, [BP-5]
+  imul R3, 5
+  iadd R2, R3
+  iadd R2, 3
+  mov R1, [R2]
+  iadd R0, R1
+  mov [global_Shells], R0
+  mov R1, 5
+  mov [SP], R1
+  mov R1, 0.800000
+  mov [SP+1], R1
+  mov R1, 0.850000
+  mov [SP+2], R1
+  call __function_PlaySfx
+  jmp __if_9485_end
+__if_9485_else:
+__if_9500_start:
+  mov R0, [BP-8]
+  ieq R0, 28
+  jf R0, __if_9500_else
+  mov R0, [global_Cells]
+  mov R2, global_Items
+  mov R3, [BP-5]
+  imul R3, 5
+  iadd R2, R3
+  iadd R2, 3
+  mov R1, [R2]
+  iadd R0, R1
+  mov [global_Cells], R0
+  mov R1, 5
+  mov [SP], R1
+  mov R1, 0.800000
+  mov [SP+1], R1
+  mov R1, 1.150000
+  mov [SP+2], R1
+  call __function_PlaySfx
+  jmp __if_9500_end
+__if_9500_else:
+__if_9515_start:
+  mov R0, [BP-8]
+  ieq R0, 25
+  jf R0, __if_9515_else
+  mov R0, [global_Shells]
+  mov R2, global_Items
+  mov R3, [BP-5]
+  imul R3, 5
+  iadd R2, R3
+  iadd R2, 3
+  mov R1, [R2]
+  iadd R0, R1
+  mov [global_Shells], R0
+__if_9526_start:
+  mov R0, [global_HasShotgun]
+  bnot R0
+  jf R0, __if_9526_end
+  mov R0, 1
+  mov [global_HasShotgun], R0
+  mov R0, 1
+  mov [global_Weapon], R0
+  mov R1, __literal_string_9537
+  mov [SP], R1
+  call __function_ShowMessage
+__if_9526_end:
+  mov R1, 18
+  mov [SP], R1
+  mov R1, 1.000000
+  mov [SP+1], R1
+  mov R1, 1.000000
+  mov [SP+2], R1
+  call __function_PlaySfx
+  jmp __if_9515_end
+__if_9515_else:
+__if_9542_start:
+  mov R0, [BP-8]
+  ieq R0, 26
+  jf R0, __if_9542_else
+  mov R0, [global_Cells]
+  mov R2, global_Items
+  mov R3, [BP-5]
+  imul R3, 5
+  iadd R2, R3
+  iadd R2, 3
+  mov R1, [R2]
+  iadd R0, R1
+  mov [global_Cells], R0
+__if_9553_start:
+  mov R0, [global_HasRifle]
+  bnot R0
+  jf R0, __if_9553_end
+  mov R0, 1
+  mov [global_HasRifle], R0
+  mov R0, 2
+  mov [global_Weapon], R0
+  mov R1, __literal_string_9564
+  mov [SP], R1
+  call __function_ShowMessage
+__if_9553_end:
+  mov R1, 18
+  mov [SP], R1
+  mov R1, 1.000000
+  mov [SP+1], R1
+  mov R1, 1.100000
+  mov [SP+2], R1
+  call __function_PlaySfx
+  jmp __if_9542_end
+__if_9542_else:
+__if_9570_start:
   mov R0, [BP-8]
   ieq R0, 7
-  jf R0, __if_8716_else
+  jf R0, __if_9570_else
   mov R0, 1
   mov [global_HasRedKey], R0
-  mov R1, __literal_string_8725
+  mov R1, __literal_string_9579
   mov [SP], R1
   call __function_ShowMessage
-  jmp __if_8716_end
-__if_8716_else:
+  jmp __if_9570_end
+__if_9570_else:
   mov R0, 1
   mov [global_HasBlueKey], R0
-  mov R1, __literal_string_8731
+  mov R1, __literal_string_9585
   mov [SP], R1
   call __function_ShowMessage
-__if_8716_end:
+__if_9570_end:
   mov R1, 5
   mov [SP], R1
   mov R1, 1.000000
@@ -13172,8 +14330,12 @@ __if_8716_end:
   mov R1, 1.300000
   mov [SP+2], R1
   call __function_PlaySfx
-__if_8700_end:
-__if_8676_end:
+__if_9542_end:
+__if_9515_end:
+__if_9500_end:
+__if_9485_end:
+__if_9470_end:
+__if_9446_end:
   mov R0, 0
   mov R1, global_Items
   mov R2, [BP-5]
@@ -13183,49 +14345,49 @@ __if_8676_end:
   mov [R1], R0
   mov R0, 10
   mov [global_PickupFlash], R0
-__for_8626_continue:
+__for_9396_continue:
   mov R0, [BP-5]
   mov R1, R0
   iadd R1, 1
   mov [BP-5], R1
-  jmp __for_8626_start
-__for_8626_end:
-__if_8745_start:
+  jmp __for_9396_start
+__for_9396_end:
+__if_9599_start:
   mov R0, [global_DamageFlash]
   igt R0, 0
-  jf R0, __if_8745_end
+  jf R0, __if_9599_end
   mov R0, [global_DamageFlash]
   mov R1, R0
   isub R1, 1
   mov [global_DamageFlash], R1
-__if_8745_end:
-__if_8751_start:
+__if_9599_end:
+__if_9605_start:
   mov R0, [global_PickupFlash]
   igt R0, 0
-  jf R0, __if_8751_end
+  jf R0, __if_9605_end
   mov R0, [global_PickupFlash]
   mov R1, R0
   isub R1, 1
   mov [global_PickupFlash], R1
-__if_8751_end:
-__if_8757_start:
+__if_9605_end:
+__if_9611_start:
   mov R0, [global_LockedTimer]
   igt R0, 0
-  jf R0, __if_8757_end
+  jf R0, __if_9611_end
   mov R0, [global_LockedTimer]
   mov R1, R0
   isub R1, 1
   mov [global_LockedTimer], R1
-__if_8757_end:
-__if_8763_start:
+__if_9611_end:
+__if_9617_start:
   mov R0, [global_MessageTimer]
   igt R0, 0
-  jf R0, __if_8763_end
+  jf R0, __if_9617_end
   mov R0, [global_MessageTimer]
   mov R1, R0
   isub R1, 1
   mov [global_MessageTimer], R1
-__if_8763_end:
+__if_9617_end:
 __function_UpdatePlayer_return:
   mov SP, BP
   pop BP
@@ -13237,12 +14399,12 @@ __function_UpdateDoors:
   isub SP, 7
   mov R0, 0
   mov [BP-1], R0
-__for_8770_start:
+__for_9624_start:
   mov R0, [BP-1]
   mov R1, [global_DoorCount]
   ilt R0, R1
-  jf R0, __for_8770_end
-__if_8780_start:
+  jf R0, __for_9624_end
+__if_9634_start:
   mov R1, global_Doors
   mov R2, [BP-1]
   imul R2, 5
@@ -13250,8 +14412,8 @@ __if_8780_start:
   iadd R1, 3
   mov R0, [R1]
   cib R0
-  jf R0, __if_8780_end
-__if_8786_start:
+  jf R0, __if_9634_end
+__if_9640_start:
   mov R1, global_Doors
   mov R2, [BP-1]
   imul R2, 5
@@ -13259,7 +14421,7 @@ __if_8786_start:
   iadd R1, 4
   mov R0, [R1]
   flt R0, 1.000000
-  jf R0, __if_8786_end
+  jf R0, __if_9640_end
   mov R1, global_Doors
   mov R2, [BP-1]
   imul R2, 5
@@ -13267,13 +14429,8 @@ __if_8786_start:
   iadd R1, 4
   mov R0, [R1]
   fadd R0, 0.030000
-  mov R1, global_Doors
-  mov R2, [BP-1]
-  imul R2, 5
-  iadd R1, R2
-  iadd R1, 4
   mov [R1], R0
-__if_8800_start:
+__if_9654_start:
   mov R1, global_Doors
   mov R2, [BP-1]
   imul R2, 5
@@ -13281,7 +14438,7 @@ __if_8800_start:
   iadd R1, 4
   mov R0, [R1]
   fgt R0, 1.000000
-  jf R0, __if_8800_end
+  jf R0, __if_9654_end
   mov R0, 1.000000
   mov R1, global_Doors
   mov R2, [BP-1]
@@ -13289,10 +14446,10 @@ __if_8800_start:
   iadd R1, R2
   iadd R1, 4
   mov [R1], R0
-__if_8800_end:
-__if_8786_end:
-  jmp __for_8770_continue
-__if_8780_end:
+__if_9654_end:
+__if_9640_end:
+  jmp __for_9624_continue
+__if_9634_end:
   mov R1, global_Doors
   mov R2, [BP-1]
   imul R2, 5
@@ -13314,7 +14471,7 @@ __if_8780_end:
   mov R1, [global_PlayerY]
   fsub R0, R1
   mov [BP-3], R0
-__if_8834_start:
+__if_9688_start:
   mov R0, [BP-2]
   mov R1, [BP-2]
   fmul R0, R1
@@ -13323,9 +14480,9 @@ __if_8834_start:
   fmul R1, R2
   fadd R0, R1
   fgt R0, 2.000000
-  jf R0, __if_8834_end
-  jmp __for_8770_continue
-__if_8834_end:
+  jf R0, __if_9688_end
+  jmp __for_9624_continue
+__if_9688_end:
   mov R1, global_Doors
   mov R2, [BP-1]
   imul R2, 5
@@ -13333,30 +14490,30 @@ __if_8834_end:
   iadd R1, 2
   mov R0, [R1]
   mov [BP-4], R0
-__if_8851_start:
+__if_9705_start:
   mov R0, [BP-4]
   ieq R0, 0
-  jt R0, __LogicalOr_ShortCircuit_8861
+  jt R0, __LogicalOr_ShortCircuit_9715
   mov R1, [BP-4]
   ieq R1, 1
-  jf R1, __LogicalAnd_ShortCircuit_8860
+  jf R1, __LogicalAnd_ShortCircuit_9714
   mov R2, [global_HasRedKey]
   cib R2
   and R1, R2
-__LogicalAnd_ShortCircuit_8860:
+__LogicalAnd_ShortCircuit_9714:
   or R0, R1
-__LogicalOr_ShortCircuit_8861:
-  jt R0, __LogicalOr_ShortCircuit_8868
+__LogicalOr_ShortCircuit_9715:
+  jt R0, __LogicalOr_ShortCircuit_9722
   mov R1, [BP-4]
   ieq R1, 2
-  jf R1, __LogicalAnd_ShortCircuit_8867
+  jf R1, __LogicalAnd_ShortCircuit_9721
   mov R2, [global_HasBlueKey]
   cib R2
   and R1, R2
-__LogicalAnd_ShortCircuit_8867:
+__LogicalAnd_ShortCircuit_9721:
   or R0, R1
-__LogicalOr_ShortCircuit_8868:
-  jf R0, __if_8851_else
+__LogicalOr_ShortCircuit_9722:
+  jf R0, __if_9705_else
   mov R0, 1
   mov R1, global_Doors
   mov R2, [BP-1]
@@ -13371,12 +14528,12 @@ __LogicalOr_ShortCircuit_8868:
   mov R1, 1.000000
   mov [SP+2], R1
   call __function_PlaySfx
-  jmp __if_8851_end
-__if_8851_else:
-__if_8880_start:
+  jmp __if_9705_end
+__if_9705_else:
+__if_9734_start:
   mov R0, [global_LockedTimer]
   ieq R0, 0
-  jf R0, __if_8880_end
+  jf R0, __if_9734_end
   mov R0, 100
   mov [global_LockedTimer], R0
   mov R1, 13
@@ -13386,28 +14543,28 @@ __if_8880_start:
   mov R1, 1.000000
   mov [SP+2], R1
   call __function_PlaySfx
-__if_8892_start:
+__if_9746_start:
   mov R0, [BP-4]
   ieq R0, 1
-  jf R0, __if_8892_else
-  mov R1, __literal_string_8897
+  jf R0, __if_9746_else
+  mov R1, __literal_string_9751
   mov [SP], R1
   call __function_ShowMessage
-  jmp __if_8892_end
-__if_8892_else:
-  mov R1, __literal_string_8899
+  jmp __if_9746_end
+__if_9746_else:
+  mov R1, __literal_string_9753
   mov [SP], R1
   call __function_ShowMessage
-__if_8892_end:
-__if_8880_end:
-__if_8851_end:
-__for_8770_continue:
+__if_9746_end:
+__if_9734_end:
+__if_9705_end:
+__for_9624_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_8770_start
-__for_8770_end:
+  jmp __for_9624_start
+__for_9624_end:
 __function_UpdateDoors_return:
   mov SP, BP
   pop BP
@@ -13419,11 +14576,11 @@ __function_SpawnProjectile:
   isub SP, 2
   mov R0, 0
   mov [BP-1], R0
-__for_8907_start:
+__for_9761_start:
   mov R0, [BP-1]
   ilt R0, 16
-  jf R0, __for_8907_end
-__if_8917_start:
+  jf R0, __for_9761_end
+__if_9771_start:
   mov R1, global_Projectiles
   mov R2, [BP-1]
   imul R2, 8
@@ -13431,9 +14588,9 @@ __if_8917_start:
   iadd R1, 4
   mov R0, [R1]
   cib R0
-  jf R0, __if_8917_end
-  jmp __for_8907_continue
-__if_8917_end:
+  jf R0, __if_9771_end
+  jmp __for_9761_continue
+__if_9771_end:
   mov R2, [BP+4]
   mov [SP], R2
   call __function_cos
@@ -13516,13 +14673,13 @@ __if_8917_end:
   iadd R1, 4
   mov [R1], R0
   jmp __function_SpawnProjectile_return
-__for_8907_continue:
+__for_9761_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_8907_start
-__for_8907_end:
+  jmp __for_9761_start
+__for_9761_end:
 __function_SpawnProjectile_return:
   mov SP, BP
   pop BP
@@ -13552,7 +14709,7 @@ __function_EnemyHitscan:
   mov R1, [BP-1]
   mov [SP+2], R1
   call __function_PlaySfx
-__if_9007_start:
+__if_9861_start:
   mov R2, 100
   mov [SP], R2
   call __function_RandomInt
@@ -13566,7 +14723,7 @@ __if_9007_start:
   isub R2, R3
   ilt R1, R2
   mov R0, R1
-  jf R0, __if_9007_end
+  jf R0, __if_9861_end
   mov R1, [BP+7]
   mov R3, [BP+8]
   mov [SP], R3
@@ -13577,7 +14734,7 @@ __if_9007_start:
   mov R1, [BP-1]
   mov [SP], R1
   call __function_DamagePlayer
-__if_9007_end:
+__if_9861_end:
 __function_EnemyHitscan_return:
   mov SP, BP
   pop BP
@@ -13624,10 +14781,10 @@ __function_EnemyAttack:
   iadd R1, R2
   iadd R1, 6
   mov [R1], R0
-__if_9059_start:
+__if_9913_start:
   mov R0, [BP-1]
   ieq R0, 0
-  jf R0, __if_9059_else
+  jf R0, __if_9913_else
   mov R1, [BP-2]
   mov [SP], R1
   mov R1, [BP-3]
@@ -13645,12 +14802,12 @@ __if_9059_start:
   mov R1, 1.000000
   mov [SP+7], R1
   call __function_EnemyHitscan
-  jmp __if_9059_end
-__if_9059_else:
-__if_9072_start:
+  jmp __if_9913_end
+__if_9913_else:
+__if_9926_start:
   mov R0, [BP-1]
   ieq R0, 1
-  jf R0, __if_9072_else
+  jf R0, __if_9926_else
   mov R1, [BP-2]
   mov [SP], R1
   mov R1, [BP-3]
@@ -13668,12 +14825,12 @@ __if_9072_start:
   mov R1, 1.500000
   mov [SP+7], R1
   call __function_EnemyHitscan
-  jmp __if_9072_end
-__if_9072_else:
-__if_9085_start:
+  jmp __if_9926_end
+__if_9926_else:
+__if_9939_start:
   mov R0, [BP-1]
   ieq R0, 2
-  jf R0, __if_9085_else
+  jf R0, __if_9939_else
   mov R2, 5
   mov [SP], R2
   call __function_RandomInt
@@ -13710,12 +14867,12 @@ __if_9085_start:
   mov R1, [BP-10]
   mov [SP+2], R1
   call __function_PlaySfx
-  jmp __if_9085_end
-__if_9085_else:
-__if_9106_start:
+  jmp __if_9939_end
+__if_9939_else:
+__if_9960_start:
   mov R0, [BP-1]
   ieq R0, 3
-  jf R0, __if_9106_else
+  jf R0, __if_9960_else
   mov R0, 3
   mov R1, global_Enemies
   mov R2, [BP+2]
@@ -13723,25 +14880,25 @@ __if_9106_start:
   iadd R1, R2
   iadd R1, 10
   mov [R1], R0
-  jmp __if_9106_end
-__if_9106_else:
-__if_9116_start:
+  jmp __if_9960_end
+__if_9960_else:
+__if_9970_start:
   mov R0, [BP-1]
   ieq R0, 4
-  jf R0, __if_9116_end
+  jf R0, __if_9970_end
   mov R0, 3
   mov [BP-5], R0
   mov R0, 0.085000
   mov [BP-6], R0
-__if_9127_start:
+__if_9981_start:
   mov R0, [global_BossEnraged]
   cib R0
-  jf R0, __if_9127_end
+  jf R0, __if_9981_end
   mov R0, 5
   mov [BP-5], R0
   mov R0, 0.110000
   mov [BP-6], R0
-__if_9127_end:
+__if_9981_end:
   mov R0, 0.220000
   mov [BP-7], R0
   mov R0, [BP-4]
@@ -13755,11 +14912,11 @@ __if_9127_end:
   mov [BP-8], R0
   mov R0, 0
   mov [BP-9], R0
-__for_9151_start:
+__for_10005_start:
   mov R0, [BP-9]
   mov R1, [BP-5]
   ilt R0, R1
-  jf R0, __for_9151_end
+  jf R0, __for_10005_end
   mov R2, 5
   mov [SP], R2
   call __function_RandomInt
@@ -13784,13 +14941,13 @@ __for_9151_start:
   mov R1, 10
   mov [SP+5], R1
   call __function_SpawnProjectile
-__for_9151_continue:
+__for_10005_continue:
   mov R0, [BP-9]
   mov R1, R0
   iadd R1, 1
   mov [BP-9], R1
-  jmp __for_9151_start
-__for_9151_end:
+  jmp __for_10005_start
+__for_10005_end:
   mov R1, 11
   mov [SP], R1
   mov R1, 1.000000
@@ -13798,11 +14955,11 @@ __for_9151_end:
   mov R1, 0.750000
   mov [SP+2], R1
   call __function_PlaySfx
-__if_9116_end:
-__if_9106_end:
-__if_9085_end:
-__if_9072_end:
-__if_9059_end:
+__if_9970_end:
+__if_9960_end:
+__if_9939_end:
+__if_9926_end:
+__if_9913_end:
 __function_EnemyAttack_return:
   mov SP, BP
   pop BP
@@ -13814,10 +14971,10 @@ __function_UpdateEnemies:
   isub SP, 18
   mov R0, 0
   mov [BP-1], R0
-__for_9179_start:
+__for_10033_start:
   mov R0, [BP-1]
   ilt R0, 24
-  jf R0, __for_9179_end
+  jf R0, __for_10033_end
   mov R1, global_Enemies
   mov R2, [BP-1]
   imul R2, 11
@@ -13825,10 +14982,10 @@ __for_9179_start:
   iadd R1, 2
   mov R0, [R1]
   mov [BP-2], R0
-__if_9195_start:
+__if_10049_start:
   mov R0, [BP-2]
   ilt R0, 0
-  jt R0, __LogicalOr_ShortCircuit_9204
+  jt R0, __LogicalOr_ShortCircuit_10058
   mov R2, global_Enemies
   mov R3, [BP-1]
   imul R3, 11
@@ -13837,10 +14994,10 @@ __if_9195_start:
   mov R1, [R2]
   bnot R1
   or R0, R1
-__LogicalOr_ShortCircuit_9204:
-  jf R0, __if_9195_end
-  jmp __for_9179_continue
-__if_9195_end:
+__LogicalOr_ShortCircuit_10058:
+  jf R0, __if_10049_end
+  jmp __for_10033_continue
+__if_10049_end:
   mov R2, global_Enemies
   mov R3, [BP-1]
   imul R3, 11
@@ -13850,7 +15007,7 @@ __if_9195_end:
   mov R1, R0
   iadd R1, 1
   mov [R2], R1
-__if_9211_start:
+__if_10065_start:
   mov R1, global_Enemies
   mov R2, [BP-1]
   imul R2, 11
@@ -13858,7 +15015,7 @@ __if_9211_start:
   iadd R1, 5
   mov R0, [R1]
   igt R0, 0
-  jf R0, __if_9211_end
+  jf R0, __if_10065_end
   mov R2, global_Enemies
   mov R3, [BP-1]
   imul R3, 11
@@ -13868,8 +15025,8 @@ __if_9211_start:
   mov R1, R0
   isub R1, 1
   mov [R2], R1
-__if_9211_end:
-__if_9223_start:
+__if_10065_end:
+__if_10077_start:
   mov R1, global_Enemies
   mov R2, [BP-1]
   imul R2, 11
@@ -13877,7 +15034,7 @@ __if_9223_start:
   iadd R1, 6
   mov R0, [R1]
   igt R0, 0
-  jf R0, __if_9223_end
+  jf R0, __if_10077_end
   mov R2, global_Enemies
   mov R3, [BP-1]
   imul R3, 11
@@ -13887,7 +15044,7 @@ __if_9223_start:
   mov R1, R0
   isub R1, 1
   mov [R2], R1
-__if_9223_end:
+__if_10077_end:
   mov R0, [global_PlayerX]
   mov R2, global_Enemies
   mov R3, [BP-1]
@@ -13915,20 +15072,20 @@ __if_9223_end:
   mov [SP], R1
   call __function_sqrt
   mov [BP-5], R0
-__if_9261_start:
+__if_10115_start:
   mov R0, [global_FrameCount]
   mov R1, [BP-1]
   iadd R0, R1
   imod R0, 4
   ieq R0, 0
-  jf R0, __if_9261_end
+  jf R0, __if_10115_end
   mov R1, [BP-5]
   mov R2, global_TypeRange
   mov R3, [BP-2]
   iadd R2, R3
   mov R2, [R2]
   flt R1, R2
-  jf R1, __LogicalAnd_ShortCircuit_9293
+  jf R1, __LogicalAnd_ShortCircuit_10147
   mov R4, global_Enemies
   mov R5, [BP-1]
   imul R5, 11
@@ -13950,7 +15107,7 @@ __if_9261_start:
   mov R2, R0
   cib R2
   and R1, R2
-__LogicalAnd_ShortCircuit_9293:
+__LogicalAnd_ShortCircuit_10147:
   mov R2, global_Enemies
   mov R3, [BP-1]
   imul R3, 11
@@ -13958,8 +15115,8 @@ __LogicalAnd_ShortCircuit_9293:
   iadd R2, 9
   mov [R2], R1
   mov R0, R1
-__if_9261_end:
-__if_9294_start:
+__if_10115_end:
+__if_10148_start:
   mov R1, global_Enemies
   mov R2, [BP-1]
   imul R2, 11
@@ -13967,18 +15124,18 @@ __if_9294_start:
   iadd R1, 9
   mov R0, [R1]
   bnot R0
-  jf R0, __if_9294_end
-  jmp __for_9179_continue
-__if_9294_end:
-__if_9301_start:
+  jf R0, __if_10148_end
+  jmp __for_10033_continue
+__if_10148_end:
+__if_10155_start:
   mov R0, [BP-2]
   ieq R0, 4
-  jf R0, __LogicalAnd_ShortCircuit_9307
+  jf R0, __LogicalAnd_ShortCircuit_10161
   mov R1, [global_BossActive]
   bnot R1
   and R0, R1
-__LogicalAnd_ShortCircuit_9307:
-  jf R0, __if_9301_end
+__LogicalAnd_ShortCircuit_10161:
+  jf R0, __if_10155_end
   mov R0, 1
   mov [global_BossActive], R0
   mov R1, 15
@@ -13988,28 +15145,28 @@ __LogicalAnd_ShortCircuit_9307:
   mov R1, 1.000000
   mov [SP+2], R1
   call __function_PlaySfx
-  mov R1, __literal_string_9317
+  mov R1, __literal_string_10171
   mov [SP], R1
   call __function_ShowMessage
-__if_9301_end:
+__if_10155_end:
   mov R0, global_TypeSpeed
   mov R1, [BP-2]
   iadd R0, R1
   mov R0, [R0]
   mov [BP-6], R0
-__if_9323_start:
+__if_10177_start:
   mov R0, [BP-2]
   ieq R0, 4
-  jf R0, __LogicalAnd_ShortCircuit_9328
+  jf R0, __LogicalAnd_ShortCircuit_10182
   mov R1, [global_BossEnraged]
   cib R1
   and R0, R1
-__LogicalAnd_ShortCircuit_9328:
-  jf R0, __if_9323_end
+__LogicalAnd_ShortCircuit_10182:
+  jf R0, __if_10177_end
   mov R0, [BP-6]
   fmul R0, 1.600000
   mov [BP-6], R0
-__if_9323_end:
+__if_10177_end:
   mov R1, global_Enemies
   mov R2, [BP-1]
   imul R2, 11
@@ -14017,16 +15174,16 @@ __if_9323_end:
   iadd R1, 5
   mov R0, [R1]
   igt R0, 0
-  jf R0, __LogicalAnd_ShortCircuit_9341
+  jf R0, __LogicalAnd_ShortCircuit_10195
   mov R1, [BP-2]
   ine R1, 4
   and R0, R1
-__LogicalAnd_ShortCircuit_9341:
+__LogicalAnd_ShortCircuit_10195:
   mov [BP-7], R0
-__if_9344_start:
+__if_10198_start:
   mov R0, [BP-6]
   fgt R0, 0.000000
-  jf R0, __LogicalAnd_ShortCircuit_9349
+  jf R0, __LogicalAnd_ShortCircuit_10203
   mov R1, [BP-5]
   mov R2, global_TypeStopDistance
   mov R3, [BP-2]
@@ -14034,13 +15191,13 @@ __if_9344_start:
   mov R2, [R2]
   fgt R1, R2
   and R0, R1
-__LogicalAnd_ShortCircuit_9349:
-  jf R0, __LogicalAnd_ShortCircuit_9356
+__LogicalAnd_ShortCircuit_10203:
+  jf R0, __LogicalAnd_ShortCircuit_10210
   mov R1, [BP-7]
   bnot R1
   and R0, R1
-__LogicalAnd_ShortCircuit_9356:
-  jf R0, __if_9344_end
+__LogicalAnd_ShortCircuit_10210:
+  jf R0, __if_10198_end
   mov R0, global_TypeRadius
   mov R1, [BP-2]
   iadd R0, R1
@@ -14058,7 +15215,7 @@ __LogicalAnd_ShortCircuit_9356:
   mov R1, [BP-6]
   fmul R0, R1
   mov [BP-10], R0
-__if_9377_start:
+__if_10231_start:
   mov R2, global_Enemies
   mov R3, [BP-1]
   imul R3, 11
@@ -14078,21 +15235,17 @@ __if_9377_start:
   mov [SP+2], R1
   call __function_CanStand
   cib R0
-  jf R0, __if_9377_end
+  jf R0, __if_10231_end
   mov R1, global_Enemies
   mov R2, [BP-1]
   imul R2, 11
   iadd R1, R2
   mov R0, [R1]
-  mov R1, [BP-9]
-  fadd R0, R1
-  mov R1, global_Enemies
-  mov R2, [BP-1]
-  imul R2, 11
-  iadd R1, R2
+  mov R2, [BP-9]
+  fadd R0, R2
   mov [R1], R0
-__if_9377_end:
-__if_9396_start:
+__if_10231_end:
+__if_10250_start:
   mov R2, global_Enemies
   mov R3, [BP-1]
   imul R3, 11
@@ -14112,24 +15265,19 @@ __if_9396_start:
   mov [SP+2], R1
   call __function_CanStand
   cib R0
-  jf R0, __if_9396_end
+  jf R0, __if_10250_end
   mov R1, global_Enemies
   mov R2, [BP-1]
   imul R2, 11
   iadd R1, R2
   iadd R1, 1
   mov R0, [R1]
-  mov R1, [BP-10]
-  fadd R0, R1
-  mov R1, global_Enemies
-  mov R2, [BP-1]
-  imul R2, 11
-  iadd R1, R2
-  iadd R1, 1
+  mov R2, [BP-10]
+  fadd R0, R2
   mov [R1], R0
-__if_9396_end:
-__if_9344_end:
-__if_9415_start:
+__if_10250_end:
+__if_10198_end:
+__if_10269_start:
   mov R1, global_Enemies
   mov R2, [BP-1]
   imul R2, 11
@@ -14137,7 +15285,7 @@ __if_9415_start:
   iadd R1, 10
   mov R0, [R1]
   igt R0, 0
-  jf R0, __LogicalAnd_ShortCircuit_9429
+  jf R0, __LogicalAnd_ShortCircuit_10283
   mov R2, global_Enemies
   mov R3, [BP-1]
   imul R3, 11
@@ -14147,8 +15295,8 @@ __if_9415_start:
   imod R1, 8
   ieq R1, 0
   and R0, R1
-__LogicalAnd_ShortCircuit_9429:
-  jf R0, __if_9415_end
+__LogicalAnd_ShortCircuit_10283:
+  jf R0, __if_10269_end
   mov R2, global_Enemies
   mov R3, [BP-1]
   imul R3, 11
@@ -14191,7 +15339,7 @@ __LogicalAnd_ShortCircuit_9429:
   iadd R1, R2
   iadd R1, 6
   mov [R1], R0
-__if_9415_end:
+__if_10269_end:
   mov R2, global_Enemies
   mov R3, [BP-1]
   imul R3, 11
@@ -14201,7 +15349,7 @@ __if_9415_end:
   mov R1, R0
   isub R1, 1
   mov [R2], R1
-__if_9464_start:
+__if_10318_start:
   mov R1, global_Enemies
   mov R2, [BP-1]
   imul R2, 11
@@ -14209,7 +15357,7 @@ __if_9464_start:
   iadd R1, 7
   mov R0, [R1]
   ile R0, 0
-  jf R0, __if_9464_end
+  jf R0, __if_10318_end
   mov R1, global_TypeCooldown
   mov R2, [BP-2]
   iadd R1, R2
@@ -14224,20 +15372,20 @@ __if_9464_start:
   iadd R1, R2
   mov R0, R1
   mov [BP-8], R0
-__if_9482_start:
+__if_10336_start:
   mov R0, [BP-2]
   ieq R0, 4
-  jf R0, __LogicalAnd_ShortCircuit_9487
+  jf R0, __LogicalAnd_ShortCircuit_10341
   mov R1, [global_BossEnraged]
   cib R1
   and R0, R1
-__LogicalAnd_ShortCircuit_9487:
-  jf R0, __if_9482_end
+__LogicalAnd_ShortCircuit_10341:
+  jf R0, __if_10336_end
   mov R0, [BP-8]
   imul R0, 2
   idiv R0, 3
   mov [BP-8], R0
-__if_9482_end:
+__if_10336_end:
   mov R0, [BP-8]
   mov R1, global_Enemies
   mov R2, [BP-1]
@@ -14250,14 +15398,14 @@ __if_9482_end:
   mov R1, [BP-5]
   mov [SP+1], R1
   call __function_EnemyAttack
-__if_9464_end:
-__for_9179_continue:
+__if_10318_end:
+__for_10033_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_9179_start
-__for_9179_end:
+  jmp __for_10033_start
+__for_10033_end:
 __function_UpdateEnemies_return:
   mov SP, BP
   pop BP
@@ -14269,11 +15417,11 @@ __function_UpdateProjectiles:
   isub SP, 10
   mov R0, 0
   mov [BP-1], R0
-__for_9505_start:
+__for_10359_start:
   mov R0, [BP-1]
   ilt R0, 16
-  jf R0, __for_9505_end
-__if_9515_start:
+  jf R0, __for_10359_end
+__if_10369_start:
   mov R1, global_Projectiles
   mov R2, [BP-1]
   imul R2, 8
@@ -14281,25 +15429,21 @@ __if_9515_start:
   iadd R1, 4
   mov R0, [R1]
   bnot R0
-  jf R0, __if_9515_end
-  jmp __for_9505_continue
-__if_9515_end:
+  jf R0, __if_10369_end
+  jmp __for_10359_continue
+__if_10369_end:
   mov R1, global_Projectiles
   mov R2, [BP-1]
   imul R2, 8
   iadd R1, R2
   mov R0, [R1]
-  mov R2, global_Projectiles
-  mov R3, [BP-1]
-  imul R3, 8
-  iadd R2, R3
-  iadd R2, 2
-  mov R1, [R2]
-  fadd R0, R1
-  mov R1, global_Projectiles
-  mov R2, [BP-1]
-  imul R2, 8
-  iadd R1, R2
+  mov R3, global_Projectiles
+  mov R4, [BP-1]
+  imul R4, 8
+  iadd R3, R4
+  iadd R3, 2
+  mov R2, [R3]
+  fadd R0, R2
   mov [R1], R0
   mov R1, global_Projectiles
   mov R2, [BP-1]
@@ -14307,18 +15451,13 @@ __if_9515_end:
   iadd R1, R2
   iadd R1, 1
   mov R0, [R1]
-  mov R2, global_Projectiles
-  mov R3, [BP-1]
-  imul R3, 8
-  iadd R2, R3
-  iadd R2, 3
-  mov R1, [R2]
-  fadd R0, R1
-  mov R1, global_Projectiles
-  mov R2, [BP-1]
-  imul R2, 8
-  iadd R1, R2
-  iadd R1, 1
+  mov R3, global_Projectiles
+  mov R4, [BP-1]
+  imul R4, 8
+  iadd R3, R4
+  iadd R3, 3
+  mov R2, [R3]
+  fadd R0, R2
   mov [R1], R0
   mov R2, global_Projectiles
   mov R3, [BP-1]
@@ -14342,7 +15481,7 @@ __if_9515_end:
   iadd R1, 1
   mov R0, [R1]
   mov [BP-3], R0
-__if_9557_start:
+__if_10411_start:
   mov R2, [BP-2]
   mov [SP], R2
   mov R2, [BP-3]
@@ -14350,7 +15489,7 @@ __if_9557_start:
   call __function_IsWall
   mov R1, R0
   cib R1
-  jt R1, __LogicalOr_ShortCircuit_9561
+  jt R1, __LogicalOr_ShortCircuit_10415
   mov R3, global_Projectiles
   mov R4, [BP-1]
   imul R4, 8
@@ -14359,9 +15498,9 @@ __if_9557_start:
   mov R2, [R3]
   ile R2, 0
   or R1, R2
-__LogicalOr_ShortCircuit_9561:
+__LogicalOr_ShortCircuit_10415:
   mov R0, R1
-  jf R0, __if_9557_end
+  jf R0, __if_10411_end
   mov R0, 0
   mov R1, global_Projectiles
   mov R2, [BP-1]
@@ -14387,8 +15526,8 @@ __LogicalOr_ShortCircuit_9561:
   mov R1, [BP-6]
   mov [SP+2], R1
   call __function_PlaySfx
-  jmp __for_9505_continue
-__if_9557_end:
+  jmp __for_10359_continue
+__if_10411_end:
   mov R0, [BP-2]
   mov R1, [global_PlayerX]
   fsub R0, R1
@@ -14397,7 +15536,7 @@ __if_9557_end:
   mov R1, [global_PlayerY]
   fsub R0, R1
   mov [BP-5], R0
-__if_9594_start:
+__if_10448_start:
   mov R0, [BP-4]
   mov R1, [BP-4]
   fmul R0, R1
@@ -14406,7 +15545,7 @@ __if_9594_start:
   fmul R1, R2
   fadd R0, R1
   flt R0, 0.160000
-  jf R0, __if_9594_end
+  jf R0, __if_10448_end
   mov R0, 0
   mov R1, global_Projectiles
   mov R2, [BP-1]
@@ -14432,14 +15571,14 @@ __if_9594_start:
   mov R1, [R2]
   mov [SP], R1
   call __function_DamagePlayer
-__if_9594_end:
-__for_9505_continue:
+__if_10448_end:
+__for_10359_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_9505_start
-__for_9505_end:
+  jmp __for_10359_start
+__for_10359_end:
 __function_UpdateProjectiles_return:
   mov SP, BP
   pop BP
@@ -14451,10 +15590,10 @@ __function_DrawFloorAndCeiling:
   isub SP, 10
   mov R0, 0
   mov [BP-1], R0
-__for_9621_start:
+__for_10475_start:
   mov R0, [BP-1]
   ilt R0, 9
-  jf R0, __for_9621_end
+  jf R0, __for_10475_end
   mov R0, [BP-1]
   imul R0, 20
   mov [BP-2], R0
@@ -14512,13 +15651,13 @@ __for_9621_start:
   mov R1, [BP-5]
   mov [SP+4], R1
   call __function_DrawRect
-__for_9621_continue:
+__for_10475_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_9621_start
-__for_9621_end:
+  jmp __for_10475_start
+__for_10475_end:
 __function_DrawFloorAndCeiling_return:
   mov SP, BP
   pop BP
@@ -14530,10 +15669,10 @@ __function_DrawWalls:
   isub SP, 26
   mov R0, 0
   mov [BP-1], R0
-__for_9680_start:
+__for_10534_start:
   mov R0, [BP-1]
   ilt R0, 128
-  jf R0, __for_9680_end
+  jf R0, __for_10534_end
   mov R0, [global_DirX]
   mov R1, [global_PlaneX]
   mov R2, global_CameraX
@@ -14562,10 +15701,10 @@ __for_9680_start:
   mov [BP-6], R0
   mov R0, 1000000.000000
   mov [BP-7], R0
-__if_9722_start:
+__if_10576_start:
   mov R0, [BP-2]
   fne R0, 0.000000
-  jf R0, __if_9722_end
+  jf R0, __if_10576_end
   mov R2, 1.000000
   mov R3, [BP-2]
   fdiv R2, R3
@@ -14574,11 +15713,11 @@ __if_9722_start:
   mov R1, R0
   mov [BP-6], R1
   mov R0, R1
-__if_9722_end:
-__if_9732_start:
+__if_10576_end:
+__if_10586_start:
   mov R0, [BP-3]
   fne R0, 0.000000
-  jf R0, __if_9732_end
+  jf R0, __if_10586_end
   mov R2, 1.000000
   mov R3, [BP-3]
   fdiv R2, R3
@@ -14587,11 +15726,11 @@ __if_9732_start:
   mov R1, R0
   mov [BP-7], R1
   mov R0, R1
-__if_9732_end:
-__if_9748_start:
+__if_10586_end:
+__if_10602_start:
   mov R0, [BP-2]
   flt R0, 0.000000
-  jf R0, __if_9748_else
+  jf R0, __if_10602_else
   mov R0, -1
   mov [BP-8], R0
   mov R0, [global_PlayerX]
@@ -14601,8 +15740,8 @@ __if_9748_start:
   mov R1, [BP-6]
   fmul R0, R1
   mov [BP-10], R0
-  jmp __if_9748_end
-__if_9748_else:
+  jmp __if_10602_end
+__if_10602_else:
   mov R0, 1
   mov [BP-8], R0
   mov R0, [BP-4]
@@ -14613,11 +15752,11 @@ __if_9748_else:
   mov R1, [BP-6]
   fmul R0, R1
   mov [BP-10], R0
-__if_9748_end:
-__if_9779_start:
+__if_10602_end:
+__if_10633_start:
   mov R0, [BP-3]
   flt R0, 0.000000
-  jf R0, __if_9779_else
+  jf R0, __if_10633_else
   mov R0, -1
   mov [BP-9], R0
   mov R0, [global_PlayerY]
@@ -14627,8 +15766,8 @@ __if_9779_start:
   mov R1, [BP-7]
   fmul R0, R1
   mov [BP-11], R0
-  jmp __if_9779_end
-__if_9779_else:
+  jmp __if_10633_end
+__if_10633_else:
   mov R0, 1
   mov [BP-9], R0
   mov R0, [BP-5]
@@ -14639,7 +15778,7 @@ __if_9779_else:
   mov R1, [BP-7]
   fmul R0, R1
   mov [BP-11], R0
-__if_9779_end:
+__if_10633_end:
   mov R0, 0
   mov [BP-12], R0
   mov R0, 0
@@ -14650,15 +15789,15 @@ __if_9779_end:
   mov [BP-15], R0
   mov R0, 0
   mov [BP-16], R0
-__while_9825_start:
-__while_9825_continue:
+__while_10679_start:
+__while_10679_continue:
   mov R0, 1
-  jf R0, __while_9825_end
-__if_9828_start:
+  jf R0, __while_10679_end
+__if_10682_start:
   mov R0, [BP-10]
   mov R1, [BP-11]
   flt R0, R1
-  jf R0, __if_9828_else
+  jf R0, __if_10682_else
   mov R0, [BP-10]
   mov R1, [BP-6]
   fadd R0, R1
@@ -14669,8 +15808,8 @@ __if_9828_start:
   mov [BP-4], R0
   mov R0, 0
   mov [BP-12], R0
-  jmp __if_9828_end
-__if_9828_else:
+  jmp __if_10682_end
+__if_10682_else:
   mov R0, [BP-11]
   mov R1, [BP-7]
   fadd R0, R1
@@ -14681,7 +15820,7 @@ __if_9828_else:
   mov [BP-5], R0
   mov R0, 1
   mov [BP-12], R0
-__if_9828_end:
+__if_10682_end:
   mov R0, global_Map
   mov R2, [BP-5]
   imul R2, 32
@@ -14690,21 +15829,21 @@ __if_9828_end:
   iadd R0, R1
   mov R0, [R0]
   mov [BP-13], R0
-__if_9859_start:
+__if_10713_start:
   mov R0, [BP-13]
   ieq R0, 0
-  jf R0, __if_9859_end
-  jmp __while_9825_continue
-__if_9859_end:
-__if_9864_start:
+  jf R0, __if_10713_end
+  jmp __while_10679_continue
+__if_10713_end:
+__if_10718_start:
   mov R0, [BP-13]
   ige R0, 6
-  jf R0, __LogicalAnd_ShortCircuit_9869
+  jf R0, __LogicalAnd_ShortCircuit_10723
   mov R1, [BP-13]
   ile R1, 8
   and R0, R1
-__LogicalAnd_ShortCircuit_9869:
-  jf R0, __if_9864_end
+__LogicalAnd_ShortCircuit_10723:
+  jf R0, __if_10718_end
   mov R1, global_Doors
   mov R2, global_DoorAt
   mov R4, [BP-5]
@@ -14719,10 +15858,10 @@ __LogicalAnd_ShortCircuit_9869:
   iadd R1, 4
   mov R0, [R1]
   mov [BP-20], R0
-__if_9887_start:
+__if_10741_start:
   mov R0, [BP-12]
   ieq R0, 0
-  jf R0, __if_9887_else
+  jf R0, __if_10741_else
   mov R0, [BP-10]
   mov R1, [BP-6]
   fmul R1, 0.500000
@@ -14737,8 +15876,8 @@ __if_9887_start:
   mov R0, [BP-5]
   cif R0
   mov [BP-21], R0
-  jmp __if_9887_end
-__if_9887_else:
+  jmp __if_10741_end
+__if_10741_else:
   mov R0, [BP-11]
   mov R1, [BP-7]
   fmul R1, 0.500000
@@ -14753,44 +15892,44 @@ __if_9887_else:
   mov R0, [BP-4]
   cif R0
   mov [BP-21], R0
-__if_9887_end:
-__if_9927_start:
+__if_10741_end:
+__if_10781_start:
   mov R0, [BP-15]
   mov R1, [BP-21]
   flt R0, R1
-  jt R0, __LogicalOr_ShortCircuit_9932
+  jt R0, __LogicalOr_ShortCircuit_10786
   mov R1, [BP-15]
   mov R2, [BP-21]
   fadd R2, 1.000000
   fge R1, R2
   or R0, R1
-__LogicalOr_ShortCircuit_9932:
-  jf R0, __if_9927_end
-  jmp __while_9825_continue
-__if_9927_end:
+__LogicalOr_ShortCircuit_10786:
+  jf R0, __if_10781_end
+  jmp __while_10679_continue
+__if_10781_end:
   mov R0, [BP-15]
   mov R1, [BP-21]
   fsub R0, R1
   mov [BP-22], R0
-__if_9943_start:
+__if_10797_start:
   mov R0, [BP-22]
   mov R1, [BP-20]
   flt R0, R1
-  jf R0, __if_9943_end
-  jmp __while_9825_continue
-__if_9943_end:
+  jf R0, __if_10797_end
+  jmp __while_10679_continue
+__if_10797_end:
   mov R0, [BP-22]
   mov R1, [BP-20]
   fsub R0, R1
   fmul R0, 64.000000
   cfi R0
   mov [BP-16], R0
-  jmp __while_9825_end
-__if_9864_end:
-__if_9959_start:
+  jmp __while_10679_end
+__if_10718_end:
+__if_10813_start:
   mov R0, [BP-12]
   ieq R0, 0
-  jf R0, __if_9959_else
+  jf R0, __if_10813_else
   mov R0, [BP-10]
   mov R1, [BP-6]
   fsub R0, R1
@@ -14801,8 +15940,8 @@ __if_9959_start:
   fmul R1, R2
   fadd R0, R1
   mov [BP-15], R0
-  jmp __if_9959_end
-__if_9959_else:
+  jmp __if_10813_end
+__if_10813_else:
   mov R0, [BP-11]
   mov R1, [BP-7]
   fsub R0, R1
@@ -14813,7 +15952,7 @@ __if_9959_else:
   fmul R1, R2
   fadd R0, R1
   mov [BP-15], R0
-__if_9959_end:
+__if_10813_end:
   mov R1, [BP-15]
   mov R3, [BP-15]
   mov [SP], R3
@@ -14826,58 +15965,58 @@ __if_9959_end:
   fmul R0, 64.000000
   cfi R0
   mov [BP-16], R0
-__if_10000_start:
+__if_10854_start:
   mov R0, [BP-12]
   ieq R0, 0
-  jf R0, __LogicalAnd_ShortCircuit_10005
+  jf R0, __LogicalAnd_ShortCircuit_10859
   mov R1, [BP-2]
   flt R1, 0.000000
   and R0, R1
-__LogicalAnd_ShortCircuit_10005:
-  jf R0, __if_10000_end
+__LogicalAnd_ShortCircuit_10859:
+  jf R0, __if_10854_end
   mov R0, [BP-16]
   isgn R0
   iadd R0, 63
   mov [BP-16], R0
-__if_10000_end:
-__if_10013_start:
+__if_10854_end:
+__if_10867_start:
   mov R0, [BP-12]
   ieq R0, 1
-  jf R0, __LogicalAnd_ShortCircuit_10018
+  jf R0, __LogicalAnd_ShortCircuit_10872
   mov R1, [BP-3]
   fgt R1, 0.000000
   and R0, R1
-__LogicalAnd_ShortCircuit_10018:
-  jf R0, __if_10013_end
+__LogicalAnd_ShortCircuit_10872:
+  jf R0, __if_10867_end
   mov R0, [BP-16]
   isgn R0
   iadd R0, 63
   mov [BP-16], R0
-__if_10013_end:
-  jmp __while_9825_end
-  jmp __while_9825_start
-__while_9825_end:
-__if_10027_start:
+__if_10867_end:
+  jmp __while_10679_end
+  jmp __while_10679_start
+__while_10679_end:
+__if_10881_start:
   mov R0, [BP-16]
   igt R0, 63
-  jf R0, __if_10027_end
+  jf R0, __if_10881_end
   mov R0, 63
   mov [BP-16], R0
-__if_10027_end:
-__if_10034_start:
+__if_10881_end:
+__if_10888_start:
   mov R0, [BP-16]
   ilt R0, 0
-  jf R0, __if_10034_end
+  jf R0, __if_10888_end
   mov R0, 0
   mov [BP-16], R0
-__if_10034_end:
-__if_10041_start:
+__if_10888_end:
+__if_10895_start:
   mov R0, [BP-14]
   flt R0, 0.050000
-  jf R0, __if_10041_end
+  jf R0, __if_10895_end
   mov R0, 0.050000
   mov [BP-14], R0
-__if_10041_end:
+__if_10895_end:
   mov R0, [BP-14]
   mov R1, global_ZBuffer
   mov R2, [BP-1]
@@ -14893,26 +16032,26 @@ __if_10041_end:
   isgn R0
   iadd R0, 255
   mov [BP-18], R0
-__if_10067_start:
+__if_10921_start:
   mov R0, [BP-18]
   ilt R0, 45
-  jf R0, __if_10067_end
+  jf R0, __if_10921_end
   mov R0, 45
   mov [BP-18], R0
-__if_10067_end:
-__if_10074_start:
+__if_10921_end:
+__if_10928_start:
   mov R0, [BP-12]
   ieq R0, 1
-  jf R0, __if_10074_end
+  jf R0, __if_10928_end
   mov R0, [BP-18]
   imul R0, 3
   idiv R0, 4
   mov [BP-18], R0
-__if_10074_end:
-__if_10087_start:
+__if_10928_end:
+__if_10941_start:
   mov R0, [BP-13]
   ige R0, 11
-  jf R0, __if_10087_else
+  jf R0, __if_10941_else
   mov R0, [BP-13]
   isub R0, 11
   mov [BP-19], R0
@@ -14932,8 +16071,8 @@ __if_10087_start:
   mov R1, [BP-23]
   mov [SP], R1
   call __function_set_multiply_color
-  jmp __if_10087_end
-__if_10087_else:
+  jmp __if_10941_end
+__if_10941_else:
   mov R0, [BP-13]
   isub R0, 1
   mov [BP-19], R0
@@ -14949,7 +16088,7 @@ __if_10087_else:
   mov R1, [BP-23]
   mov [SP], R1
   call __function_set_multiply_color
-__if_10087_end:
+__if_10941_end:
   mov R1, [BP-19]
   imul R1, 64
   iadd R1, 0
@@ -14974,13 +16113,13 @@ __if_10087_end:
   iadd R1, 180
   mov [SP+1], R1
   call __function_draw_region_zoomed_at
-__for_9680_continue:
+__for_10534_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_9680_start
-__for_9680_end:
+  jmp __for_10534_start
+__for_10534_end:
 __function_DrawWalls_return:
   mov SP, BP
   pop BP
@@ -15029,12 +16168,12 @@ __function_DrawSprite:
   fadd R1, R2
   fmul R0, R1
   mov [BP-5], R0
-__if_10200_start:
+__if_11054_start:
   mov R0, [BP-5]
   flt R0, 0.150000
-  jf R0, __if_10200_end
+  jf R0, __if_11054_end
   jmp __function_DrawSprite_return
-__if_10200_end:
+__if_11054_end:
   mov R0, [BP-4]
   mov R1, [BP-5]
   fdiv R0, R1
@@ -15075,49 +16214,49 @@ __if_10200_end:
   fdiv R0, 5.000000
   cfi R0
   mov [BP-12], R0
-__if_10264_start:
+__if_11118_start:
   mov R0, [BP-11]
   ilt R0, 0
-  jf R0, __if_10264_end
+  jf R0, __if_11118_end
   mov R0, 0
   mov [BP-11], R0
-__if_10264_end:
-__if_10271_start:
+__if_11118_end:
+__if_11125_start:
   mov R0, [BP-12]
   igt R0, 127
-  jf R0, __if_10271_end
+  jf R0, __if_11125_end
   mov R0, 127
   mov [BP-12], R0
-__if_10271_end:
-__if_10282_start:
+__if_11125_end:
+__if_11136_start:
   mov R0, [BP-11]
   mov R1, [BP-12]
   igt R0, R1
-  jf R0, __if_10282_end
+  jf R0, __if_11136_end
   jmp __function_DrawSprite_return
-__if_10282_end:
-__if_10287_start:
+__if_11136_end:
+__if_11141_start:
   mov R0, [BP+8]
   cib R0
-  jf R0, __if_10287_else
+  jf R0, __if_11141_else
   mov R1, -1
   mov [SP], R1
   call __function_set_multiply_color
-  jmp __if_10287_end
-__if_10287_else:
+  jmp __if_11141_end
+__if_11141_else:
   mov R0, [BP-5]
   fmul R0, 14.000000
   cfi R0
   isgn R0
   iadd R0, 255
   mov [BP-13], R0
-__if_10301_start:
+__if_11155_start:
   mov R0, [BP-13]
   ilt R0, 60
-  jf R0, __if_10301_end
+  jf R0, __if_11155_end
   mov R0, 60
   mov [BP-13], R0
-__if_10301_end:
+__if_11155_end:
   mov R2, [BP-13]
   mov [SP], R2
   mov R2, [BP-13]
@@ -15130,7 +16269,7 @@ __if_10301_end:
   mov R1, [BP-15]
   mov [SP], R1
   call __function_set_multiply_color
-__if_10287_end:
+__if_11141_end:
   mov R1, 5
   cif R1
   mov [SP], R1
@@ -15142,21 +16281,21 @@ __if_10287_end:
   call __function_set_drawing_scale
   mov R0, [BP-11]
   mov [BP-13], R0
-__for_10318_start:
+__for_11172_start:
   mov R0, [BP-13]
   mov R1, [BP-12]
   ile R0, R1
-  jf R0, __for_10318_end
-__if_10328_start:
+  jf R0, __for_11172_end
+__if_11182_start:
   mov R0, [BP-5]
   mov R1, global_ZBuffer
   mov R2, [BP-13]
   iadd R1, R2
   mov R1, [R1]
   fge R0, R1
-  jf R0, __if_10328_end
-  jmp __for_10318_continue
-__if_10328_end:
+  jf R0, __if_11182_end
+  jmp __for_11172_continue
+__if_11182_end:
   mov R0, [BP-13]
   imul R0, 5
   iadd R0, 2
@@ -15170,18 +16309,18 @@ __if_10328_end:
   fdiv R0, R1
   cfi R0
   mov [BP-14], R0
-__if_10354_start:
+__if_11208_start:
   mov R0, [BP-14]
   ilt R0, 0
-  jt R0, __LogicalOr_ShortCircuit_10359
+  jt R0, __LogicalOr_ShortCircuit_11213
   mov R1, [BP-14]
   mov R2, [BP+5]
   ige R1, R2
   or R0, R1
-__LogicalOr_ShortCircuit_10359:
-  jf R0, __if_10354_end
-  jmp __for_10318_continue
-__if_10354_end:
+__LogicalOr_ShortCircuit_11213:
+  jf R0, __if_11208_end
+  jmp __for_11172_continue
+__if_11208_end:
   mov R1, [BP+4]
   mov R2, [BP-14]
   iadd R1, R2
@@ -15193,13 +16332,13 @@ __if_10354_end:
   mov R1, [BP-10]
   mov [SP+1], R1
   call __function_draw_region_zoomed_at
-__for_10318_continue:
+__for_11172_continue:
   mov R0, [BP-13]
   mov R1, R0
   iadd R1, 1
   mov [BP-13], R1
-  jmp __for_10318_start
-__for_10318_end:
+  jmp __for_11172_start
+__for_11172_end:
 __function_DrawSprite_return:
   mov SP, BP
   pop BP
@@ -15224,16 +16363,16 @@ __function_EnemyFrame:
   iadd R0, R1
   mov R0, [R0]
   mov [BP-2], R0
-__if_10385_start:
+__if_11239_start:
   mov R0, [BP-1]
   ieq R0, 3
-  jt R0, __LogicalOr_ShortCircuit_10390
+  jt R0, __LogicalOr_ShortCircuit_11244
   mov R1, [BP-1]
   ieq R1, 4
   or R0, R1
-__LogicalOr_ShortCircuit_10390:
-  jf R0, __if_10385_end
-__if_10394_start:
+__LogicalOr_ShortCircuit_11244:
+  jf R0, __if_11239_end
+__if_11248_start:
   mov R1, global_Enemies
   mov R2, [BP+2]
   imul R2, 11
@@ -15241,12 +16380,12 @@ __if_10394_start:
   iadd R1, 4
   mov R0, [R1]
   bnot R0
-  jf R0, __if_10394_end
+  jf R0, __if_11248_end
   mov R0, [BP-2]
   iadd R0, 3
   jmp __function_EnemyFrame_return
-__if_10394_end:
-__if_10404_start:
+__if_11248_end:
+__if_11258_start:
   mov R1, global_Enemies
   mov R2, [BP+2]
   imul R2, 11
@@ -15254,12 +16393,12 @@ __if_10404_start:
   iadd R1, 5
   mov R0, [R1]
   igt R0, 0
-  jf R0, __if_10404_end
+  jf R0, __if_11258_end
   mov R0, [BP-2]
   iadd R0, 2
   jmp __function_EnemyFrame_return
-__if_10404_end:
-__if_10415_start:
+__if_11258_end:
+__if_11269_start:
   mov R1, global_Enemies
   mov R2, [BP+2]
   imul R2, 11
@@ -15267,15 +16406,15 @@ __if_10415_start:
   iadd R1, 6
   mov R0, [R1]
   igt R0, 0
-  jf R0, __if_10415_end
+  jf R0, __if_11269_end
   mov R0, [BP-2]
   iadd R0, 1
   jmp __function_EnemyFrame_return
-__if_10415_end:
+__if_11269_end:
   mov R0, [BP-2]
   jmp __function_EnemyFrame_return
-__if_10385_end:
-__if_10428_start:
+__if_11239_end:
+__if_11282_start:
   mov R1, global_Enemies
   mov R2, [BP+2]
   imul R2, 11
@@ -15283,12 +16422,12 @@ __if_10428_start:
   iadd R1, 4
   mov R0, [R1]
   bnot R0
-  jf R0, __if_10428_end
+  jf R0, __if_11282_end
   mov R0, [BP-2]
   iadd R0, 4
   jmp __function_EnemyFrame_return
-__if_10428_end:
-__if_10438_start:
+__if_11282_end:
+__if_11292_start:
   mov R1, global_Enemies
   mov R2, [BP+2]
   imul R2, 11
@@ -15296,12 +16435,12 @@ __if_10438_start:
   iadd R1, 5
   mov R0, [R1]
   igt R0, 0
-  jf R0, __if_10438_end
+  jf R0, __if_11292_end
   mov R0, [BP-2]
   iadd R0, 3
   jmp __function_EnemyFrame_return
-__if_10438_end:
-__if_10449_start:
+__if_11292_end:
+__if_11303_start:
   mov R1, global_Enemies
   mov R2, [BP+2]
   imul R2, 11
@@ -15309,20 +16448,20 @@ __if_10449_start:
   iadd R1, 6
   mov R0, [R1]
   igt R0, 0
-  jf R0, __if_10449_end
+  jf R0, __if_11303_end
   mov R0, [BP-2]
   iadd R0, 2
   jmp __function_EnemyFrame_return
-__if_10449_end:
+__if_11303_end:
   mov R0, 15
   mov [BP-3], R0
-__if_10463_start:
+__if_11317_start:
   mov R0, [BP-1]
   ieq R0, 1
-  jf R0, __if_10463_end
+  jf R0, __if_11317_end
   mov R0, 5
   mov [BP-3], R0
-__if_10463_end:
+__if_11317_end:
   mov R0, [BP-2]
   mov R2, global_Enemies
   mov R3, [BP+2]
@@ -15362,18 +16501,18 @@ __function_AddSprite:
   fmul R1, R2
   fadd R0, R1
   mov [BP-3], R0
-__if_10507_start:
+__if_11361_start:
   mov R0, [BP-3]
   fgt R0, 400.000000
-  jf R0, __if_10507_end
+  jf R0, __if_11361_end
   jmp __function_AddSprite_return
-__if_10507_end:
-__if_10512_start:
+__if_11361_end:
+__if_11366_start:
   mov R0, [global_SpriteCount]
-  ige R0, 64
-  jf R0, __if_10512_end
+  ige R0, 96
+  jf R0, __if_11366_end
   jmp __function_AddSprite_return
-__if_10512_end:
+__if_11366_end:
   mov R0, [BP+2]
   mov R1, global_DrawOrder
   mov R2, [global_SpriteCount]
@@ -15401,11 +16540,11 @@ __function_DrawSprites:
   mov [global_SpriteCount], R0
   mov R0, 0
   mov [BP-1], R0
-__for_10533_start:
+__for_11387_start:
   mov R0, [BP-1]
   ilt R0, 24
-  jf R0, __for_10533_end
-__if_10542_start:
+  jf R0, __for_11387_end
+__if_11396_start:
   mov R1, global_Enemies
   mov R2, [BP-1]
   imul R2, 11
@@ -15413,7 +16552,7 @@ __if_10542_start:
   iadd R1, 2
   mov R0, [R1]
   ige R0, 0
-  jf R0, __if_10542_end
+  jf R0, __if_11396_end
   mov R1, [BP-1]
   mov [SP], R1
   mov R2, global_Enemies
@@ -15430,21 +16569,21 @@ __if_10542_start:
   mov R1, [R2]
   mov [SP+2], R1
   call __function_AddSprite
-__if_10542_end:
-__for_10533_continue:
+__if_11396_end:
+__for_11387_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_10533_start
-__for_10533_end:
+  jmp __for_11387_start
+__for_11387_end:
   mov R0, 0
   mov [BP-1], R0
-__for_10559_start:
+__for_11413_start:
   mov R0, [BP-1]
-  ilt R0, 24
-  jf R0, __for_10559_end
-__if_10568_start:
+  ilt R0, 32
+  jf R0, __for_11413_end
+__if_11422_start:
   mov R1, global_Items
   mov R2, [BP-1]
   imul R2, 5
@@ -15452,7 +16591,7 @@ __if_10568_start:
   iadd R1, 4
   mov R0, [R1]
   cib R0
-  jf R0, __if_10568_end
+  jf R0, __if_11422_end
   mov R1, [BP-1]
   iadd R1, 100
   mov [SP], R1
@@ -15470,21 +16609,21 @@ __if_10568_start:
   mov R1, [R2]
   mov [SP+2], R1
   call __function_AddSprite
-__if_10568_end:
-__for_10559_continue:
+__if_11422_end:
+__for_11413_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_10559_start
-__for_10559_end:
+  jmp __for_11413_start
+__for_11413_end:
   mov R0, 0
   mov [BP-1], R0
-__for_10585_start:
+__for_11439_start:
   mov R0, [BP-1]
   ilt R0, 16
-  jf R0, __for_10585_end
-__if_10594_start:
+  jf R0, __for_11439_end
+__if_11448_start:
   mov R1, global_Projectiles
   mov R2, [BP-1]
   imul R2, 8
@@ -15492,7 +16631,7 @@ __if_10594_start:
   iadd R1, 4
   mov R0, [R1]
   cib R0
-  jf R0, __if_10594_end
+  jf R0, __if_11448_end
   mov R1, [BP-1]
   iadd R1, 200
   mov [SP], R1
@@ -15510,28 +16649,68 @@ __if_10594_start:
   mov R1, [R2]
   mov [SP+2], R1
   call __function_AddSprite
-__if_10594_end:
-__for_10585_continue:
+__if_11448_end:
+__for_11439_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_10585_start
-__for_10585_end:
+  jmp __for_11439_start
+__for_11439_end:
+  mov R0, 0
+  mov [BP-1], R0
+__for_11465_start:
+  mov R0, [BP-1]
+  ilt R0, 16
+  jf R0, __for_11465_end
+__if_11474_start:
+  mov R1, global_Bolts
+  mov R2, [BP-1]
+  imul R2, 8
+  iadd R1, R2
+  iadd R1, 4
+  mov R0, [R1]
+  cib R0
+  jf R0, __if_11474_end
+  mov R1, [BP-1]
+  iadd R1, 300
+  mov [SP], R1
+  mov R2, global_Bolts
+  mov R3, [BP-1]
+  imul R3, 8
+  iadd R2, R3
+  mov R1, [R2]
+  mov [SP+1], R1
+  mov R2, global_Bolts
+  mov R3, [BP-1]
+  imul R3, 8
+  iadd R2, R3
+  iadd R2, 1
+  mov R1, [R2]
+  mov [SP+2], R1
+  call __function_AddSprite
+__if_11474_end:
+__for_11465_continue:
+  mov R0, [BP-1]
+  mov R1, R0
+  iadd R1, 1
+  mov [BP-1], R1
+  jmp __for_11465_start
+__for_11465_end:
   mov R0, 1
   mov [BP-1], R0
-__for_10611_start:
+__for_11491_start:
   mov R0, [BP-1]
   mov R1, [global_SpriteCount]
   ilt R0, R1
-  jf R0, __for_10611_end
+  jf R0, __for_11491_end
   mov R0, [BP-1]
   mov [BP-2], R0
-__while_10624_start:
-__while_10624_continue:
+__while_11504_start:
+__while_11504_continue:
   mov R0, [BP-2]
   igt R0, 0
-  jf R0, __LogicalAnd_ShortCircuit_10633
+  jf R0, __LogicalAnd_ShortCircuit_11513
   mov R1, global_SortDepth
   mov R2, [BP-2]
   isub R2, 1
@@ -15543,8 +16722,8 @@ __while_10624_continue:
   mov R2, [R2]
   flt R1, R2
   and R0, R1
-__LogicalAnd_ShortCircuit_10633:
-  jf R0, __while_10624_end
+__LogicalAnd_ShortCircuit_11513:
+  jf R0, __while_11504_end
   mov R0, global_SortDepth
   mov R1, [BP-2]
   iadd R0, R1
@@ -15589,31 +16768,31 @@ __LogicalAnd_ShortCircuit_10633:
   mov R1, R0
   isub R1, 1
   mov [BP-2], R1
-  jmp __while_10624_start
-__while_10624_end:
-__for_10611_continue:
+  jmp __while_11504_start
+__while_11504_end:
+__for_11491_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_10611_start
-__for_10611_end:
+  jmp __for_11491_start
+__for_11491_end:
   mov R0, 0
   mov [BP-1], R0
-__for_10683_start:
+__for_11563_start:
   mov R0, [BP-1]
   mov R1, [global_SpriteCount]
   ilt R0, R1
-  jf R0, __for_10683_end
+  jf R0, __for_11563_end
   mov R0, global_DrawOrder
   mov R1, [BP-1]
   iadd R0, R1
   mov R0, [R0]
   mov [BP-2], R0
-__if_10698_start:
+__if_11578_start:
   mov R0, [BP-2]
   ilt R0, 100
-  jf R0, __if_10698_else
+  jf R0, __if_11578_else
   mov R1, global_Enemies
   mov R2, [BP-2]
   imul R2, 11
@@ -15625,10 +16804,10 @@ __if_10698_start:
   mov [SP], R1
   call __function_EnemyFrame
   mov [BP-4], R0
-__if_10713_start:
+__if_11593_start:
   mov R0, [BP-3]
   ieq R0, 4
-  jf R0, __if_10713_else
+  jf R0, __if_11593_else
   mov R2, global_Enemies
   mov R3, [BP-2]
   imul R3, 11
@@ -15658,14 +16837,14 @@ __if_10713_start:
   mov R1, 0
   mov [SP+6], R1
   call __function_DrawSprite
-  jmp __if_10713_end
-__if_10713_else:
+  jmp __if_11593_end
+__if_11593_else:
   mov R0, 0.000000
   mov [BP-5], R0
-__if_10741_start:
+__if_11621_start:
   mov R0, [BP-3]
   ieq R0, 1
-  jf R0, __LogicalAnd_ShortCircuit_10749
+  jf R0, __LogicalAnd_ShortCircuit_11629
   mov R2, global_Enemies
   mov R3, [BP-2]
   imul R3, 11
@@ -15674,8 +16853,8 @@ __if_10741_start:
   mov R1, [R2]
   cib R1
   and R0, R1
-__LogicalAnd_ShortCircuit_10749:
-  jf R0, __if_10741_end
+__LogicalAnd_ShortCircuit_11629:
+  jf R0, __if_11621_end
   mov R3, global_Enemies
   mov R4, [BP-2]
   imul R4, 11
@@ -15691,7 +16870,7 @@ __LogicalAnd_ShortCircuit_10749:
   fadd R1, 0.300000
   mov [BP-5], R1
   mov R0, R1
-__if_10741_end:
+__if_11621_end:
   mov R2, global_Enemies
   mov R3, [BP-2]
   imul R3, 11
@@ -15721,13 +16900,13 @@ __if_10741_end:
   mov R1, 0
   mov [SP+6], R1
   call __function_DrawSprite
-__if_10713_end:
-  jmp __if_10698_end
-__if_10698_else:
-__if_10783_start:
+__if_11593_end:
+  jmp __if_11578_end
+__if_11578_else:
+__if_11663_start:
   mov R0, [BP-2]
   ilt R0, 200
-  jf R0, __if_10783_else
+  jf R0, __if_11663_else
   mov R0, [BP-2]
   isub R0, 100
   mov [BP-3], R0
@@ -15742,15 +16921,15 @@ __if_10783_start:
   mov [BP-5], R0
   mov R0, 0
   mov [BP-6], R0
-__if_10805_start:
+__if_11685_start:
   mov R0, [BP-4]
   ieq R0, 7
-  jt R0, __LogicalOr_ShortCircuit_10810
+  jt R0, __LogicalOr_ShortCircuit_11690
   mov R1, [BP-4]
   ieq R1, 8
   or R0, R1
-__LogicalOr_ShortCircuit_10810:
-  jf R0, __if_10805_end
+__LogicalOr_ShortCircuit_11690:
+  jf R0, __if_11685_end
   mov R2, [global_FrameCount]
   cif R2
   fmul R2, 0.080000
@@ -15763,7 +16942,7 @@ __LogicalOr_ShortCircuit_10810:
   mov R0, R1
   mov R0, 1
   mov [BP-6], R0
-__if_10805_end:
+__if_11685_end:
   mov R2, global_Items
   mov R3, [BP-3]
   imul R3, 5
@@ -15790,8 +16969,12 @@ __if_10805_end:
   mov R1, [BP-6]
   mov [SP+6], R1
   call __function_DrawSprite
-  jmp __if_10783_end
-__if_10783_else:
+  jmp __if_11663_end
+__if_11663_else:
+__if_11725_start:
+  mov R0, [BP-2]
+  ilt R0, 300
+  jf R0, __if_11725_else
   mov R0, [BP-2]
   isub R0, 200
   mov [BP-3], R0
@@ -15826,15 +17009,45 @@ __if_10783_else:
   mov R1, 1
   mov [SP+6], R1
   call __function_DrawSprite
-__if_10783_end:
-__if_10698_end:
-__for_10683_continue:
+  jmp __if_11725_end
+__if_11725_else:
+  mov R0, [BP-2]
+  isub R0, 300
+  mov [BP-3], R0
+  mov R2, global_Bolts
+  mov R3, [BP-3]
+  imul R3, 8
+  iadd R2, R3
+  mov R1, [R2]
+  mov [SP], R1
+  mov R2, global_Bolts
+  mov R3, [BP-3]
+  imul R3, 8
+  iadd R2, R3
+  iadd R2, 1
+  mov R1, [R2]
+  mov [SP+1], R1
+  mov R1, 2368
+  mov [SP+2], R1
+  mov R1, 64
+  mov [SP+3], R1
+  mov R1, 0.200000
+  mov [SP+4], R1
+  mov R1, 0.360000
+  mov [SP+5], R1
+  mov R1, 1
+  mov [SP+6], R1
+  call __function_DrawSprite
+__if_11725_end:
+__if_11663_end:
+__if_11578_end:
+__for_11563_continue:
   mov R0, [BP-1]
   mov R1, R0
   iadd R1, 1
   mov [BP-1], R1
-  jmp __for_10683_start
-__for_10683_end:
+  jmp __for_11563_start
+__for_11563_end:
 __function_DrawSprites_return:
   mov SP, BP
   pop BP
@@ -15843,7 +17056,7 @@ __function_DrawSprites_return:
 __function_DrawWeapon:
   push BP
   mov BP, SP
-  isub SP, 5
+  isub SP, 7
   mov R1, [global_WalkPhase]
   cif R1
   fmul R1, 0.180000
@@ -15864,30 +17077,61 @@ __function_DrawWeapon:
   iadd R1, 362
   mov R0, R1
   mov [BP-3], R0
-__if_10898_start:
-  mov R0, [global_FireTimer]
-  igt R0, 8
-  jf R0, __if_10898_end
+  mov R0, [global_FlashTimer]
+  igt R0, 0
+  mov [BP-4], R0
+__if_11811_start:
+  mov R0, [BP-4]
+  cib R0
+  jf R0, __if_11811_end
   mov R0, [BP-3]
   iadd R0, 10
   mov [BP-3], R0
-__if_10898_end:
+__if_11811_end:
+__if_11816_start:
+  mov R0, [BP-4]
+  cib R0
+  jf R0, __LogicalAnd_ShortCircuit_11818
+  mov R1, [global_Weapon]
+  ieq R1, 1
+  and R0, R1
+__LogicalAnd_ShortCircuit_11818:
+  jf R0, __if_11816_end
+  mov R0, [BP-3]
+  iadd R0, 8
+  mov [BP-3], R0
+__if_11816_end:
   mov R1, -1
   mov [SP], R1
   call __function_set_multiply_color
-__if_10907_start:
-  mov R0, [global_FireTimer]
-  igt R0, 8
-  jf R0, __if_10907_else
-  mov R1, 3101
+  mov R0, 3100
+  mov [BP-5], R0
+__if_11830_start:
+  mov R0, [global_Weapon]
+  ieq R0, 1
+  jf R0, __if_11830_end
+  mov R0, 3103
+  mov [BP-5], R0
+__if_11830_end:
+__if_11837_start:
+  mov R0, [global_Weapon]
+  ieq R0, 2
+  jf R0, __if_11837_end
+  mov R0, 3105
+  mov [BP-5], R0
+__if_11837_end:
+__if_11844_start:
+  mov R0, [BP-4]
+  cib R0
+  jf R0, __if_11844_end
+  mov R0, [BP-5]
+  mov R1, R0
+  iadd R1, 1
+  mov [BP-5], R1
+__if_11844_end:
+  mov R1, [BP-5]
   mov [SP], R1
   call __function_select_region
-  jmp __if_10907_end
-__if_10907_else:
-  mov R1, 3100
-  mov [SP], R1
-  call __function_select_region
-__if_10907_end:
   mov R1, 2.000000
   mov [SP], R1
   mov R1, 2.000000
@@ -15957,24 +17201,24 @@ __function_DrawMinimap:
   mov [BP-4], R0
   mov R0, 0
   mov [BP-7], R0
-__for_10966_start:
+__for_11901_start:
   mov R0, [BP-7]
   ilt R0, 32
-  jf R0, __for_10966_end
+  jf R0, __for_11901_end
   mov R0, -1
   mov [BP-8], R0
   mov R0, 0
   mov [BP-9], R0
-__for_10980_start:
+__for_11915_start:
   mov R0, [BP-9]
   ile R0, 32
-  jf R0, __for_10980_end
+  jf R0, __for_11915_end
   mov R0, 0
   mov [BP-10], R0
-__if_10993_start:
+__if_11928_start:
   mov R0, [BP-9]
   ilt R0, 32
-  jf R0, __if_10993_end
+  jf R0, __if_11928_end
   mov R0, global_Map
   mov R2, [BP-7]
   imul R2, 32
@@ -15985,39 +17229,39 @@ __if_10993_start:
   mov [BP-11], R0
   mov R0, [BP-11]
   ige R0, 1
-  jf R0, __LogicalAnd_ShortCircuit_11012
+  jf R0, __LogicalAnd_ShortCircuit_11947
   mov R1, [BP-11]
   ile R1, 5
   and R0, R1
-__LogicalAnd_ShortCircuit_11012:
-  jt R0, __LogicalOr_ShortCircuit_11016
+__LogicalAnd_ShortCircuit_11947:
+  jt R0, __LogicalOr_ShortCircuit_11951
   mov R1, [BP-11]
   ige R1, 11
   or R0, R1
-__LogicalOr_ShortCircuit_11016:
+__LogicalOr_ShortCircuit_11951:
   mov [BP-10], R0
-__if_10993_end:
-__if_11019_start:
+__if_11928_end:
+__if_11954_start:
   mov R0, [BP-10]
   cib R0
-  jf R0, __LogicalAnd_ShortCircuit_11021
+  jf R0, __LogicalAnd_ShortCircuit_11956
   mov R1, [BP-8]
   ilt R1, 0
   and R0, R1
-__LogicalAnd_ShortCircuit_11021:
-  jf R0, __if_11019_end
+__LogicalAnd_ShortCircuit_11956:
+  jf R0, __if_11954_end
   mov R0, [BP-9]
   mov [BP-8], R0
-__if_11019_end:
-__if_11028_start:
+__if_11954_end:
+__if_11963_start:
   mov R0, [BP-10]
   bnot R0
-  jf R0, __LogicalAnd_ShortCircuit_11031
+  jf R0, __LogicalAnd_ShortCircuit_11966
   mov R1, [BP-8]
   ige R1, 0
   and R0, R1
-__LogicalAnd_ShortCircuit_11031:
-  jf R0, __if_11028_end
+__LogicalAnd_ShortCircuit_11966:
+  jf R0, __if_11963_end
   mov R1, [BP-2]
   mov R2, [BP-8]
   mov R3, [BP-1]
@@ -16043,29 +17287,29 @@ __LogicalAnd_ShortCircuit_11031:
   call __function_DrawRect
   mov R0, -1
   mov [BP-8], R0
-__if_11028_end:
-__for_10980_continue:
+__if_11963_end:
+__for_11915_continue:
   mov R0, [BP-9]
   mov R1, R0
   iadd R1, 1
   mov [BP-9], R1
-  jmp __for_10980_start
-__for_10980_end:
-__for_10966_continue:
+  jmp __for_11915_start
+__for_11915_end:
+__for_11901_continue:
   mov R0, [BP-7]
   mov R1, R0
   iadd R1, 1
   mov [BP-7], R1
-  jmp __for_10966_start
-__for_10966_end:
+  jmp __for_11901_start
+__for_11901_end:
   mov R0, 0
   mov [BP-7], R0
-__for_11059_start:
+__for_11994_start:
   mov R0, [BP-7]
   mov R1, [global_DoorCount]
   ilt R0, R1
-  jf R0, __for_11059_end
-__if_11069_start:
+  jf R0, __for_11994_end
+__if_12004_start:
   mov R1, global_Doors
   mov R2, [BP-7]
   imul R2, 5
@@ -16073,9 +17317,9 @@ __if_11069_start:
   iadd R1, 4
   mov R0, [R1]
   fge R0, 1.000000
-  jf R0, __if_11069_end
-  jmp __for_11059_continue
-__if_11069_end:
+  jf R0, __if_12004_end
+  jmp __for_11994_continue
+__if_12004_end:
   mov R1, 230
   mov [SP], R1
   mov R1, 200
@@ -16084,7 +17328,7 @@ __if_11069_end:
   mov [SP+2], R1
   call __function_make_color_rgb
   mov [BP-8], R0
-__if_11083_start:
+__if_12018_start:
   mov R1, global_Doors
   mov R2, [BP-7]
   imul R2, 5
@@ -16092,7 +17336,7 @@ __if_11083_start:
   iadd R1, 2
   mov R0, [R1]
   ieq R0, 1
-  jf R0, __if_11083_end
+  jf R0, __if_12018_end
   mov R2, 230
   mov [SP], R2
   mov R2, 50
@@ -16103,8 +17347,8 @@ __if_11083_start:
   mov R1, R0
   mov [BP-8], R1
   mov R0, R1
-__if_11083_end:
-__if_11096_start:
+__if_12018_end:
+__if_12031_start:
   mov R1, global_Doors
   mov R2, [BP-7]
   imul R2, 5
@@ -16112,7 +17356,7 @@ __if_11096_start:
   iadd R1, 2
   mov R0, [R1]
   ieq R0, 2
-  jf R0, __if_11096_end
+  jf R0, __if_12031_end
   mov R2, 70
   mov [SP], R2
   mov R2, 120
@@ -16123,7 +17367,7 @@ __if_11096_start:
   mov R1, R0
   mov [BP-8], R1
   mov R0, R1
-__if_11096_end:
+__if_12031_end:
   mov R1, [BP-2]
   mov R3, global_Doors
   mov R4, [BP-7]
@@ -16152,20 +17396,20 @@ __if_11096_end:
   mov R1, [BP-8]
   mov [SP+4], R1
   call __function_DrawRect
-__for_11059_continue:
+__for_11994_continue:
   mov R0, [BP-7]
   mov R1, R0
   iadd R1, 1
   mov [BP-7], R1
-  jmp __for_11059_start
-__for_11059_end:
+  jmp __for_11994_start
+__for_11994_end:
   mov R0, 0
   mov [BP-7], R0
-__for_11129_start:
+__for_12064_start:
   mov R0, [BP-7]
   ilt R0, 24
-  jf R0, __for_11129_end
-__if_11138_start:
+  jf R0, __for_12064_end
+__if_12073_start:
   mov R1, global_Enemies
   mov R2, [BP-7]
   imul R2, 11
@@ -16173,7 +17417,7 @@ __if_11138_start:
   iadd R1, 2
   mov R0, [R1]
   ige R0, 0
-  jf R0, __LogicalAnd_ShortCircuit_11149
+  jf R0, __LogicalAnd_ShortCircuit_12084
   mov R2, global_Enemies
   mov R3, [BP-7]
   imul R3, 11
@@ -16182,8 +17426,8 @@ __if_11138_start:
   mov R1, [R2]
   cib R1
   and R0, R1
-__LogicalAnd_ShortCircuit_11149:
-  jf R0, __if_11138_end
+__LogicalAnd_ShortCircuit_12084:
+  jf R0, __if_12073_end
   mov R1, [BP-2]
   mov R3, global_Enemies
   mov R4, [BP-7]
@@ -16218,14 +17462,14 @@ __LogicalAnd_ShortCircuit_11149:
   mov R1, -16776961
   mov [SP+4], R1
   call __function_DrawRect
-__if_11138_end:
-__for_11129_continue:
+__if_12073_end:
+__for_12064_continue:
   mov R0, [BP-7]
   mov R1, R0
   iadd R1, 1
   mov [BP-7], R1
-  jmp __for_11129_start
-__for_11129_end:
+  jmp __for_12064_start
+__for_12064_end:
   mov R0, [BP-2]
   mov R1, [global_PlayerX]
   mov R2, [BP-1]
@@ -16339,10 +17583,10 @@ __function_DrawHUD:
   mov R1, [BP-1]
   mov [SP+4], R1
   call __function_DrawRect
-__if_11260_start:
+__if_12195_start:
   mov R0, [global_DamageFlash]
   igt R0, 0
-  jf R0, __if_11260_end
+  jf R0, __if_12195_end
   mov R2, 255
   mov [SP], R2
   mov R2, 0
@@ -16366,11 +17610,11 @@ __if_11260_start:
   mov R1, [BP-5]
   mov [SP+4], R1
   call __function_DrawRect
-__if_11260_end:
-__if_11276_start:
+__if_12195_end:
+__if_12211_start:
   mov R0, [global_PickupFlash]
   igt R0, 0
-  jf R0, __if_11276_end
+  jf R0, __if_12211_end
   mov R2, 255
   mov [SP], R2
   mov R2, 255
@@ -16394,18 +17638,18 @@ __if_11276_start:
   mov R1, [BP-5]
   mov [SP+4], R1
   call __function_DrawRect
-__if_11276_end:
-__if_11292_start:
+__if_12211_end:
+__if_12227_start:
   mov R0, [global_BossDeathTimer]
   igt R0, 0
-  jf R0, __LogicalAnd_ShortCircuit_11300
+  jf R0, __LogicalAnd_ShortCircuit_12235
   mov R1, [global_BossDeathTimer]
   idiv R1, 6
   imod R1, 2
   cib R1
   and R0, R1
-__LogicalAnd_ShortCircuit_11300:
-  jf R0, __if_11292_end
+__LogicalAnd_ShortCircuit_12235:
+  jf R0, __if_12227_end
   mov R2, 255
   mov [SP], R2
   mov R2, 255
@@ -16428,7 +17672,7 @@ __LogicalAnd_ShortCircuit_11300:
   mov R1, [BP-5]
   mov [SP+4], R1
   call __function_DrawRect
-__if_11292_end:
+__if_12227_end:
   mov R2, 0
   mov [SP], R2
   mov R2, 0
@@ -16469,10 +17713,10 @@ __if_11292_end:
   mov [SP+2], R1
   call __function_make_color_rgb
   mov [BP-3], R0
-__if_11338_start:
+__if_12273_start:
   mov R0, [global_Health]
   ilt R0, 60
-  jf R0, __if_11338_end
+  jf R0, __if_12273_end
   mov R2, 180
   mov [SP], R2
   mov R2, 140
@@ -16483,11 +17727,11 @@ __if_11338_start:
   mov R1, R0
   mov [BP-3], R1
   mov R0, R1
-__if_11338_end:
-__if_11348_start:
+__if_12273_end:
+__if_12283_start:
   mov R0, [global_Health]
   ilt R0, 30
-  jf R0, __if_11348_end
+  jf R0, __if_12283_end
   mov R2, 190
   mov [SP], R2
   mov R2, 30
@@ -16498,7 +17742,7 @@ __if_11348_start:
   mov R1, R0
   mov [BP-3], R1
   mov R0, R1
-__if_11348_end:
+__if_12283_end:
   mov R1, 12
   mov [SP], R1
   mov R1, 328
@@ -16524,7 +17768,7 @@ __if_11348_end:
   mov [SP], R1
   mov R1, 328
   mov [SP+1], R1
-  mov R1, __literal_string_11369
+  mov R1, __literal_string_12304
   mov [SP+2], R1
   mov R1, [BP-5]
   mov [SP+3], R1
@@ -16554,19 +17798,98 @@ __if_11348_end:
   mov R1, -1
   mov [SP], R1
   call __function_set_multiply_color
+__if_12320_start:
+  mov R0, [global_Weapon]
+  ieq R0, 1
+  jf R0, __if_12320_else
   mov R1, 476
   mov [SP], R1
   mov R1, 328
   mov [SP+1], R1
-  mov R1, __literal_string_11388
+  mov R1, __literal_string_12327
+  mov [SP+2], R1
+  mov R1, [global_Shells]
+  mov [SP+3], R1
+  call __function_PrintNumber
+  jmp __if_12320_end
+__if_12320_else:
+__if_12329_start:
+  mov R0, [global_Weapon]
+  ieq R0, 2
+  jf R0, __if_12329_else
+  mov R1, 476
+  mov [SP], R1
+  mov R1, 328
+  mov [SP+1], R1
+  mov R1, __literal_string_12336
+  mov [SP+2], R1
+  mov R1, [global_Cells]
+  mov [SP+3], R1
+  call __function_PrintNumber
+  jmp __if_12329_end
+__if_12329_else:
+  mov R1, 476
+  mov [SP], R1
+  mov R1, 328
+  mov [SP+1], R1
+  mov R1, __literal_string_12341
   mov [SP+2], R1
   mov R1, [global_Ammo]
   mov [SP+3], R1
   call __function_PrintNumber
-__if_11390_start:
+__if_12329_end:
+__if_12320_end:
+  mov R2, 150
+  mov [SP], R2
+  mov R2, 160
+  mov [SP+1], R2
+  mov R2, 175
+  mov [SP+2], R2
+  call __function_make_color_rgb
+  mov R1, R0
+  mov [BP-5], R1
+  mov R1, [BP-5]
+  mov [SP], R1
+  call __function_set_multiply_color
+__if_12348_start:
+  mov R0, [global_Weapon]
+  ieq R0, 1
+  jf R0, __if_12348_else
+  mov R1, 470
+  mov [SP], R1
+  mov R1, 304
+  mov [SP+1], R1
+  mov R1, __literal_string_12355
+  mov [SP+2], R1
+  call __function_print_at
+  jmp __if_12348_end
+__if_12348_else:
+__if_12356_start:
+  mov R0, [global_Weapon]
+  ieq R0, 2
+  jf R0, __if_12356_else
+  mov R1, 470
+  mov [SP], R1
+  mov R1, 304
+  mov [SP+1], R1
+  mov R1, __literal_string_12363
+  mov [SP+2], R1
+  call __function_print_at
+  jmp __if_12356_end
+__if_12356_else:
+  mov R1, 470
+  mov [SP], R1
+  mov R1, 304
+  mov [SP+1], R1
+  mov R1, __literal_string_12367
+  mov [SP+2], R1
+  call __function_print_at
+__if_12356_end:
+__if_12348_end:
+__if_12368_start:
   mov R0, [global_HasRedKey]
   cib R0
-  jf R0, __if_11390_end
+  jf R0, __if_12368_end
   mov R2, 220
   mov [SP], R2
   mov R2, 40
@@ -16598,11 +17921,11 @@ __if_11390_start:
   mov R1, -1
   mov [SP+4], R1
   call __function_DrawRect
-__if_11390_end:
-__if_11408_start:
+__if_12368_end:
+__if_12386_start:
   mov R0, [global_HasBlueKey]
   cib R0
-  jf R0, __if_11408_end
+  jf R0, __if_12386_end
   mov R2, 50
   mov [SP], R2
   mov R2, 110
@@ -16634,7 +17957,7 @@ __if_11408_start:
   mov R1, -1
   mov [SP+4], R1
   call __function_DrawRect
-__if_11408_end:
+__if_12386_end:
   mov R1, -1
   mov [SP], R1
   call __function_set_multiply_color
@@ -16642,22 +17965,22 @@ __if_11408_end:
   mov [SP], R1
   mov R1, 10
   mov [SP+1], R1
-  mov R1, __literal_string_11431
+  mov R1, __literal_string_12409
   mov [SP+2], R1
   mov R1, [global_EnemiesTotal]
   mov R2, [global_Kills]
   isub R1, R2
   mov [SP+3], R1
   call __function_PrintNumber
-__if_11435_start:
+__if_12413_start:
   mov R0, [global_BossActive]
   cib R0
-  jf R0, __LogicalAnd_ShortCircuit_11437
+  jf R0, __LogicalAnd_ShortCircuit_12415
   mov R1, [global_BossIndex]
   ige R1, 0
   and R0, R1
-__LogicalAnd_ShortCircuit_11437:
-  jf R0, __LogicalAnd_ShortCircuit_11445
+__LogicalAnd_ShortCircuit_12415:
+  jf R0, __LogicalAnd_ShortCircuit_12423
   mov R2, global_Enemies
   mov R3, [global_BossIndex]
   imul R3, 11
@@ -16666,8 +17989,8 @@ __LogicalAnd_ShortCircuit_11437:
   mov R1, [R2]
   cib R1
   and R0, R1
-__LogicalAnd_ShortCircuit_11445:
-  jf R0, __if_11435_end
+__LogicalAnd_ShortCircuit_12423:
+  jf R0, __if_12413_end
   mov R2, 0
   mov [SP], R2
   mov R2, 0
@@ -16697,7 +18020,7 @@ __LogicalAnd_ShortCircuit_11445:
   iadd R1, 3
   mov R0, [R1]
   imul R0, 300
-  mov R1, [4595]
+  mov R1, [4691]
   idiv R0, R1
   mov [BP-4], R0
   mov R2, 200
@@ -16734,14 +18057,14 @@ __LogicalAnd_ShortCircuit_11445:
   call __function_set_multiply_color
   mov R1, 14
   mov [SP], R1
-  mov R1, __literal_string_11485
+  mov R1, __literal_string_12463
   mov [SP+1], R1
   call __function_PrintCentered
-__if_11435_end:
-__if_11486_start:
+__if_12413_end:
+__if_12464_start:
   mov R0, [global_MessageTimer]
   igt R0, 0
-  jf R0, __if_11486_else
+  jf R0, __if_12464_else
   mov R1, -16711681
   mov [SP], R1
   call __function_set_multiply_color
@@ -16750,26 +18073,62 @@ __if_11486_start:
   mov R1, global_MessageText
   mov [SP+1], R1
   call __function_PrintCentered
-  jmp __if_11486_end
-__if_11486_else:
-__if_11496_start:
-  mov R0, [global_Ammo]
-  ieq R0, 0
-  jf R0, __if_11496_end
+  jmp __if_12464_end
+__if_12464_else:
+__if_12474_start:
+  mov R2, [global_Weapon]
+  mov [SP], R2
+  call __function_WeaponAmmo
+  mov R1, R0
+  ieq R1, 0
+  mov R0, R1
+  jf R0, __if_12474_end
   mov R1, -16744193
   mov [SP], R1
   call __function_set_multiply_color
+__if_12482_start:
+  mov R0, [global_Ammo]
+  igt R0, 0
+  jt R0, __LogicalOr_ShortCircuit_12492
+  mov R1, [global_HasShotgun]
+  cib R1
+  jf R1, __LogicalAnd_ShortCircuit_12488
+  mov R2, [global_Shells]
+  igt R2, 0
+  and R1, R2
+__LogicalAnd_ShortCircuit_12488:
+  or R0, R1
+__LogicalOr_ShortCircuit_12492:
+  jt R0, __LogicalOr_ShortCircuit_12499
+  mov R1, [global_HasRifle]
+  cib R1
+  jf R1, __LogicalAnd_ShortCircuit_12495
+  mov R2, [global_Cells]
+  igt R2, 0
+  and R1, R2
+__LogicalAnd_ShortCircuit_12495:
+  or R0, R1
+__LogicalOr_ShortCircuit_12499:
+  jf R0, __if_12482_else
   mov R1, 220
   mov [SP], R1
-  mov R1, __literal_string_11505
+  mov R1, __literal_string_12502
   mov [SP+1], R1
   call __function_PrintCentered
-__if_11496_end:
-__if_11486_end:
-__if_11506_start:
+  jmp __if_12482_end
+__if_12482_else:
+  mov R1, 220
+  mov [SP], R1
+  mov R1, __literal_string_12505
+  mov [SP+1], R1
+  call __function_PrintCentered
+__if_12482_end:
+__if_12474_end:
+__if_12464_end:
+__if_12506_start:
   call __function_FacingExit
   cib R0
-  jf R0, __if_11506_end
+  jf R0, __if_12506_end
   mov R2, 0
   mov [SP], R2
   mov R2, 0
@@ -16806,10 +18165,10 @@ __if_11506_start:
   call __function_set_multiply_color
   mov R1, 265
   mov [SP], R1
-  mov R1, __literal_string_11526
+  mov R1, __literal_string_12526
   mov [SP+1], R1
   call __function_PrintCentered
-__if_11506_end:
+__if_12506_end:
   mov R1, -1
   mov [SP], R1
   call __function_set_multiply_color
@@ -16861,7 +18220,7 @@ __function_PrintTime:
   mov [BP-1], R0
   mov R1, global_TextBuffer
   mov [SP], R1
-  mov R1, __literal_string_11555
+  mov R1, __literal_string_12555
   mov [SP+1], R1
   call __function_strcpy
   mov R1, [BP-1]
@@ -16879,20 +18238,20 @@ __function_PrintTime:
   call __function_strcat
   mov R1, global_TextBuffer
   mov [SP], R1
-  mov R1, __literal_string_11567
+  mov R1, __literal_string_12567
   mov [SP+1], R1
   call __function_strcat
-__if_11568_start:
+__if_12568_start:
   mov R0, [BP-1]
   imod R0, 60
   ilt R0, 10
-  jf R0, __if_11568_end
+  jf R0, __if_12568_end
   mov R1, global_TextBuffer
   mov [SP], R1
-  mov R1, __literal_string_11577
+  mov R1, __literal_string_12577
   mov [SP+1], R1
   call __function_strcat
-__if_11568_end:
+__if_12568_end:
   mov R1, [BP-1]
   imod R1, 60
   mov [SP], R1
@@ -16928,10 +18287,10 @@ __function_main:
   mov [global_StateTimer], R0
   mov R0, 0
   mov [global_ShowMap], R0
-__while_11602_start:
-__while_11602_continue:
+__while_12602_start:
+__while_12602_continue:
   mov R0, 1
-  jf R0, __while_11602_end
+  jf R0, __while_12602_end
   mov R1, 0
   mov [SP], R1
   call __function_select_gamepad
@@ -16946,10 +18305,10 @@ __while_11602_continue:
   mov R1, R0
   iadd R1, 1
   mov [global_FrameCount], R1
-__if_11613_start:
+__if_12613_start:
   mov R0, [global_GameState]
   ieq R0, 0
-  jf R0, __if_11613_else
+  jf R0, __if_12613_else
   mov R1, 0.004000
   mov [SP], R1
   call __function_RotatePlayer
@@ -16977,7 +18336,7 @@ __if_11613_start:
   call __function_set_multiply_color
   mov R1, 96
   mov [SP], R1
-  mov R1, __literal_string_11633
+  mov R1, __literal_string_12633
   mov [SP+1], R1
   call __function_PrintCentered
   mov R1, -1
@@ -16985,7 +18344,7 @@ __if_11613_start:
   call __function_set_multiply_color
   mov R1, global_TextBuffer
   mov [SP], R1
-  mov R1, __literal_string_11638
+  mov R1, __literal_string_12638
   mov [SP+1], R1
   call __function_strcpy
   mov R1, 4
@@ -17002,7 +18361,7 @@ __if_11613_start:
   call __function_strcat
   mov R1, global_TextBuffer
   mov [SP], R1
-  mov R1, __literal_string_11648
+  mov R1, __literal_string_12648
   mov [SP+1], R1
   call __function_strcat
   mov R1, 136
@@ -17012,32 +18371,32 @@ __if_11613_start:
   call __function_PrintCentered
   mov R1, 166
   mov [SP], R1
-  mov R1, __literal_string_11654
+  mov R1, __literal_string_12654
   mov [SP+1], R1
   call __function_PrintCentered
   mov R1, 190
   mov [SP], R1
-  mov R1, __literal_string_11657
+  mov R1, __literal_string_12657
   mov [SP+1], R1
   call __function_PrintCentered
-__if_11658_start:
+__if_12658_start:
   mov R0, [global_StateTimer]
   idiv R0, 30
   imod R0, 2
   cib R0
-  jf R0, __if_11658_end
+  jf R0, __if_12658_end
   mov R1, 230
   mov [SP], R1
-  mov R1, __literal_string_11667
+  mov R1, __literal_string_12667
   mov [SP+1], R1
   call __function_PrintCentered
-__if_11658_end:
-__if_11668_start:
+__if_12658_end:
+__if_12668_start:
   call __function_gamepad_button_start
   mov R1, R0
   ieq R1, 1
   mov R0, R1
-  jf R0, __if_11668_end
+  jf R0, __if_12668_end
   call __function_NewGame
   mov R1, 5
   mov [SP], R1
@@ -17050,13 +18409,13 @@ __if_11668_start:
   mov [global_GameState], R0
   mov R0, 0
   mov [global_StateTimer], R0
-__if_11668_end:
-  jmp __if_11613_end
-__if_11613_else:
-__if_11684_start:
+__if_12668_end:
+  jmp __if_12613_end
+__if_12613_else:
+__if_12684_start:
   mov R0, [global_GameState]
   ieq R0, 1
-  jf R0, __if_11684_else
+  jf R0, __if_12684_else
   call __function_DrawWorld
   mov R2, 0
   mov [SP], R2
@@ -17083,7 +18442,7 @@ __if_11684_start:
   mov [SP], R1
   mov R1, 140
   mov [SP+1], R1
-  mov R1, __literal_string_11703
+  mov R1, __literal_string_12703
   mov [SP+2], R1
   mov R1, [global_CurrentLevel]
   iadd R1, 1
@@ -17097,71 +18456,72 @@ __if_11684_start:
   mov R1, global_LevelName
   mov [SP+1], R1
   call __function_PrintCentered
-__if_11712_start:
+__if_12712_start:
   mov R1, [global_StateTimer]
   igt R1, 150
-  jt R1, __LogicalOr_ShortCircuit_11724
+  jt R1, __LogicalOr_ShortCircuit_12724
   mov R2, [global_StateTimer]
   igt R2, 20
-  jf R2, __LogicalAnd_ShortCircuit_11721
+  jf R2, __LogicalAnd_ShortCircuit_12721
   call __function_gamepad_button_start
   mov R3, R0
   ieq R3, 1
   and R2, R3
-__LogicalAnd_ShortCircuit_11721:
+__LogicalAnd_ShortCircuit_12721:
   or R1, R2
-__LogicalOr_ShortCircuit_11724:
+__LogicalOr_ShortCircuit_12724:
   mov R0, R1
-  jf R0, __if_11712_end
+  jf R0, __if_12712_end
   mov R0, 2
   mov [global_GameState], R0
   mov R0, 0
   mov [global_StateTimer], R0
-__if_11712_end:
-  jmp __if_11684_end
-__if_11684_else:
-__if_11732_start:
+__if_12712_end:
+  jmp __if_12684_end
+__if_12684_else:
+__if_12732_start:
   mov R0, [global_GameState]
   ieq R0, 2
-  jf R0, __if_11732_else
+  jf R0, __if_12732_else
   mov R0, [global_LevelFrames]
   mov R1, R0
   iadd R1, 1
   mov [global_LevelFrames], R1
   call __function_UpdatePlayer
-__if_11740_start:
+__if_12740_start:
   mov R0, [global_GameState]
   ieq R0, 2
-  jf R0, __if_11740_else
+  jf R0, __if_12740_else
   call __function_UpdateDoors
   call __function_UpdateEnemies
   call __function_UpdateProjectiles
+  call __function_UpdateBolts
   call __function_DrawWorld
   call __function_DrawWeapon
-__if_11750_start:
+__if_12751_start:
   mov R0, [global_ShowMap]
   cib R0
-  jf R0, __if_11750_end
+  jf R0, __if_12751_end
   call __function_DrawMinimap
-__if_11750_end:
+__if_12751_end:
   call __function_DrawHUD
-  jmp __if_11740_end
-__if_11740_else:
+  jmp __if_12740_end
+__if_12740_else:
   call __function_DrawWorld
-__if_11740_end:
-__if_11755_start:
+__if_12740_end:
+__if_12756_start:
   mov R0, [global_BossDeathTimer]
   igt R0, 0
-  jf R0, __if_11755_end
+  jf R0, __if_12756_end
   mov R0, [global_BossDeathTimer]
   mov R1, R0
   isub R1, 1
   mov [global_BossDeathTimer], R1
-__if_11762_start:
+__if_12763_start:
   mov R0, [global_BossDeathTimer]
   imod R0, 30
   ieq R0, 0
-  jf R0, __if_11762_end
+  jf R0, __if_12763_end
   mov R2, 40
   mov [SP], R2
   call __function_RandomInt
@@ -17177,11 +18537,11 @@ __if_11762_start:
   mov R1, [BP-1]
   mov [SP+2], R1
   call __function_PlaySfx
-__if_11762_end:
-__if_11778_start:
+__if_12763_end:
+__if_12779_start:
   mov R0, [global_BossDeathTimer]
   ieq R0, 0
-  jf R0, __if_11778_end
+  jf R0, __if_12779_end
   mov R0, [global_TotalKills]
   mov R1, [global_Kills]
   iadd R0, R1
@@ -17210,17 +18570,17 @@ __if_11778_start:
   mov [global_GameState], R0
   mov R0, 0
   mov [global_StateTimer], R0
-__if_11778_end:
-__if_11755_end:
-__if_11806_start:
+__if_12779_end:
+__if_12756_end:
+__if_12807_start:
   mov R0, [global_GameState]
   ieq R0, 2
-  jf R0, __LogicalAnd_ShortCircuit_11811
+  jf R0, __LogicalAnd_ShortCircuit_12812
   mov R1, [global_Health]
   ile R1, 0
   and R0, R1
-__LogicalAnd_ShortCircuit_11811:
-  jf R0, __if_11806_end
+__LogicalAnd_ShortCircuit_12812:
+  jf R0, __if_12807_end
   call __function_stop_all_channels
   mov R1, 7
   mov [SP], R1
@@ -17233,13 +18593,13 @@ __LogicalAnd_ShortCircuit_11811:
   mov [global_GameState], R0
   mov R0, 0
   mov [global_StateTimer], R0
-__if_11806_end:
-  jmp __if_11732_end
-__if_11732_else:
-__if_11826_start:
+__if_12807_end:
+  jmp __if_12732_end
+__if_12732_else:
+__if_12827_start:
   mov R0, [global_GameState]
   ieq R0, 3
-  jf R0, __if_11826_else
+  jf R0, __if_12827_else
   call __function_DrawWorld
   mov R2, 0
   mov [SP], R2
@@ -17273,7 +18633,7 @@ __if_11826_start:
   call __function_set_multiply_color
   mov R1, 90
   mov [SP], R1
-  mov R1, __literal_string_11847
+  mov R1, __literal_string_12848
   mov [SP+1], R1
   call __function_PrintCentered
   mov R1, -1
@@ -17286,7 +18646,7 @@ __if_11826_start:
   call __function_PrintCentered
   mov R1, 160
   mov [SP], R1
-  mov R1, __literal_string_11855
+  mov R1, __literal_string_12856
   mov [SP+1], R1
   mov R1, [global_Kills]
   mov [SP+2], R1
@@ -17295,7 +18655,7 @@ __if_11826_start:
   call __function_PrintRatio
   mov R1, 185
   mov [SP], R1
-  mov R1, __literal_string_11860
+  mov R1, __literal_string_12861
   mov [SP+1], R1
   mov R1, [global_SecretsFound]
   mov [SP+2], R1
@@ -17307,34 +18667,34 @@ __if_11826_start:
   mov R1, [global_LevelFrames]
   mov [SP+1], R1
   call __function_PrintTime
-__if_11866_start:
+__if_12867_start:
   mov R0, [global_StateTimer]
   igt R0, 60
-  jf R0, __LogicalAnd_ShortCircuit_11874
+  jf R0, __LogicalAnd_ShortCircuit_12875
   mov R1, [global_StateTimer]
   idiv R1, 30
   imod R1, 2
   cib R1
   and R0, R1
-__LogicalAnd_ShortCircuit_11874:
-  jf R0, __if_11866_end
+__LogicalAnd_ShortCircuit_12875:
+  jf R0, __if_12867_end
   mov R1, 250
   mov [SP], R1
-  mov R1, __literal_string_11879
+  mov R1, __literal_string_12880
   mov [SP+1], R1
   call __function_PrintCentered
-__if_11866_end:
-__if_11880_start:
+__if_12867_end:
+__if_12881_start:
   mov R1, [global_StateTimer]
   igt R1, 60
-  jf R1, __LogicalAnd_ShortCircuit_11885
+  jf R1, __LogicalAnd_ShortCircuit_12886
   call __function_gamepad_button_start
   mov R2, R0
   ieq R2, 1
   and R1, R2
-__LogicalAnd_ShortCircuit_11885:
+__LogicalAnd_ShortCircuit_12886:
   mov R0, R1
-  jf R0, __if_11880_end
+  jf R0, __if_12881_end
   mov R0, [global_CurrentLevel]
   mov R1, R0
   iadd R1, 1
@@ -17346,13 +18706,13 @@ __LogicalAnd_ShortCircuit_11885:
   mov [global_GameState], R0
   mov R0, 0
   mov [global_StateTimer], R0
-__if_11880_end:
-  jmp __if_11826_end
-__if_11826_else:
-__if_11899_start:
+__if_12881_end:
+  jmp __if_12827_end
+__if_12827_else:
+__if_12900_start:
   mov R0, [global_GameState]
   ieq R0, 4
-  jf R0, __if_11899_else
+  jf R0, __if_12900_else
   call __function_DrawWorld
   mov R2, 120
   mov [SP], R2
@@ -17381,42 +18741,42 @@ __if_11899_start:
   call __function_set_multiply_color
   mov R1, 140
   mov [SP], R1
-  mov R1, __literal_string_11919
+  mov R1, __literal_string_12920
   mov [SP+1], R1
   call __function_PrintCentered
   mov R1, 175
   mov [SP], R1
-  mov R1, __literal_string_11922
+  mov R1, __literal_string_12923
   mov [SP+1], R1
   call __function_PrintCentered
-__if_11923_start:
+__if_12924_start:
   mov R0, [global_StateTimer]
   igt R0, 60
-  jf R0, __LogicalAnd_ShortCircuit_11931
+  jf R0, __LogicalAnd_ShortCircuit_12932
   mov R1, [global_StateTimer]
   idiv R1, 30
   imod R1, 2
   cib R1
   and R0, R1
-__LogicalAnd_ShortCircuit_11931:
-  jf R0, __if_11923_end
+__LogicalAnd_ShortCircuit_12932:
+  jf R0, __if_12924_end
   mov R1, 230
   mov [SP], R1
-  mov R1, __literal_string_11936
+  mov R1, __literal_string_12937
   mov [SP+1], R1
   call __function_PrintCentered
-__if_11923_end:
-__if_11937_start:
+__if_12924_end:
+__if_12938_start:
   mov R1, [global_StateTimer]
   igt R1, 60
-  jf R1, __LogicalAnd_ShortCircuit_11942
+  jf R1, __LogicalAnd_ShortCircuit_12943
   call __function_gamepad_button_start
   mov R2, R0
   ieq R2, 1
   and R1, R2
-__LogicalAnd_ShortCircuit_11942:
+__LogicalAnd_ShortCircuit_12943:
   mov R0, R1
-  jf R0, __if_11937_end
+  jf R0, __if_12938_end
   mov R0, 100
   mov [global_Health], R0
   mov R2, [global_LevelStartAmmo]
@@ -17427,6 +18787,25 @@ __LogicalAnd_ShortCircuit_11942:
   mov R1, R0
   mov [global_Ammo], R1
   mov R0, R1
+  mov R0, [global_LevelStartShells]
+  mov [global_Shells], R0
+  mov R0, [global_LevelStartCells]
+  mov [global_Cells], R0
+  mov R0, [global_LevelStartShotgun]
+  mov [global_HasShotgun], R0
+  mov R0, [global_LevelStartRifle]
+  mov [global_HasRifle], R0
+__if_12967_start:
+  mov R2, [global_Weapon]
+  mov [SP], R2
+  call __function_OwnsWeapon
+  mov R1, R0
+  bnot R1
+  mov R0, R1
+  jf R0, __if_12967_end
+  mov R0, 0
+  mov [global_Weapon], R0
+__if_12967_end:
   mov R1, [global_CurrentLevel]
   mov [SP], R1
   call __function_LoadLevel
@@ -17434,9 +18813,9 @@ __LogicalAnd_ShortCircuit_11942:
   mov [global_GameState], R0
   mov R0, 0
   mov [global_StateTimer], R0
-__if_11937_end:
-  jmp __if_11899_end
-__if_11899_else:
+__if_12938_end:
+  jmp __if_12900_end
+__if_12900_else:
   call __function_DrawWorld
   mov R2, 0
   mov [SP], R2
@@ -17461,7 +18840,7 @@ __if_11899_else:
   call __function_set_multiply_color
   mov R1, 80
   mov [SP], R1
-  mov R1, __literal_string_11976
+  mov R1, __literal_string_12996
   mov [SP+1], R1
   call __function_PrintCentered
   mov R1, -1
@@ -17469,12 +18848,12 @@ __if_11899_else:
   call __function_set_multiply_color
   mov R1, 110
   mov [SP], R1
-  mov R1, __literal_string_11981
+  mov R1, __literal_string_13001
   mov [SP+1], R1
   call __function_PrintCentered
   mov R1, 160
   mov [SP], R1
-  mov R1, __literal_string_11984
+  mov R1, __literal_string_13004
   mov [SP+1], R1
   mov R1, [global_TotalKills]
   mov [SP+2], R1
@@ -17483,55 +18862,55 @@ __if_11899_else:
   call __function_PrintRatio
   mov R1, 185
   mov [SP], R1
-  mov R1, __literal_string_11989
+  mov R1, __literal_string_13009
   mov [SP+1], R1
   mov R1, [global_TotalSecrets]
   mov [SP+2], R1
   mov R1, [global_TotalSecretsAvailable]
   mov [SP+3], R1
   call __function_PrintRatio
-__if_11992_start:
+__if_13012_start:
   mov R0, [global_StateTimer]
   igt R0, 90
-  jf R0, __LogicalAnd_ShortCircuit_12000
+  jf R0, __LogicalAnd_ShortCircuit_13020
   mov R1, [global_StateTimer]
   idiv R1, 30
   imod R1, 2
   cib R1
   and R0, R1
-__LogicalAnd_ShortCircuit_12000:
-  jf R0, __if_11992_end
+__LogicalAnd_ShortCircuit_13020:
+  jf R0, __if_13012_end
   mov R1, 250
   mov [SP], R1
-  mov R1, __literal_string_12005
+  mov R1, __literal_string_13025
   mov [SP+1], R1
   call __function_PrintCentered
-__if_11992_end:
-__if_12006_start:
+__if_13012_end:
+__if_13026_start:
   mov R1, [global_StateTimer]
   igt R1, 90
-  jf R1, __LogicalAnd_ShortCircuit_12011
+  jf R1, __LogicalAnd_ShortCircuit_13031
   call __function_gamepad_button_start
   mov R2, R0
   ieq R2, 1
   and R1, R2
-__LogicalAnd_ShortCircuit_12011:
+__LogicalAnd_ShortCircuit_13031:
   mov R0, R1
-  jf R0, __if_12006_end
+  jf R0, __if_13026_end
   call __function_NewGame
   mov R0, 0
   mov [global_GameState], R0
   mov R0, 0
   mov [global_StateTimer], R0
-__if_12006_end:
-__if_11899_end:
-__if_11826_end:
-__if_11732_end:
-__if_11684_end:
-__if_11613_end:
+__if_13026_end:
+__if_12900_end:
+__if_12827_end:
+__if_12732_end:
+__if_12684_end:
+__if_12613_end:
   call __function_end_frame
-  jmp __while_11602_start
-__while_11602_end:
+  jmp __while_12602_start
+__while_12602_end:
 __function_main_return:
   mov SP, BP
   pop BP
@@ -17541,85 +18920,101 @@ __literal_string_1539:
   string "0123456789ABCDEF"
 __literal_string_1576:
   string "-2147483648"
-__literal_string_6673:
+__literal_string_6797:
   string "OUTER DEPOT"
-__literal_string_6680:
+__literal_string_6804:
   string "INNER DEPOT"
-__literal_string_6687:
+__literal_string_6811:
   string "PROCESSING PLANT"
-__literal_string_6694:
+__literal_string_6818:
   string "THE CORE"
-__literal_string_7306:
+__literal_string_7466:
   string " / "
-__literal_string_8071:
+__literal_string_8340:
   string "THE WARDEN IS FALLING!"
-__literal_string_8295:
+__literal_string_8444:
   string "THE WARDEN IS ENRAGED!"
-__literal_string_8388:
+__literal_string_9134:
   string "SECRET AREA FOUND!"
-__literal_string_8725:
+__literal_string_9537:
+  string "SHOTGUN ACQUIRED  -  X TO SWITCH"
+__literal_string_9564:
+  string "PLASMA RIFLE ACQUIRED  -  X TO SWITCH"
+__literal_string_9579:
   string "RED KEYCARD ACQUIRED"
-__literal_string_8731:
+__literal_string_9585:
   string "BLUE KEYCARD ACQUIRED"
-__literal_string_8897:
+__literal_string_9751:
   string "RED KEYCARD REQUIRED"
-__literal_string_8899:
+__literal_string_9753:
   string "BLUE KEYCARD REQUIRED"
-__literal_string_9317:
+__literal_string_10171:
   string "THE WARDEN AWAKENS"
-__literal_string_11369:
+__literal_string_12304:
   string "HP "
-__literal_string_11388:
+__literal_string_12327:
+  string "SHELLS "
+__literal_string_12336:
+  string "CELLS "
+__literal_string_12341:
   string "AMMO "
-__literal_string_11431:
+__literal_string_12355:
+  string "SHOTGUN"
+__literal_string_12363:
+  string "PLASMA RIFLE"
+__literal_string_12367:
+  string "BLASTER"
+__literal_string_12409:
   string "ROBOTS LEFT "
-__literal_string_11485:
+__literal_string_12463:
   string "THE WARDEN"
-__literal_string_11505:
+__literal_string_12502:
+  string "EMPTY - PRESS X TO SWITCH WEAPON"
+__literal_string_12505:
   string "OUT OF AMMO - FIND A CRATE"
-__literal_string_11526:
+__literal_string_12526:
   string "PRESS B TO EXIT"
-__literal_string_11555:
+__literal_string_12555:
   string "TIME "
-__literal_string_11567:
+__literal_string_12567:
   string ":"
-__literal_string_11577:
+__literal_string_12577:
   string "0"
-__literal_string_11633:
+__literal_string_12633:
   string "S E N T R Y   S W E E P"
-__literal_string_11638:
+__literal_string_12638:
   string "Fight through "
-__literal_string_11648:
+__literal_string_12648:
   string " levels of hostile robots"
-__literal_string_11654:
+__literal_string_12654:
   string "D-PAD move/turn   L/R strafe   A fire"
-__literal_string_11657:
-  string "B use/exit   Y map"
-__literal_string_11667:
+__literal_string_12657:
+  string "X switch weapon   B use/exit   Y map"
+__literal_string_12667:
   string "PRESS START"
-__literal_string_11703:
+__literal_string_12703:
   string "LEVEL "
-__literal_string_11847:
+__literal_string_12848:
   string "LEVEL COMPLETE"
-__literal_string_11855:
+__literal_string_12856:
   string "ROBOTS "
-__literal_string_11860:
+__literal_string_12861:
   string "SECRETS "
-__literal_string_11879:
+__literal_string_12880:
   string "PRESS START"
-__literal_string_11919:
+__literal_string_12920:
   string "YOU WERE DESTROYED"
-__literal_string_11922:
+__literal_string_12923:
   string "Retry this level with full health"
-__literal_string_11936:
+__literal_string_12937:
   string "PRESS START"
-__literal_string_11976:
+__literal_string_12996:
   string "THE WARDEN IS DESTROYED"
-__literal_string_11981:
+__literal_string_13001:
   string "The Core has gone quiet. Sector cleared!"
-__literal_string_11984:
+__literal_string_13004:
   string "TOTAL ROBOTS "
-__literal_string_11989:
+__literal_string_13009:
   string "TOTAL SECRETS "
-__literal_string_12005:
+__literal_string_13025:
   string "PRESS START"

@@ -15,17 +15,18 @@
 #   R  red keycard door           a  ammo crate
 #   U  blue keycard door          r  red keycard
 #   1-4 secret wall that looks    b  blue keycard
-#       like wall type #,%,=,&
+#       like wall type #,%,=,&    G  shotgun        g  shell box
+#                                 C  plasma rifle   c  energy cells
 # Header lines before the map:  "name: TEXT"  and  "facing: east|south|west|north"
 import glob, os, sys
 from collections import deque
 
 N = 32
-MAX_ENEMIES, MAX_ITEMS, MAX_DOORS = 24, 16, 32
+MAX_ENEMIES, MAX_ITEMS, MAX_DOORS = 24, 24, 32
 TILES = {".": 0, "#": 1, "%": 2, "=": 3, "&": 4, "X": 5, "D": 6, "R": 7, "U": 8,
          "1": 11, "2": 12, "3": 13, "4": 14}
 ENEMIES = {"s": 0, "d": 1, "h": 2, "t": 3, "W": 4}
-ITEMS = {"+": 5, "a": 6, "r": 7, "b": 8}
+ITEMS = {"+": 5, "a": 6, "r": 7, "b": 8, "G": 25, "C": 26, "g": 27, "c": 28}
 FACING = {"east": 0, "south": 1, "west": 2, "north": 3}
 SOLID = set("#%=&X1234")
 

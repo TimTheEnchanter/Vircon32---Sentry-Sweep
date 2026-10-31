@@ -316,7 +316,7 @@ const BUILTIN = __LEVELS__;
 //   TILE CATALOG (mirrors tools/make_levels.py)
 // ------------------------------------------------------------------
 const N = 32;
-const LIMITS = { enemies: 24, items: 16, doors: 32 };
+const LIMITS = { enemies: 24, items: 24, doors: 32 };
 const T = {
   ".": { name: "Floor", desc: "Empty space", kind: "floor" },
   "#": { name: "Brick wall", desc: "Solid wall", kind: "wall", tex: 0 },
@@ -341,13 +341,19 @@ const T = {
   "a": { name: "Ammo crate", desc: "+20 ammo", kind: "item", frame: 6, scale: 0.5 },
   "r": { name: "Red keycard", desc: "Opens red doors", kind: "item", frame: 7, scale: 0.5 },
   "b": { name: "Blue keycard", desc: "Opens blue doors", kind: "item", frame: 8, scale: 0.5 },
+  "G": { name: "Shotgun", desc: "Weapon · comes with 8 shells", kind: "item", frame: 25, scale: 0.5 },
+  "C": { name: "Plasma rifle", desc: "Weapon · comes with 40 cells", kind: "item", frame: 26, scale: 0.5 },
+  "g": { name: "Shell box", desc: "+8 shotgun shells", kind: "item", frame: 27, scale: 0.5 },
+  "c": { name: "Energy cells", desc: "+30 plasma rifle cells", kind: "item", frame: 28, scale: 0.5 },
 };
 const GROUPS = [
   ["Walls", ".#%=&"],
   ["Doors and exit", "DRUX"],
   ["Secret walls", "1234"],
   ["Robots", "sdhtW"],
-  ["Player and pickups", "P+arb"],
+  ["Player and keycards", "Prb"],
+  ["Health and ammo", "+agc"],
+  ["Weapons", "GC"],
 ];
 const SOLID = new Set("#%=&X1234".split(""));
 const FLOORISH = (c) => !SOLID.has(c) && !"DRU".includes(c);
@@ -429,7 +435,7 @@ function check() {
   const starts = []; grid.forEach((r, y) => r.forEach((c, x) => { if (c === "P") starts.push([x, y]); }));
   if (starts.length !== 1) errors.push({ msg: starts.length ? `There are ${starts.length} player starts; keep one` : "Place a player start (P)", cell: starts[1] || null });
 
-  const ne = cnt("sdhtW"), ni = cnt("+arb"), nd = cnt("DRU");
+  const ne = cnt("sdhtW"), ni = cnt("+arbGCgc"), nd = cnt("DRU");
   if (ne > LIMITS.enemies) errors.push({ msg: `Too many robots: ${ne} (the game holds ${LIMITS.enemies})`, cell: null });
   if (ni > LIMITS.items) errors.push({ msg: `Too many pickups: ${ni} (the game holds ${LIMITS.items})`, cell: null });
   if (nd > LIMITS.doors) errors.push({ msg: `Too many doors: ${nd} (the game holds ${LIMITS.doors})`, cell: null });
@@ -462,7 +468,7 @@ function check() {
     }
     let unreachable = 0, firstU = null;
     grid.forEach((r, y) => r.forEach((c, x) => {
-      if ("sdhtW+arb".includes(c) && !reach.has(x + "," + y)) { unreachable++; firstU = firstU || [x, y, c]; }
+      if ("sdhtW+arbGCgc".includes(c) && !reach.has(x + "," + y)) { unreachable++; firstU = firstU || [x, y, c]; }
     }));
     if (unreachable) errors.push({ msg: `${T[firstU[2]].name} at (${firstU[0]}, ${firstU[1]}) can't be reached` + (unreachable > 1 ? ` (${unreachable} things unreachable in total)` : ""), cell: firstU.slice(0, 2) });
 
@@ -481,8 +487,9 @@ function check() {
 
   // balance hints
   let hp = 0; for (const c of "sdhtW") hp += (counts[c] || 0) * T[c].hp;
-  const ammo = 30 + (counts["a"] || 0) * 20;
-  if (hp && ammo < hp * 1.3) warnings.push({ msg: `Ammo is tight: ${ammo} shots for ${hp} robot HP. Add ammo crates.`, cell: null });
+  // firepower in damage: bullets hit for 1, a shell lands about 3 pellets, a cell hits for 1
+  const ammo = 30 + (counts["a"] || 0) * 20 + ((counts["g"] || 0) + (counts["G"] || 0)) * 8 * 3 + (counts["c"] || 0) * 30 + (counts["C"] || 0) * 40;
+  if (hp && ammo < hp * 1.3) warnings.push({ msg: `Firepower is tight: about ${ammo} damage for ${hp} robot HP. Add ammo crates, shells or cells.`, cell: null });
   if (ne >= 6 && !(counts["+"] || 0)) warnings.push({ msg: "No medkits for a level with this many robots", cell: null });
   for (let y = 1; y < N - 1; y++) for (let x = 1; x < N - 1; x++) if ("1234".includes(at(x, y))) {
     const open = [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([dx, dy]) => !SOLID.has(at(x + dx, y + dy))).length;
@@ -729,6 +736,8 @@ function renderChecks() {
     ["Secrets", `${secrets}`, false],
     ["Medkits", `${c["+"] || 0}`, false],
     ["Ammo crates", `${c["a"] || 0}`, false],
+    ["Shells / cells", `${c["g"] || 0} / ${c["c"] || 0}`, false],
+    ["Weapons", `${(c["G"] || 0) + (c["C"] || 0)}`, false],
   ];
   document.getElementById("stats").innerHTML = stats.map(([k, v, over]) => `<div class="${over ? "over" : ""}"><span>${k}</span><b>${v}</b></div>`).join("");
   const ratio = r.hp ? r.ammo / r.hp : 2;
@@ -736,8 +745,8 @@ function renderChecks() {
   m.className = "meter" + (ratio < 1 ? " short" : ratio < 1.3 ? " tight" : "");
   m.firstChild.style.width = Math.min(100, ratio / 2 * 100) + "%";
   document.getElementById("ammoText").textContent = r.hp
-    ? `Ammo vs robot HP: ${r.ammo} shots (30 to start + crates) for ${r.hp} HP. Aim for 1.3× or more, since shots miss.`
-    : "Ammo vs robot HP: no robots yet.";
+    ? `Firepower vs robot HP: about ${r.ammo} damage (30 starting bullets plus this level's pickups) for ${r.hp} HP. Aim for 1.3× or more, since shots miss. Ammo the player carries in from earlier levels isn't counted.`
+    : "Firepower vs robot HP: no robots yet.";
 }
 function renderMeta() {
   document.getElementById("levelTitle").textContent = meta.name || "Untitled";

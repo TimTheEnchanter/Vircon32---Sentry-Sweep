@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <rom-definition version="1.0">
-    <rom type="cartridge" title="Sentry Sweep" version="2.0" />
+    <rom type="cartridge" title="Sentry Sweep" version="3.0" />
     <binary path="obj/VirconFPS.vbin" />
     <textures>
         <texture path="obj/Atlas.vtex" />
@@ -22,5 +22,8 @@
         <sound path="obj/SoundLocked.vsnd" />
         <sound path="obj/SoundLevelComplete.vsnd" />
         <sound path="obj/SoundBossRoar.vsnd" />
+        <sound path="obj/SoundShotgun.vsnd" />
+        <sound path="obj/SoundPlasmaRifle.vsnd" />
+        <sound path="obj/SoundWeaponPickup.vsnd" />
     </sounds>
 </rom-definition>

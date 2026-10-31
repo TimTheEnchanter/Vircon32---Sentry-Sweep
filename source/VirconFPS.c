@@ -6,6 +6,7 @@
      D-pad Left/Right  turn
      L / R             strafe
      A                 fire
+     X                 switch weapon (blaster, shotgun, plasma rifle)
      B                 use (exit switch, suspicious walls)
      Y                 toggle minimap
      Start             start / continue
@@ -34,6 +35,10 @@
 #define RegionGunIdle      3100
 #define RegionGunFire      3101
 #define RegionWhite        3102
+#define RegionShotgunIdle  3103
+#define RegionShotgunFire  3104
+#define RegionRifleIdle    3105
+#define RegionRifleFire    3106
 
 // sprite frames
 #define FrameMedkit       5
@@ -42,6 +47,16 @@
 #define FrameBlueKey      8
 #define FramePlasma       9
 #define FrameBossPlasma   10
+#define FrameShotgun      25
+#define FrameRifle        26
+#define FrameShells       27
+#define FrameCells        28
+#define FrameBolt         29
+
+// weapons
+#define WeaponBlaster   0
+#define WeaponShotgun   1
+#define WeaponRifle     2
 
 // map tiles
 #define TileExit       5
@@ -74,6 +89,9 @@
 #define SoundLocked          13
 #define SoundLevelComplete   14
 #define SoundBossRoar        15
+#define SoundShotgun         16
+#define SoundPlasmaRifle     17
+#define SoundWeaponPickup    18
 
 // renderer
 #define COLUMNS      128           // rays cast per frame
@@ -84,10 +102,11 @@
 // world
 #define MAP_SIZE        32
 #define MAX_ENEMIES     MAX_LEVEL_ENEMIES
-#define MAX_ITEMS       24          // level items + room for enemy drops
+#define MAX_ITEMS       32          // level items + room for enemy drops
 #define MAX_DOORS       32
 #define MAX_PROJECTILES 16
-#define MAX_SPRITES     64
+#define MAX_SPRITES     96
+#define MAX_BOLTS       16          // plasma rifle shots in flight
 #define PLAYER_RADIUS   0.28
 
 // game states
@@ -113,6 +132,8 @@ int[ 5 ]   TypeCooldown     = { 70, 40, 110, 70, 75 };
 int[ 5 ]   TypeCooldownRand = { 90, 50, 80, 50, 30 };
 int[ 5 ]   TypeFrameBase    = { 0, 11, 16, 21, 0 };
 int[ 5 ]   TypeDropChance   = { 30, 15, 70, 40, 0 };            // % chance of dropping ammo
+int[ 5 ]   TypeDropItem     = { 6, 6, 28, 27, 0 };              // bullets, bullets, cells, shells
+int[ 5 ]   TypeDropAmount   = { 8, 8, 15, 4, 0 };
 
 // ---------------------------------------------------------------------
 //   WORLD DATA
@@ -164,15 +185,19 @@ Door[ MAX_DOORS ] Doors;
 Enemy[ MAX_ENEMIES ] Enemies;
 Item[ MAX_ITEMS ] Items;
 Projectile[ MAX_PROJECTILES ] Projectiles;
+Projectile[ MAX_BOLTS ] Bolts;          // the plasma rifle's shots
+int[ MAX_ENEMIES ] PelletHits;           // shotgun damage per robot this shot
 int DoorCount;
 
-int[ MAX_SPRITES ] DrawOrder;      // <100 enemy, 100+ item, 200+ projectile
+int[ MAX_SPRITES ] DrawOrder;      // <100 enemy, 100+ item, 200+ projectile, 300+ bolt
 float[ MAX_SPRITES ] SortDepth;
 
 // player / camera
 float PlayerX, PlayerY;
 float DirX, DirY, PlaneX, PlaneY;
-int   Health, Ammo;
+int   Health, Ammo, Shells, Cells;
+int   Weapon, HasShotgun, HasRifle;
+int   FlashTimer;
 int   HasRedKey, HasBlueKey;
 int   FireTimer, DamageFlash, PickupFlash, WalkPhase, LockedTimer;
 int   ShowMap;
@@ -182,7 +207,7 @@ int GameState, StateTimer, FrameCount;
 int CurrentLevel, LevelFrames;
 int Kills, EnemiesTotal, SecretsFound, SecretsTotal;
 int TotalKills, TotalEnemies, TotalSecrets, TotalSecretsAvailable;
-int LevelStartAmmo;
+int LevelStartAmmo, LevelStartShells, LevelStartCells, LevelStartShotgun, LevelStartRifle;
 int BossIndex, BossActive, BossEnraged, BossDeathTimer;
 
 // renderer buffers
@@ -345,6 +370,15 @@ void DefineRegions()
     select_region( RegionGunFire );
     define_region( 96,320, 191,415, 144,415 );
 
+    select_region( RegionShotgunIdle );
+    define_region( 192,320, 287,415, 240,415 );
+    select_region( RegionShotgunFire );
+    define_region( 288,320, 383,415, 336,415 );
+    select_region( RegionRifleIdle );
+    define_region( 384,320, 479,415, 432,415 );
+    select_region( RegionRifleFire );
+    define_region( 480,320, 575,415, 528,415 );
+
     select_region( RegionWhite );
     define_region_topleft( 601,1, 601,1 );
 
@@ -437,19 +471,28 @@ void LoadLevel( int level )
         int type = LevelItems[ it ];
         if( type < 0 ) continue;
         int amount = 20;
-        if( type == FrameMedkit ) amount = 35;
+        if( type == FrameMedkit )  amount = 35;
+        if( type == FrameShotgun ) amount = 8;
+        if( type == FrameRifle )   amount = 40;
+        if( type == FrameShells )  amount = 8;
+        if( type == FrameCells )   amount = 30;
         SpawnItem( type, LevelItems[ it + 1 ] + 0.5, LevelItems[ it + 2 ] + 0.5, amount );
     }
 
     for( int i = 0; i < MAX_PROJECTILES; i++ ) Projectiles[ i ].active = 0;
+    for( int i = 0; i < MAX_BOLTS; i++ ) Bolts[ i ].active = 0;
 
     HasRedKey = 0;  HasBlueKey = 0;
     Kills = 0;      SecretsFound = 0;
     LevelFrames = 0;
     BossActive = 0; BossEnraged = 0; BossDeathTimer = 0;
-    FireTimer = 0;  DamageFlash = 0; PickupFlash = 0; LockedTimer = 0;
+    FireTimer = 0;  FlashTimer = 0;  DamageFlash = 0; PickupFlash = 0; LockedTimer = 0;
     MessageTimer = 0;
     LevelStartAmmo = Ammo;
+    LevelStartShells = Shells;
+    LevelStartCells = Cells;
+    LevelStartShotgun = HasShotgun;
+    LevelStartRifle = HasRifle;
 
     GetLevelName( level, LevelName );
 }
@@ -458,6 +501,9 @@ void NewGame()
 {
     Health = 100;
     Ammo = 30;
+    Shells = 0;  Cells = 0;
+    Weapon = WeaponBlaster;
+    HasShotgun = 0;  HasRifle = 0;
     CurrentLevel = 0;
     TotalKills = 0;   TotalEnemies = 0;
     TotalSecrets = 0; TotalSecretsAvailable = 0;
@@ -510,18 +556,38 @@ void KillEnemy( int i )
 
     PlaySfx( SoundRobotDestroyed, 1.0, RandomPitch() );
     if( RandomInt( 100 ) < TypeDropChance[ type ] )
-      SpawnItem( FrameAmmo, Enemies[ i ].x, Enemies[ i ].y, 8 );
+      SpawnItem( TypeDropItem[ type ], Enemies[ i ].x, Enemies[ i ].y, TypeDropAmount[ type ] );
 }
 
-void FireWeapon()
+void DamageEnemy( int i, int damage )
 {
-    Ammo--;
-    FireTimer = 12;
-    PlaySfx( SoundPlayerShot, 0.7, RandomPitch() );
+    Enemies[ i ].hp -= damage;
+    Enemies[ i ].hurt_timer = 10;
+    Enemies[ i ].sees = 1;                // getting shot wakes robots up
+    if( Enemies[ i ].type != EnemyBoss ) Enemies[ i ].cooldown += 20;
 
+    if( Enemies[ i ].hp <= 0 ) { KillEnemy( i ); return; }
+
+    PlaySfx( SoundRobotHit, 0.8, RandomPitch() );
+    if( i == BossIndex && !BossEnraged && Enemies[ i ].hp <= TypeHP[ EnemyBoss ] / 2 )
+    {
+        BossEnraged = 1;
+        PlaySfx( SoundBossRoar, 1.0, 1.15 );
+        ShowMessage( "THE WARDEN IS ENRAGED!" );
+    }
+}
+
+// finds the nearest robot along a line of fire; offset is the shot's
+// position across the screen (-1 left edge .. 1 right edge, 0 = crosshair)
+int FindTarget( float offset, float maxRange )
+{
     float invDet = 1.0 / (PlaneX * DirY - DirX * PlaneY);
+    int column = COLUMNS / 2 + (int)(offset * (COLUMNS / 2));
+    if( column < 0 ) column = 0;
+    if( column > COLUMNS - 1 ) column = COLUMNS - 1;
+    float bestDepth = ZBuffer[ column ];
+    if( bestDepth > maxRange ) bestDepth = maxRange;
     int best = -1;
-    float bestDepth = ZBuffer[ COLUMNS / 2 ];
 
     for( int i = 0; i < MAX_ENEMIES; i++ )
     {
@@ -531,29 +597,132 @@ void FireWeapon()
         float tx = invDet * (DirY * sx - DirX * sy);
         float ty = invDet * (-PlaneY * sx + PlaneX * sy);
         if( ty < 0.1 || ty >= bestDepth ) continue;
-        if( fabs( tx ) < TypeHitRadius[ Enemies[ i ].type ] )
+        if( fabs( tx - offset * ty ) < TypeHitRadius[ Enemies[ i ].type ] )
         {
             best = i;
             bestDepth = ty;
         }
     }
+    return best;
+}
 
-    if( best < 0 ) return;
+void FireBlaster()
+{
+    Ammo--;
+    FireTimer = 12;
+    FlashTimer = 4;
+    PlaySfx( SoundPlayerShot, 0.7, RandomPitch() );
+    int target = FindTarget( 0.0, 100.0 );
+    if( target >= 0 ) DamageEnemy( target, 1 );
+}
 
-    Enemies[ best ].hp--;
-    Enemies[ best ].hurt_timer = 10;
-    Enemies[ best ].sees = 1;             // getting shot wakes robots up
-    if( Enemies[ best ].type != EnemyBoss ) Enemies[ best ].cooldown += 20;
+// seven pellets in a fan: up close most of them hit, far away only a few do
+void FireShotgun()
+{
+    Shells--;
+    FireTimer = 40;
+    FlashTimer = 6;
+    PlaySfx( SoundShotgun, 0.9, RandomPitch() );
 
-    if( Enemies[ best ].hp <= 0 ) KillEnemy( best );
-    else
+    for( int i = 0; i < MAX_ENEMIES; i++ ) PelletHits[ i ] = 0;
+    for( int p = 0; p < 7; p++ )
     {
-        PlaySfx( SoundRobotHit, 0.8, RandomPitch() );
-        if( best == BossIndex && !BossEnraged && Enemies[ best ].hp <= TypeHP[ EnemyBoss ] / 2 )
+        int target = FindTarget( (p - 3) * 0.045, 12.0 );
+        if( target >= 0 ) PelletHits[ target ]++;
+    }
+    for( int i = 0; i < MAX_ENEMIES; i++ )
+      if( PelletHits[ i ] > 0 && Enemies[ i ].alive ) DamageEnemy( i, PelletHits[ i ] );
+}
+
+// fast stream of visible bolts
+void FireRifle()
+{
+    Cells--;
+    FireTimer = 5;
+    FlashTimer = 3;
+    PlaySfx( SoundPlasmaRifle, 0.5, RandomPitch() );
+
+    for( int i = 0; i < MAX_BOLTS; i++ )
+    {
+        if( Bolts[ i ].active ) continue;
+        Bolts[ i ].x = PlayerX + DirX * 0.3;
+        Bolts[ i ].y = PlayerY + DirY * 0.3;
+        Bolts[ i ].dx = DirX * 0.32;
+        Bolts[ i ].dy = DirY * 0.32;
+        Bolts[ i ].life = 70;
+        Bolts[ i ].active = 1;
+        return;
+    }
+}
+
+int WeaponAmmo( int w )
+{
+    if( w == WeaponShotgun ) return Shells;
+    if( w == WeaponRifle )   return Cells;
+    return Ammo;
+}
+
+int OwnsWeapon( int w )
+{
+    if( w == WeaponShotgun ) return HasShotgun;
+    if( w == WeaponRifle )   return HasRifle;
+    return 1;
+}
+
+// cycles to the next owned weapon; with needAmmo, skips empty ones
+void NextWeapon( int needAmmo )
+{
+    int w = Weapon;
+    for( int k = 0; k < 3; k++ )
+    {
+        w = (w + 1) % 3;
+        if( !OwnsWeapon( w ) ) continue;
+        if( needAmmo && WeaponAmmo( w ) <= 0 ) continue;
+        if( w != Weapon )
         {
-            BossEnraged = 1;
-            PlaySfx( SoundBossRoar, 1.0, 1.15 );
-            ShowMessage( "THE WARDEN IS ENRAGED!" );
+            Weapon = w;
+            FireTimer = 10;
+            PlaySfx( SoundEmptyClick, 0.6, 1.5 );
+        }
+        return;
+    }
+}
+
+void UpdateBolts()
+{
+    for( int b = 0; b < MAX_BOLTS; b++ )
+    {
+        if( !Bolts[ b ].active ) continue;
+        Bolts[ b ].life--;
+
+        // two half steps so fast bolts can't skip past thin robots
+        for( int step = 0; step < 2 && Bolts[ b ].active; step++ )
+        {
+            Bolts[ b ].x += Bolts[ b ].dx * 0.5;
+            Bolts[ b ].y += Bolts[ b ].dy * 0.5;
+            float x = Bolts[ b ].x;
+            float y = Bolts[ b ].y;
+
+            if( IsWall( x, y ) || Bolts[ b ].life <= 0 )
+            {
+                Bolts[ b ].active = 0;
+                PlaySfx( SoundPlasmaHit, VolumeAt( x, y ) * 0.3, 1.6 );
+                break;
+            }
+
+            for( int i = 0; i < MAX_ENEMIES; i++ )
+            {
+                if( Enemies[ i ].type < 0 || !Enemies[ i ].alive ) continue;
+                float dx = Enemies[ i ].x - x;
+                float dy = Enemies[ i ].y - y;
+                float r = TypeHitRadius[ Enemies[ i ].type ];
+                if( dx*dx + dy*dy < r * r )
+                {
+                    Bolts[ b ].active = 0;
+                    DamageEnemy( i, 1 );
+                    break;
+                }
+            }
         }
     }
 }
@@ -633,11 +802,25 @@ void UpdatePlayer()
     if( gamepad_button_b() == 1 ) UseInFront();
     if( GameState != StatePlaying ) return;
 
-    if( FireTimer > 0 ) FireTimer--;
-    if( gamepad_button_a() > 0 && FireTimer == 0 && Ammo > 0 )
-      FireWeapon();
-    else if( gamepad_button_a() == 1 && Ammo == 0 )
-      PlaySfx( SoundEmptyClick, 0.8, 1.0 );
+    if( FireTimer > 0 )  FireTimer--;
+    if( FlashTimer > 0 ) FlashTimer--;
+    if( gamepad_button_x() == 1 ) NextWeapon( 0 );
+
+    if( gamepad_button_a() > 0 && FireTimer == 0 )
+    {
+        if( WeaponAmmo( Weapon ) > 0 )
+        {
+            if( Weapon == WeaponShotgun )    FireShotgun();
+            else if( Weapon == WeaponRifle ) FireRifle();
+            else                             FireBlaster();
+        }
+        else if( gamepad_button_a() == 1 )
+        {
+            // empty: click, then fall back to a weapon that still has ammo
+            PlaySfx( SoundEmptyClick, 0.8, 1.0 );
+            NextWeapon( 1 );
+        }
+    }
 
     // pickups
     for( int i = 0; i < MAX_ITEMS; i++ )
@@ -658,6 +841,28 @@ void UpdatePlayer()
         {
             Ammo += Items[ i ].amount;
             PlaySfx( SoundPickup, 0.8, 1.0 );
+        }
+        else if( type == FrameShells )
+        {
+            Shells += Items[ i ].amount;
+            PlaySfx( SoundPickup, 0.8, 0.85 );
+        }
+        else if( type == FrameCells )
+        {
+            Cells += Items[ i ].amount;
+            PlaySfx( SoundPickup, 0.8, 1.15 );
+        }
+        else if( type == FrameShotgun )
+        {
+            Shells += Items[ i ].amount;
+            if( !HasShotgun ) { HasShotgun = 1; Weapon = WeaponShotgun; ShowMessage( "SHOTGUN ACQUIRED  -  X TO SWITCH" ); }
+            PlaySfx( SoundWeaponPickup, 1.0, 1.0 );
+        }
+        else if( type == FrameRifle )
+        {
+            Cells += Items[ i ].amount;
+            if( !HasRifle ) { HasRifle = 1; Weapon = WeaponRifle; ShowMessage( "PLASMA RIFLE ACQUIRED  -  X TO SWITCH" ); }
+            PlaySfx( SoundWeaponPickup, 1.0, 1.1 );
         }
         else
         {
@@ -1064,6 +1269,8 @@ void DrawSprites()
       if( Items[ i ].active ) AddSprite( 100 + i, Items[ i ].x, Items[ i ].y );
     for( int i = 0; i < MAX_PROJECTILES; i++ )
       if( Projectiles[ i ].active ) AddSprite( 200 + i, Projectiles[ i ].x, Projectiles[ i ].y );
+    for( int i = 0; i < MAX_BOLTS; i++ )
+      if( Bolts[ i ].active ) AddSprite( 300 + i, Bolts[ i ].x, Bolts[ i ].y );
 
     // insertion sort, far to near
     for( int i = 1; i < SpriteCount; i++ )
@@ -1107,10 +1314,15 @@ void DrawSprites()
             }
             DrawSprite( Items[ it ].x, Items[ it ].y, RegionSpriteFirst + type * 64, 64, 0.5, lift, bright );
         }
-        else
+        else if( id < 300 )
         {
             int p = id - 200;
             DrawSprite( Projectiles[ p ].x, Projectiles[ p ].y, RegionSpriteFirst + Projectiles[ p ].frame * 64, 64, 0.3, 0.32, 1 );
+        }
+        else
+        {
+            int b = id - 300;
+            DrawSprite( Bolts[ b ].x, Bolts[ b ].y, RegionSpriteFirst + FrameBolt * 64, 64, 0.2, 0.36, 1 );
         }
     }
 }
@@ -1120,11 +1332,16 @@ void DrawWeapon()
     float bob = sin( WalkPhase * 0.18 );
     int gx = 320 + (int)(bob * 14.0);
     int gy = 362 + (int)(fabs( bob ) * 10.0);
-    if( FireTimer > 8 ) gy += 10;
+    int firing = FlashTimer > 0;
+    if( firing ) gy += 10;
+    if( firing && Weapon == WeaponShotgun ) gy += 8;     // heavier kick
 
     set_multiply_color( color_white );
-    if( FireTimer > 8 ) select_region( RegionGunFire );
-    else                select_region( RegionGunIdle );
+    int region = RegionGunIdle;
+    if( Weapon == WeaponShotgun ) region = RegionShotgunIdle;
+    if( Weapon == WeaponRifle )   region = RegionRifleIdle;
+    if( firing ) region++;                               // fire frame follows idle
+    select_region( region );
     set_drawing_scale( 2.0, 2.0 );
     draw_region_zoomed_at( gx, gy );
 }
@@ -1206,7 +1423,13 @@ void DrawHUD()
     // ammo + keycards
     DrawRect( 466, 326, 164, 24, make_color_rgba( 0, 0, 0, 170 ) );
     set_multiply_color( color_white );
-    PrintNumber( 476, 328, "AMMO ", Ammo );
+    if( Weapon == WeaponShotgun )    PrintNumber( 476, 328, "SHELLS ", Shells );
+    else if( Weapon == WeaponRifle ) PrintNumber( 476, 328, "CELLS ", Cells );
+    else                             PrintNumber( 476, 328, "AMMO ", Ammo );
+    set_multiply_color( make_color_rgb( 150, 160, 175 ) );
+    if( Weapon == WeaponShotgun )    print_at( 470, 304, "SHOTGUN" );
+    else if( Weapon == WeaponRifle ) print_at( 470, 304, "PLASMA RIFLE" );
+    else                             print_at( 470, 304, "BLASTER" );
     if( HasRedKey )  { DrawRect( 588, 329, 12, 18, make_color_rgb( 220, 40, 40 ) );  DrawRect( 591, 332, 6, 4, color_white ); }
     if( HasBlueKey ) { DrawRect( 608, 329, 12, 18, make_color_rgb( 50, 110, 240 ) ); DrawRect( 611, 332, 6, 4, color_white ); }
 
@@ -1228,10 +1451,13 @@ void DrawHUD()
         set_multiply_color( color_yellow );
         PrintCentered( 70, MessageText );
     }
-    else if( Ammo == 0 )
+    else if( WeaponAmmo( Weapon ) == 0 )
     {
         set_multiply_color( color_orange );
-        PrintCentered( 220, "OUT OF AMMO - FIND A CRATE" );
+        if( Ammo > 0 || (HasShotgun && Shells > 0) || (HasRifle && Cells > 0) )
+          PrintCentered( 220, "EMPTY - PRESS X TO SWITCH WEAPON" );
+        else
+          PrintCentered( 220, "OUT OF AMMO - FIND A CRATE" );
     }
 
     if( FacingExit() )
@@ -1302,7 +1528,7 @@ void main()
             strcat( TextBuffer, " levels of hostile robots" );
             PrintCentered( 136, TextBuffer );
             PrintCentered( 166, "D-PAD move/turn   L/R strafe   A fire" );
-            PrintCentered( 190, "B use/exit   Y map" );
+            PrintCentered( 190, "X switch weapon   B use/exit   Y map" );
             if( (StateTimer / 30) % 2 ) PrintCentered( 230, "PRESS START" );
 
             if( gamepad_button_start() == 1 )
@@ -1339,6 +1565,7 @@ void main()
                 UpdateDoors();
                 UpdateEnemies();
                 UpdateProjectiles();
+                UpdateBolts();
                 DrawWorld();
                 DrawWeapon();
                 if( ShowMap ) DrawMinimap();
@@ -1408,6 +1635,11 @@ void main()
             {
                 Health = 100;
                 Ammo = max( LevelStartAmmo, 30 );
+                Shells = LevelStartShells;
+                Cells = LevelStartCells;
+                HasShotgun = LevelStartShotgun;
+                HasRifle = LevelStartRifle;
+                if( !OwnsWeapon( Weapon ) ) Weapon = WeaponBlaster;
                 LoadLevel( CurrentLevel );
                 GameState = StateIntro;
                 StateTimer = 0;

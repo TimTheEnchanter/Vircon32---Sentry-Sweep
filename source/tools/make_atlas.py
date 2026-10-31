@@ -12,8 +12,9 @@
 #        11-15 drone walkA, walkB, attack, hurt, dead
 #        16-20 heavy walkA, walkB, attack, hurt, dead
 #        21-24 turret idle, attack, hurt, dead
+#        25 shotgun pickup, 26 plasma rifle pickup, 27 shells, 28 cells, 29 rifle bolt
 #   y 192..319 : boss frames (128x128): idle, attack, hurt, dead
-#   y 320..415 : gun 96x96 at x=0 (idle) and x=96 (firing)
+#   y 320..415 : 96x96 guns: blaster x=0/96, shotgun x=192/288, plasma rifle x=384/480 (idle/firing)
 import random, sys
 from PIL import Image, ImageDraw
 
@@ -334,6 +335,81 @@ def gun(gx, fire):
     D.polygon([(gx+22,gy+78),(gx+40,gy+72),(gx+46,gy+95),(gx+16,gy+95)], fill=(214,160,120,255))
     D.polygon([(gx+56,gy+72),(gx+74,gy+78),(gx+80,gy+95),(gx+50,gy+95)], fill=(200,148,110,255))
 gun(0, False); gun(96, True)
+
+# ======================= new weapons =======================
+WOOD, WOOD_D = (140, 86, 44), (92, 54, 26)
+STEEL, STEEL_D, STEEL_L = (78, 82, 92), (44, 46, 52), (140, 146, 158)
+
+def hands(gx, gy):
+    D.polygon([(gx+18,gy+80),(gx+38,gy+72),(gx+44,gy+95),(gx+12,gy+95)], fill=(214,160,120,255))
+    D.polygon([(gx+58,gy+72),(gx+78,gy+80),(gx+84,gy+95),(gx+52,gy+95)], fill=(200,148,110,255))
+
+def shotgun(gx, fire):
+    gy = 320
+    if fire:
+        D.ellipse([gx+22, gy+0, gx+74, gy+36], fill=(255,190,60,255))
+        D.ellipse([gx+32, gy+6, gx+64, gy+28], fill=(255,248,200,255))
+    # twin barrels in perspective
+    D.polygon([(gx+36,gy+20),(gx+60,gy+20),(gx+70,gy+66),(gx+26,gy+66)], fill=STEEL)
+    D.line([gx+48, gy+20, gx+48, gy+66], fill=STEEL_D, width=2)
+    D.polygon([(gx+40,gy+22),(gx+44,gy+22),(gx+40,gy+66),(gx+33,gy+66)], fill=STEEL_L)
+    D.ellipse([gx+37, gy+15, gx+47, gy+24], fill=(12,12,14,255), outline=STEEL_D)
+    D.ellipse([gx+49, gy+15, gx+59, gy+24], fill=(12,12,14,255), outline=STEEL_D)
+    # wooden pump and stock
+    D.polygon([(gx+24,gy+56),(gx+72,gy+56),(gx+78,gy+76),(gx+18,gy+76)], fill=WOOD)
+    for y in (60, 66, 72): D.line([gx+24, gy+y, gx+72, gy+y], fill=WOOD_D, width=1)
+    D.polygon([(gx+16,gy+76),(gx+80,gy+76),(gx+86,gy+95),(gx+10,gy+95)], fill=WOOD_D)
+    hands(gx, gy)
+
+def plasma_rifle(gx, fire):
+    gy = 320
+    if fire:
+        D.ellipse([gx+28, gy+0, gx+68, gy+34], fill=(80,200,255,255))
+        D.ellipse([gx+38, gy+6, gx+58, gy+26], fill=(225,250,255,255))
+    D.polygon([(gx+38,gy+18),(gx+58,gy+18),(gx+68,gy+70),(gx+28,gy+70)], fill=(52,58,74,255))
+    D.rectangle([gx+42, gy+14, gx+54, gy+22], fill=(30,34,44,255))
+    D.ellipse([gx+44, gy+15, gx+52, gy+21], fill=(140,230,255,255))
+    # glowing coils down the barrel
+    for i, y in enumerate((28, 38, 48, 58)):
+        w = 10 + i * 3
+        D.rectangle([gx+48-w, gy+y, gx+48+w, gy+y+4], fill=(60,180,255,255))
+        D.rectangle([gx+48-w+2, gy+y+1, gx+48+w-2, gy+y+2], fill=(200,245,255,255))
+    D.polygon([(gx+22,gy+66),(gx+74,gy+66),(gx+80,gy+95),(gx+16,gy+95)], fill=(40,44,56,255))
+    D.rectangle([gx+36, gy+72, gx+60, gy+80], fill=(60,180,255,255))
+    hands(gx, gy)
+
+shotgun(192, False); shotgun(288, True)
+plasma_rifle(384, False); plasma_rifle(480, True)
+
+# floor pickups for the new weapons and their ammo
+ox, oy = frame(25)          # shotgun lying on the floor
+D.polygon([(ox+4,oy+52),(ox+46,oy+46),(ox+48,oy+52),(ox+6,oy+58)], fill=STEEL)
+D.line([ox+6, oy+54, ox+46, oy+48], fill=STEEL_L, width=1)
+D.polygon([(ox+30,oy+52),(ox+60,oy+50),(ox+62,oy+60),(ox+34,oy+62)], fill=WOOD)
+D.polygon([(ox+16,oy+54),(ox+30,oy+52),(ox+31,oy+58),(ox+17,oy+60)], fill=WOOD_D)
+
+ox, oy = frame(26)          # plasma rifle lying on the floor
+D.polygon([(ox+4,oy+50),(ox+50,oy+44),(ox+54,oy+54),(ox+6,oy+60)], fill=(52,58,74,255))
+for x in (14, 24, 34):
+    D.rectangle([ox+x, oy+47, ox+x+4, oy+56], fill=(60,180,255,255))
+D.polygon([(ox+44,oy+52),(ox+62,oy+50),(ox+62,oy+60),(ox+46,oy+62)], fill=(40,44,56,255))
+D.ellipse([ox+22, oy+30, ox+34, oy+42], fill=(80,200,255,140))
+
+ox, oy = frame(27)          # box of shells
+D.rectangle([ox+16, oy+44, ox+48, oy+63], fill=(150,40,36,255), outline=(80,20,18,255))
+for i in range(4):
+    x = ox + 19 + i * 7
+    D.rectangle([x, oy+36, x+5, oy+46], fill=(200,40,36,255))
+    D.rectangle([x, oy+44, x+5, oy+47], fill=(210,170,70,255))
+D.rectangle([ox+22, oy+52, ox+42, oy+56], fill=(230,200,120,255))
+
+ox, oy = frame(28)          # energy cell pack
+D.rectangle([ox+18, oy+38, ox+46, oy+63], fill=(40,50,70,255), outline=(20,26,38,255))
+D.rectangle([ox+24, oy+34, ox+40, oy+38], fill=(90,96,110,255))
+D.rectangle([ox+22, oy+42, ox+42, oy+59], fill=(50,170,240,255))
+D.rectangle([ox+25, oy+45, ox+39, oy+48], fill=(210,245,255,255))
+
+plasma(29, (60, 170, 255), (160, 230, 255))   # the rifle's bolt
 
 out = sys.argv[1] if len(sys.argv) > 1 else "Atlas.png"
 img.save(out)

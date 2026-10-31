@@ -168,6 +168,26 @@ def boss_roar():
     e = np.minimum(1, np.linspace(0, 5, len(x))) * env(len(x), curve=1.2)
     return x * e
 
+def shotgun_blast():
+    s = 0.7
+    boom = lowpass(noise(s), 0.18) * 2.2
+    crack = noise(0.06) * 1.2
+    thump = sweep(140, 40, 0.3, "sine") * 0.9
+    x = mix(boom * env(int(s * RATE), attack=0.001, curve=3.5), crack * env(len(crack), curve=2), thump * env(len(thump), curve=2))
+    # pump action: two short clicks after the blast
+    click = lambda: lowpass(noise(0.04), 0.5) * env(int(0.04 * RATE), curve=4) * 0.8
+    return mix(x, np.concatenate([np.zeros(int(0.42 * RATE)), click()]), np.concatenate([np.zeros(int(0.55 * RATE)), click()]))
+
+def plasma_rifle():
+    s = 0.14
+    a = sweep(1800, 500, s, "saw") * 0.4 + sweep(2400, 700, s, "sine") * 0.4
+    return a * env(len(a), attack=0.001, curve=2)
+
+def weapon_pickup():
+    clack = lambda d: lowpass(noise(0.05), 0.4) * env(int(0.05 * RATE), curve=3)
+    ring = (np.sin(2*np.pi*880*t(0.3)) * 0.3 + np.sin(2*np.pi*1320*t(0.3)) * 0.2) * env(int(0.3 * RATE), curve=2)
+    return mix(clack(0), np.concatenate([np.zeros(int(0.12 * RATE)), clack(0)]), np.concatenate([np.zeros(int(0.2 * RATE)), ring]))
+
 # order defines sound IDs in the ROM (see VirconFPS.xml / VirconFPS.c)
 SOUNDS = [
     ("PlayerShot", player_shot),
@@ -186,6 +206,9 @@ SOUNDS = [
     ("Locked", locked_buzz),
     ("LevelComplete", level_complete),
     ("BossRoar", boss_roar),
+    ("Shotgun", shotgun_blast),
+    ("PlasmaRifle", plasma_rifle),
+    ("WeaponPickup", weapon_pickup),
 ]
 
 def to_int16_stereo(x):
