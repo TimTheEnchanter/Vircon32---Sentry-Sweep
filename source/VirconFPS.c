@@ -92,6 +92,14 @@
 #define SoundShotgun         16
 #define SoundPlasmaRifle     17
 #define SoundWeaponPickup    18
+#define MusicTitle           19
+#define MusicDepot           20
+#define MusicCore            21
+#define MusicWarden          22
+
+// music plays on its own channel so sound effects never cut it off
+#define MUSIC_CHANNEL        15
+#define MUSIC_VOLUME         0.45
 
 // renderer
 #define COLUMNS      128           // rays cast per frame
@@ -241,7 +249,7 @@ float RandomPitch()
 void PlaySfx( int sound, float volume, float speed )
 {
     if( volume <= 0.02 ) return;
-    for( int ch = 0; ch < sound_channels; ch++ )
+    for( int ch = 0; ch < MUSIC_CHANNEL; ch++ )
     {
         if( get_channel_state( ch ) != channel_stopped ) continue;
         select_channel( ch );
@@ -251,6 +259,27 @@ void PlaySfx( int sound, float volume, float speed )
         play_sound_in_channel( sound, ch );
         return;
     }
+}
+
+int CurrentMusic = -1;
+
+void PlayMusic( int track )
+{
+    if( track == CurrentMusic ) return;
+    stop_channel( MUSIC_CHANNEL );
+    CurrentMusic = track;
+    if( track < 0 ) return;
+    select_channel( MUSIC_CHANNEL );
+    set_channel_volume( MUSIC_VOLUME );
+    set_channel_speed( 1.0 );
+    play_sound_in_channel( track, MUSIC_CHANNEL );
+}
+
+// stops effects and music together (used at level end, death and victory)
+void StopAllSound()
+{
+    stop_all_channels();
+    CurrentMusic = -1;
 }
 
 // volume for a sound coming from a world position
@@ -384,6 +413,13 @@ void DefineRegions()
 
     for( int c = 0; c < COLUMNS; c++ )
       CameraX[ c ] = 2.0 * (c + 0.5) / COLUMNS - 1.0;
+
+    // music tracks repeat seamlessly
+    for( int m = MusicTitle; m <= MusicWarden; m++ )
+    {
+        select_sound( m );
+        set_sound_loop( true );
+    }
 }
 
 void SpawnItem( int type, float x, float y, int amount )
@@ -753,7 +789,7 @@ void UseInFront()
         TotalEnemies += EnemiesTotal;
         TotalSecrets += SecretsFound;
         TotalSecretsAvailable += SecretsTotal;
-        stop_all_channels();
+        StopAllSound();
         StateTimer = 0;
 
         // an exit on the final level finishes the game
@@ -1496,6 +1532,26 @@ void PrintTime( int y, int frames )
 }
 
 // ---------------------------------------------------------------------
+//   MUSIC
+// ---------------------------------------------------------------------
+
+void UpdateMusic()
+{
+    int track = -1;
+    if( GameState == StateTitle ) track = MusicTitle;
+    else if( GameState == StateIntro || GameState == StatePlaying )
+    {
+        // first half of the game in the depot, second half in the core
+        if( CurrentLevel < (LEVEL_COUNT + 1) / 2 ) track = MusicDepot;
+        else                                       track = MusicCore;
+        if( BossActive && BossIndex >= 0 && Enemies[ BossIndex ].alive ) track = MusicWarden;
+        if( BossDeathTimer > 0 ) track = -1;
+    }
+    else if( GameState == StateWon && StateTimer > 240 ) track = MusicTitle;
+    PlayMusic( track );
+}
+
+// ---------------------------------------------------------------------
 //   MAIN
 // ---------------------------------------------------------------------
 
@@ -1584,7 +1640,7 @@ void main()
                     TotalEnemies += EnemiesTotal;
                     TotalSecrets += SecretsFound;
                     TotalSecretsAvailable += SecretsTotal;
-                    stop_all_channels();
+                    StopAllSound();
                     PlaySfx( SoundVictory, 1.0, 1.0 );
                     GameState = StateWon;
                     StateTimer = 0;
@@ -1593,7 +1649,7 @@ void main()
 
             if( GameState == StatePlaying && Health <= 0 )
             {
-                stop_all_channels();
+                StopAllSound();
                 PlaySfx( SoundGameOver, 1.0, 1.0 );
                 GameState = StateDead;
                 StateTimer = 0;
@@ -1666,6 +1722,7 @@ void main()
             }
         }
 
+        UpdateMusic();
         end_frame();
     }
 }

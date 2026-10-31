@@ -81,6 +81,7 @@ Requires Python 3 and the Vircon32 dev tools (`compile`, `assemble`, `png2vircon
 Output: `bin/VirconFPS.v32`
 
 Regenerate the art: `python3 tools/make_atlas.py Atlas.png` (needs Pillow).
+Regenerate the music: `python3 tools/make_music.py sounds` (needs NumPy and SciPy).
 Regenerate the sounds: `python3 tools/make_sounds.py sounds` (needs NumPy). Add a second folder argument (e.g. `obj`) to also write ready-made `.vsnd` files, which skips `wav2vircon`.
 
 ## How it works
@@ -89,6 +90,19 @@ Regenerate the sounds: `python3 tools/make_sounds.py sounds` (needs NumPy). Add 
 - **Doors:** thin panels at the middle of their cell (Wolfenstein-style). The ray tests the panel and passes through the part that has slid open.
 - **Sprites:** depth-sorted billboards drawn column by column and clipped against the wall z-buffer. The boss uses 128px frames.
 - **Budget:** gameplay peaks at about 132k of the 250k CPU cycles per frame (during the boss fight) and stays well within the GPU limit.
+
+## Music
+
+There are four looping tracks, composed in code by `tools/make_music.py`:
+
+| Track | Plays during |
+|---|---|
+| Title | The title screen, and again after the victory screen |
+| Depot | The first half of the game (levels 1–2) |
+| Core | The second half (levels 3–4) |
+| Warden | The boss fight, from the moment the Warden wakes |
+
+Music plays on channel 15, which is reserved for it, so sound effects never cut it off. It stops at level end and on death, where the stingers play instead. Each track is rendered as an exact number of bars, with ringing notes folded back onto the start, so the loops are seamless. With more or fewer levels, the split between Depot and Core adjusts automatically.
 
 ## Sound
 
@@ -100,7 +114,7 @@ Nineteen synthesized effects. Enemy sounds get quieter with distance, and repeat
 - `levels/level1-4.txt` — the maps
 - `levels.h` — generated from the maps
 - `Atlas.png` — texture atlas (walls, doors, robots, boss, pickups, gun)
-- `sounds/*.wav` — sound effects
+- `sounds/*.wav` — sound effects and music
 - `VirconFPS.xml` — ROM definition
 - `tools/level_editor.html` — the level editor (built from `tools/editor_template.html` by `tools/build_editor.py`)
-- `tools/make_atlas.py`, `tools/make_sounds.py`, `tools/make_levels.py` — generators
+- `tools/make_atlas.py`, `tools/make_sounds.py`, `tools/make_music.py`, `tools/make_levels.py` — generators
